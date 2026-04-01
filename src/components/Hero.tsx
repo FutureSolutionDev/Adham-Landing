@@ -38,7 +38,7 @@ export default function Hero() {
       <div className="container relative flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-6">
         {/* Left content */}
         <div className="relative flex w-full flex-col items-center text-center lg:w-2/3 lg:items-start lg:text-left">
-          <h1 className="font-(--font-playfair) text-5xl leading-[1.1] tracking-tight text-primary sm:text-6xl lg:text-7xl">
+          <h1 className="text-5xl leading-[1.1] tracking-tight text-primary sm:text-6xl lg:text-7xl">
             Find your ideal{" "}
             <span className="inline-flex translate-y-1 items-center">
               <span className="mx-2">
