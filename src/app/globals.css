@@ -7,6 +7,8 @@
   --color-navy-light: #3B4A63;
   --color-copper: #c4956a;
   --color-copper-light: #d4a87a;
+  --color-copper-soft: #B07F567A;
+  --color-surface: #F7F8FA;
   --color-cream: #f8f6f3;
   --color-cream-dark: #f0ede8;
   --font-sans: "Inter";
@@ -21,4 +23,9 @@
 
 body {
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }

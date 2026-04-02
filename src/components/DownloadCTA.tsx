@@ -4,7 +4,7 @@ export default function DownloadCTA() {
   return (
     <section className=" py-16">
       <div className="container">
-        <div className="mx-auto max-w-3xl rounded-3xl bg-[#F7F8FA] px-6 py-10 text-center  sm:px-10">
+        <div className="mx-auto max-w-3xl rounded-3xl bg-surface px-6 py-10 text-center  sm:px-10">
           <h3 className="text-xl font-semibold leading-snug text-primary sm:text-2xl">
             finding proper property is much simpler
             <br />

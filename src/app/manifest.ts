@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 
+const SURFACE_COLOR = "#F7F8FA";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Master Land",
@@ -8,7 +10,7 @@ export default function manifest(): MetadataRoute.Manifest {
       "Explore exclusive units with live prices, clear layouts, and flexible payment plans with expert support.",
     start_url: "/",
     display: "standalone",
-    background_color: "#F7F8FA",
+    background_color: SURFACE_COLOR,
     theme_color: "#2D3748",
     icons: [
       {

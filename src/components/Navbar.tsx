@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -15,6 +15,21 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const handleNavClick = useCallback(
+    (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!href.startsWith("#")) return;
+      e.preventDefault();
+      setMobileOpen(false);
+
+      const id = href.slice(1);
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", href);
+    },
+    [],
+  );
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -26,7 +41,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all ${
         scrolled
-          ? "bg-[#F7F8FA] backdrop-blur-md shadow-sm "
+          ? "bg-surface backdrop-blur-md shadow-sm "
           : "bg-transparent"
       }`}
     >
@@ -49,7 +64,8 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm font-medium text-primary transition-colors hover:text-primary"
+                className="font-sans  font-medium leading-none tracking-[-0.01em] text-primary transition-colors hover:text-primary"
+                onClick={handleNavClick(link.href)}
               >
                 {link.label}
               </a>
@@ -82,8 +98,8 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-base font-medium text-navy/70 transition-colors hover:text-navy"
-                  onClick={() => setMobileOpen(false)}
+                  className="font-sans  font-medium leading-none tracking-[-0.01em] text-navy/70 transition-colors hover:text-navy"
+                  onClick={handleNavClick(link.href)}
                 >
                   {link.label}
                 </a>

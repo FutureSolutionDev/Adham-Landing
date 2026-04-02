@@ -81,7 +81,7 @@ export default function Footer() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-sm font-medium text-[#F7F8FA] transition-colors hover:text-white"
+                  className="text-sm font-medium text-surface transition-colors hover:text-white"
                 >
                   {link.label}
                 </a>
@@ -96,7 +96,7 @@ export default function Footer() {
                 <a
                   href={s.href}
                   aria-label={s.label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full   bg-[#F7F8FA] text-primary hover:border-white/50 hover:text-white"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-surface text-primary hover:border-white/50 hover:text-white"
                 >
                   {s.icon}
                 </a>
@@ -110,15 +110,15 @@ export default function Footer() {
 
         {/* Bottom row */}
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-[#F7F8FA]">All rights reserved</p>
+          <p className="text-sm text-surface">All rights reserved</p>
           <ul className="flex items-center gap-6">
             <li>
-              <a href="#" className="text-sm text-[#F7F8FA] transition-colors hover:text-white/80">
+              <a href="#" className="text-sm text-surface transition-colors hover:text-white/80">
                 Terms &amp; conditions
               </a>
             </li>
             <li>
-              <a href="#" className="text-sm text-[#F7F8FA] transition-colors hover:text-white/80">
+              <a href="#" className="text-sm text-surface transition-colors hover:text-white/80">
                 Privacy policy
               </a>
             </li>

@@ -30,15 +30,15 @@ export default function ProblemSection() {
       <div className="container">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
           {/* Top-left text card */}
-          <div className="rounded-3xl bg-[#F7F8FA] px-8 py-10 lg:max-w-[520px] lg:self-center">
-            <p className="text-lg leading-relaxed text-[#2D3748]/90 sm:text-xl">
+          <div className="rounded-3xl bg-surface px-8 py-10 lg:max-w-[520px] lg:self-center">
+            <p className="text-lg leading-relaxed text-primary sm:text-xl">
               Finding a home inside a compound takes time, effort, and endless
               phone calls — with prices that change without notice.
             </p>
           </div>
 
           {/* Top-right image card */}
-          <div className="relative rounded-3xl bg-white lg:justify-self-center">
+          <div className="relative rounded-3xl bg-white justify-self-center">
             <div className="relative w-100 h-100">
               <Image
                 src="/images/problem-top-right.webp"
@@ -48,11 +48,11 @@ export default function ProblemSection() {
                 className="relative z-10 rounded-3xl"
               />
             </div>
-            <div className="absolute -bottom-10 left-10 z-0 hidden h-full w-full rounded-3xl bg-[#F7F8FA] sm:block" />
+            <div className="absolute -bottom-10 left-10 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />
           </div>
 
           {/* Bottom-left image card */}
-          <div className="relative rounded-3xl lg:justify-self-start">
+          <div className="relative rounded-3xl lg:justify-self-start max-lg:justify-self-center max-lg:mt-20">
             <div className="relative w-100 h-100 ">
               <Image
                 src="/images/problem-bottom-left.webp"
@@ -61,12 +61,12 @@ export default function ProblemSection() {
                 className="relative z-10 rounded-3xl"
               />
             </div>
-            <div className="absolute -top-10 right-10 z-0 hidden h-full w-full rounded-3xl bg-[#F7F8FA] sm:block" />
+            <div className="absolute -top-10 right-10 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />
           </div>
 
           {/* Bottom-right checklist card */}
-          <div className="rounded-3xl bg-[#F7F8FA] px-8 py-10 lg:justify-self-end lg:max-w-[520px]">
-            <h3 className="text-lg font-semibold text-[#2D3748] sm:text-xl">
+          <div className="rounded-3xl bg-surface px-8 py-10 lg:justify-self-end lg:max-w-[520px]">
+            <h3 className="text-lg font-semibold text-primary sm:text-xl">
               Our app brings everything together in one place
             </h3>
 
@@ -76,7 +76,7 @@ export default function ProblemSection() {
               <CheckItem>direct access to experts and developers</CheckItem>
             </ul>
 
-            <p className="mt-6 text-xl text-[#2D3748]">
+            <p className="mt-6 text-xl text-primary">
               decide faster &amp; smarter.
             </p>
           </div>

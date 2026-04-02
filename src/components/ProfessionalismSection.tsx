@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 
 type TabKey = "sales" | "financial" | "legal";
@@ -38,11 +38,85 @@ const contentByTab: Record<
   },
 };
 
-function StatCard({ value, label }: { value: string; label: string }) {
+type StatFormat = "kPlus1Decimal" | "plusInt" | "int";
+
+function formatStat(value: number, format: StatFormat) {
+  if (format === "kPlus1Decimal") {
+    const k = value / 1000;
+    return `+${k.toFixed(1)} K`;
+  }
+  if (format === "plusInt") return `+${Math.round(value)}`;
+  return `${Math.round(value)}`;
+}
+
+function useCountUp({
+  start,
+  end,
+  durationMs,
+  enabled,
+}: {
+  start: number;
+  end: number;
+  durationMs: number;
+  enabled: boolean;
+}) {
+  const [value, setValue] = useState(start);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!enabled) return;
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+    if (prefersReduced) {
+      setValue(end);
+      return;
+    }
+
+    const startTime = performance.now();
+    const from = start;
+    const to = end;
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - startTime) / durationMs);
+      // easeOutCubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      setValue(from + (to - from) * eased);
+      if (t < 1) rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [durationMs, enabled, end, start]);
+
+  return value;
+}
+
+function StatCard({
+  label,
+  end,
+  format,
+  enabled,
+}: {
+  label: string;
+  end: number;
+  format: StatFormat;
+  enabled: boolean;
+}) {
+  const animated = useCountUp({
+    start: 0,
+    end,
+    durationMs: 900,
+    enabled,
+  });
+
   return (
-    <div className="rounded-2xl bg-[#F7F8FA] px-6 py-6 text-center">
+    <div className="rounded-2xl bg-surface px-6 py-6 text-center">
       <div className="text-2xl font-semibold tracking-tight text-primary">
-        {value}
+        {formatStat(animated, format)}
       </div>
       <div className="mt-2 text-sm text-primary">{label}</div>
     </div>
@@ -52,6 +126,28 @@ function StatCard({ value, label }: { value: string; label: string }) {
 export default function ProfessionalismSection() {
   const [active, setActive] = useState<TabKey>("sales");
   const content = useMemo(() => contentByTab[active], [active]);
+  const statsRef = useRef<HTMLDivElement | null>(null);
+  const [statsVisible, setStatsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = statsRef.current;
+    if (!el) return;
+    if (statsVisible) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          setStatsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [statsVisible]);
 
   return (
     <section className="py-16 sm:py-20">
@@ -68,7 +164,7 @@ export default function ProfessionalismSection() {
         </div>
 
         <div className="mt-8 flex justify-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#F2F2F2] bg-white p-1">
+          <div className="inline-flex items-center gap-2 rounded-full border border-surface bg-white p-1">
             {tabs.map((t) => {
               const isActive = t.key === active;
               return (
@@ -78,7 +174,7 @@ export default function ProfessionalismSection() {
                   onClick={() => setActive(t.key)}
                   className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                     isActive
-                      ? "bg-[#B07F567A] text-primary"
+                      ? "bg-copper-soft text-primary"
                       : "text-primary hover:text-primary"
                   }`}
                 >
@@ -122,10 +218,23 @@ export default function ProfessionalismSection() {
             Adham by numbers
           </h3>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-3 sm:gap-6">
-            <StatCard value="+4.8 K" label="satisfied client" />
-            <StatCard value="+862" label="residential & commercial unit" />
-            <StatCard value="7" label="city" />
+          <div
+            ref={statsRef}
+            className="mt-8 grid gap-4 sm:grid-cols-3 sm:gap-6"
+          >
+            <StatCard
+              end={4800}
+              format="kPlus1Decimal"
+              label="satisfied client"
+              enabled={statsVisible}
+            />
+            <StatCard
+              end={862}
+              format="plusInt"
+              label="residential & commercial unit"
+              enabled={statsVisible}
+            />
+            <StatCard end={7} format="int" label="city" enabled={statsVisible} />
           </div>
         </div>
       </div>
