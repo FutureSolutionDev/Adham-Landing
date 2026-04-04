@@ -47,7 +47,7 @@ export default function ChoosingPropertySection() {
       className="relative overflow-hidden bg-white py-20 sm:py-24"
     >
       {/* Full-width wave + circle (inline SVG from design) */}
-      <div className="pointer-events-none absolute inset-x-0 top-[60%] -translate-y-1/2 ">
+      <div className="pointer-events-none absolute inset-x-0 top-[60%] -translate-y-1/2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 416"
@@ -80,7 +80,7 @@ export default function ChoosingPropertySection() {
               <div className="relative h-[320px] w-[320px]">
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
                   <Image
-                    src="/images/phone-mockup.png"
+                    src="/images/phone-mockup.webp"
                     alt="App preview"
                     width={420}
                     height={820}
@@ -110,10 +110,9 @@ export default function ChoosingPropertySection() {
 
             <div className="flex justify-center">
               <div className="relative h-[460px] w-[460px]">
-   
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
                   <Image
-                    src="/images/phone-mockup.png"
+                    src="/images/phone-mockup.webp"
                     alt="App preview"
                     width={520}
                     height={980}

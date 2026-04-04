@@ -4,19 +4,19 @@ const steps = [
   {
     number: 1,
     text: "Download the app and create your account in minutes.",
-    image: "/images/how-step1-appstore.png",
+    image: "/images/how-step1-appstore.webp",
     imageAlt: "Download the app from the App Store",
   },
   {
     number: 2,
     text: "Browse compounds, explore available units, and compare prices and layouts.",
-    image: "/images/how-step2-browse.png",
+    image: "/images/how-step2-browse.webp",
     imageAlt: "Browse compounds and explore units",
   },
   {
     number: 3,
     text: "Choose your payment plan or contact an expert or developer directly.",
-    image: "/images/how-step3-booking.png",
+    image: "/images/how-step3-booking.webp",
     imageAlt: "Book a session or choose a plan",
   },
 ];
@@ -41,7 +41,7 @@ export default function HowItWorksSection() {
   return (
     <section
       id="how-it-works"
-      className="py-20  font-medium leading-none tracking-normal sm:py-24"
+      className="py-20 font-medium leading-none tracking-normal sm:py-24"
     >
       <div className="container">
         <h2 className="text-primary">How It Works</h2>
@@ -71,7 +71,7 @@ export default function HowItWorksSection() {
             {/* Connector 1: from step 1 (right) to step 2 (left) */}
             <div className="relative my-[-40px] flex justify-center">
               <Image
-                src="/images/vector-connector-2.png"
+                src="/images/vector-connector-2.webp"
                 alt=""
                 width={500}
                 height={300}
@@ -101,7 +101,7 @@ export default function HowItWorksSection() {
             {/* Connector 2: from step 2 (left) to step 3 (right) */}
             <div className="relative my-[-40px] flex justify-center">
               <Image
-                src="/images/vector-connector-1.png"
+                src="/images/vector-connector-1.webp"
                 alt=""
                 width={200}
                 height={500}

@@ -1,12 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Features", href: "#features" },
-  { label: "Developers", href: "#developers" },
-  { label: "FQA", href: "#fqa" },
-];
+import { footerLinks } from "@/lib/navigation";
 
 const socials = [
   {
@@ -77,7 +71,7 @@ export default function Footer() {
 
           {/* Nav links */}
           <ul className="flex flex-wrap items-center gap-6">
-            {navLinks.map((link) => (
+            {footerLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}

@@ -3,13 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Features", href: "#features" },
-  { label: "How it work", href: "#how-it-works" },
-  { label: "Developers", href: "#developers" },
-];
+import { navbarLinks } from "@/lib/navigation";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -41,7 +35,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all ${
         scrolled
-          ? "bg-surface backdrop-blur-md shadow-sm "
+          ? "bg-surface backdrop-blur-md shadow-sm"
           : "bg-transparent"
       }`}
     >
@@ -60,11 +54,11 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-10 md:flex">
-          {navLinks.map((link) => (
+          {navbarLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="font-sans  font-medium leading-none tracking-[-0.01em] text-primary transition-colors hover:text-primary"
+                className="font-sans font-medium leading-none tracking-[-0.01em] text-primary transition-colors hover:text-primary"
                 onClick={handleNavClick(link.href)}
               >
                 {link.label}
@@ -94,11 +88,11 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="border-t border-navy/10 bg-cream px-6 pb-6 md:hidden">
           <ul className="flex flex-col gap-4 pt-4">
-            {navLinks.map((link) => (
+            {navbarLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="font-sans  font-medium leading-none tracking-[-0.01em] text-navy/70 transition-colors hover:text-navy"
+                  className="font-sans font-medium leading-none tracking-[-0.01em] text-navy/70 transition-colors hover:text-navy"
                   onClick={handleNavClick(link.href)}
                 >
                   {link.label}

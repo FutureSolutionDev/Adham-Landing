@@ -2,7 +2,12 @@ import Image from "next/image";
 
 export default function DownloadCTA() {
   return (
-    <section className=" py-16">
+    <section id="download" className="relative py-16">
+      <div
+        id="fqa"
+        className="pointer-events-none absolute left-0 top-0 h-px w-px overflow-hidden"
+        aria-hidden="true"
+      />
       <div className="container">
         <div className="mx-auto max-w-3xl rounded-3xl bg-surface px-6 py-10 text-center  sm:px-10">
           <h3 className="text-xl font-semibold leading-snug text-primary sm:text-2xl">

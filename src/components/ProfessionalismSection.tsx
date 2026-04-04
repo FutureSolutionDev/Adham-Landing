@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 type TabKey = "sales" | "financial" | "legal";
@@ -70,8 +70,14 @@ function useCountUp({
       window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
 
     if (prefersReduced) {
-      setValue(end);
-      return;
+      let cancelled = false;
+      const id = requestAnimationFrame(() => {
+        if (!cancelled) setValue(end);
+      });
+      return () => {
+        cancelled = true;
+        cancelAnimationFrame(id);
+      };
     }
 
     const startTime = performance.now();
@@ -125,7 +131,7 @@ function StatCard({
 
 export default function ProfessionalismSection() {
   const [active, setActive] = useState<TabKey>("sales");
-  const content = useMemo(() => contentByTab[active], [active]);
+  const content = contentByTab[active];
   const statsRef = useRef<HTMLDivElement | null>(null);
   const [statsVisible, setStatsVisible] = useState(false);
 
@@ -150,7 +156,7 @@ export default function ProfessionalismSection() {
   }, [statsVisible]);
 
   return (
-    <section className="py-16 sm:py-20">
+    <section id="consultation" className="py-16 sm:py-20">
       <div className="container">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl font-semibold text-primary sm:text-3xl">
@@ -185,7 +191,7 @@ export default function ProfessionalismSection() {
           </div>
         </div>
 
-        <div className="mt-12  p-6 sm:p-10">
+        <div className="mt-12 p-6 sm:p-10">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_520px] lg:gap-12">
             <div className="text-center lg:text-left">
               <h3 className="text-lg font-semibold text-primary sm:text-xl">

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function TrustedDevelopersSection() {
   return (
-    <section id="developers" className=" py-16 sm:py-20">
+    <section id="developers" className="py-16 sm:py-20">
       <div className="container">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left image */}
