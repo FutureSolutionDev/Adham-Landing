@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { storeLinks } from "@/lib/store-links";
 
 export default function DownloadCTA() {
   return (
@@ -21,7 +22,13 @@ export default function DownloadCTA() {
 
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <a
-              href="#"
+              href={storeLinks.googlePlay}
+              target={storeLinks.googlePlay.startsWith("http") ? "_blank" : undefined}
+              rel={
+                storeLinks.googlePlay.startsWith("http")
+                  ? "noopener noreferrer"
+                  : undefined
+              }
               className="inline-flex items-center gap-3 rounded-2xl bg-primary px-5 py-3 text-white shadow-sm transition-colors hover:bg-primary-light"
             >
               <span className="inline-flex h-7 w-7 items-center justify-center">
@@ -40,7 +47,13 @@ export default function DownloadCTA() {
             </a>
 
             <a
-              href="#"
+              href={storeLinks.appStore}
+              target={storeLinks.appStore.startsWith("http") ? "_blank" : undefined}
+              rel={
+                storeLinks.appStore.startsWith("http")
+                  ? "noopener noreferrer"
+                  : undefined
+              }
               className="inline-flex items-center gap-3 rounded-2xl bg-primary px-5 py-3 text-white shadow-sm transition-colors hover:bg-primary-light"
             >
               <span className="inline-flex h-7 w-7 items-center justify-center">

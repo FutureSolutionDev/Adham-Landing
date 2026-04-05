@@ -148,7 +148,7 @@ export default function ProfessionalismSection() {
           observer.disconnect();
         }
       },
-      { threshold: 0.35 },
+      { threshold: 0 },
     );
 
     observer.observe(el);
@@ -178,7 +178,7 @@ export default function ProfessionalismSection() {
                   key={t.key}
                   type="button"
                   onClick={() => setActive(t.key)}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                  className={`rounded-full cursor-pointer px-4 py-2 text-sm font-medium transition-colors ${
                     isActive
                       ? "bg-copper-soft text-primary"
                       : "text-primary hover:text-primary"
