@@ -3,14 +3,39 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { navbarLinks } from "@/lib/navigation";
+import { usePathname } from "next/navigation";
+import {
+  isNavLinkActive,
+  navbarLinks,
+  scrollSpySectionIds,
+} from "@/lib/navigation";
+import { useActiveSection } from "@/hooks/useActiveSection";
+
+const HEADER_SCROLL_OFFSET_PX = 96;
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const activeSectionId = useActiveSection(scrollSpySectionIds, HEADER_SCROLL_OFFSET_PX);
 
   const handleNavClick = useCallback(
     (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (href.startsWith("/#")) {
+        e.preventDefault();
+        setMobileOpen(false);
+        const id = href.slice(2);
+        if (window.location.pathname === "/") {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          history.replaceState(null, "", href);
+        } else {
+          window.location.assign(href);
+        }
+        return;
+      }
       if (!href.startsWith("#")) return;
       e.preventDefault();
       setMobileOpen(false);
@@ -54,17 +79,30 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-10 md:flex">
-          {navbarLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="font-sans font-medium leading-none tracking-[-0.01em] text-primary transition-colors hover:text-primary"
-                onClick={handleNavClick(link.href)}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+          {navbarLinks.map((link) => {
+            const isActive = isNavLinkActive(
+              link.href,
+              pathname,
+              isHome,
+              activeSectionId,
+            );
+            return (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`font-sans font-medium leading-none tracking-[-0.01em] transition-colors ${
+                    isActive
+                      ? "text-copper"
+                      : "text-primary hover:text-primary/80"
+                  }`}
+                  onClick={handleNavClick(link.href)}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
         {/* Mobile hamburger */}
         <button
@@ -88,17 +126,30 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="border-t border-navy/10 bg-cream px-6 pb-6 md:hidden">
           <ul className="flex flex-col gap-4 pt-4">
-            {navbarLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="font-sans font-medium leading-none tracking-[-0.01em] text-navy/70 transition-colors hover:text-navy"
-                  onClick={handleNavClick(link.href)}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {navbarLinks.map((link) => {
+              const isActive = isNavLinkActive(
+                link.href,
+                pathname,
+                isHome,
+                activeSectionId,
+              );
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`font-sans font-medium leading-none tracking-[-0.01em] transition-colors ${
+                      isActive
+                        ? "text-copper"
+                        : "text-navy/70 hover:text-navy"
+                    }`}
+                    onClick={handleNavClick(link.href)}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

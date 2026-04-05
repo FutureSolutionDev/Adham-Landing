@@ -38,27 +38,27 @@ export default function ProblemSection() {
           </div>
 
           {/* Top-right image card */}
-          <div className="relative rounded-3xl bg-white justify-self-center">
-            <div className="relative w-100 h-100">
+          <div className="relative w-full max-w-[min(100%,25rem)] justify-self-center rounded-3xl bg-white max-md:mx-auto md:max-w-none">
+            <div className="relative mx-auto aspect-square w-full md:aspect-auto md:h-100 md:w-100">
               <Image
                 src="/images/problem-top-right.webp"
                 alt="Real estate research"
                 fill
                 priority
-                className="relative z-10 rounded-3xl"
+                className="relative z-10 rounded-3xl object-cover"
               />
             </div>
             <div className="absolute -bottom-10 left-10 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />
           </div>
 
           {/* Bottom-left image card */}
-          <div className="relative rounded-3xl lg:justify-self-start max-lg:justify-self-center max-lg:mt-20">
-            <div className="relative w-100 h-100 ">
+          <div className="relative rounded-3xl max-md:mt-12 md:max-lg:mt-20 lg:justify-self-start max-lg:justify-self-center">
+            <div className="relative mx-auto aspect-square w-full md:aspect-auto md:h-100 md:w-100">
               <Image
                 src="/images/problem-bottom-left.webp"
                 alt="App on phone"
                 fill
-                className="relative z-10 rounded-3xl"
+                className="relative z-10 rounded-3xl object-cover"
               />
             </div>
             <div className="absolute -top-10 right-10 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />
