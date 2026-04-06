@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-export const metadata: Metadata = {
-  title: "Page not found",
-  robots: { index: false, follow: true },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("NotFound");
+  return {
+    title: t("title"),
+    robots: { index: false, follow: true },
+  };
+}
 
-export default function NotFound() {
+export default async function NotFound() {
+  const t = await getTranslations("NotFound");
+
   return (
     <>
       <Navbar />
@@ -43,15 +49,14 @@ export default function NotFound() {
 
               <span className="inline-flex items-center gap-2 rounded-full border border-copper/20 bg-copper-soft/25 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/75">
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-copper" />
-                Lost along the way
+                {t("badge")}
               </span>
 
               <h1 className="mt-5 text-[1.35rem] font-semibold leading-snug tracking-tight text-primary sm:text-2xl">
-                This page doesn&apos;t exist
+                {t("heading")}
               </h1>
               <p className="mt-3 max-w-sm text-sm leading-relaxed text-primary/65 sm:text-[15px]">
-                The link might be outdated or the URL has a typo. Go home to
-                browse listings, or jump straight to features.
+                {t("description")}
               </p>
 
               <div className="mt-9 grid w-full gap-3 sm:grid-cols-2 sm:gap-4">
@@ -59,21 +64,20 @@ export default function NotFound() {
                   href="/"
                   className="inline-flex items-center justify-center rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-white shadow-[0_14px_36px_rgba(45,55,72,0.2)] transition-all hover:bg-primary-light hover:shadow-[0_18px_44px_rgba(45,55,72,0.16)]"
                 >
-                  Back to home
+                  {t("backHome")}
                 </Link>
                 <Link
                   href="/#features"
                   className="inline-flex items-center justify-center rounded-2xl border border-primary/18 bg-white px-6 py-3.5 text-sm font-semibold text-primary transition-colors hover:border-primary/32 hover:bg-cream/50"
                 >
-                  View features
+                  {t("viewFeatures")}
                 </Link>
               </div>
             </div>
           </div>
 
           <p className="mt-12 max-w-sm text-center text-xs leading-relaxed text-primary/40">
-            Error 404 — if you need help, return to the homepage and use the
-            navigation menu.
+            {t("footnote")}
           </p>
         </div>
       </main>

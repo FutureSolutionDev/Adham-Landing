@@ -7,8 +7,16 @@ import TrustedDevelopersSection from "@/components/TrustedDevelopersSection";
 import ProfessionalismSection from "@/components/ProfessionalismSection";
 import DownloadCTA from "@/components/DownloadCTA";
 import Footer from "@/components/Footer";
+import { setRequestLocale } from "next-intl/server";
 
-export default function Home() {
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function Home({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <>
       <Navbar />

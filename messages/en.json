@@ -1,0 +1,141 @@
+{
+  "LocaleSwitcher": {
+    "en": "English",
+    "ar": "العربية",
+    "ariaLabel": "Language"
+  },
+  "Nav": {
+    "home": "Home",
+    "features": "Features",
+    "howItWork": "How it work",
+    "developers": "Developers",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "toggleMenu": "Toggle menu"
+  },
+  "Footer": {
+    "home": "Home",
+    "features": "Features",
+    "developers": "Developers",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "rights": "All rights reserved",
+    "terms": "Terms & conditions",
+    "privacy": "Privacy policy"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "badge": "Lost along the way",
+    "heading": "This page doesn't exist",
+    "description": "The link might be outdated or the URL has a typo. Go home to browse listings, or jump straight to features.",
+    "backHome": "Back to home",
+    "viewFeatures": "View features",
+    "footnote": "Error 404 — if you need help, return to the homepage and use the navigation menu."
+  },
+  "Hero": {
+    "titleBefore": "Find your ideal",
+    "titleMiddle": "unit",
+    "titleAfter": "with Ease",
+    "subtitle": "Explore exclusive units with live prices, clear layouts, and flexible payment plans with expert support.",
+    "download": "Download App Now!",
+    "consultation": "Get Free Consultation",
+    "heroImageAlt": "Hero image",
+    "logoAlt": "Master Land"
+  },
+  "Problem": {
+    "lead": "Finding a home inside a compound takes time, effort, and endless phone calls — with prices that change without notice.",
+    "topImageAlt": "Real estate research",
+    "bottomImageAlt": "App on phone",
+    "checklistTitle": "Our app brings everything together in one place",
+    "item1": "Clear listings",
+    "item2": "updated prices",
+    "item3": "direct access to experts and developers",
+    "tagline": "decide faster & smarter."
+  },
+  "Choosing": {
+    "headingLine1": "Your way for choosing the",
+    "headingLine2": "right property.",
+    "phoneAlt": "App preview",
+    "f1Title": "Live price updates",
+    "f1Body": "No outdated listings or unexpected changes.",
+    "f2Title": "Free consultation",
+    "f2Body": "Get professional guidance for living or investment.",
+    "f3Title": "Flexible payment plans",
+    "f3Body": "Compare installments, down payments, and duration easily.",
+    "f4Title": "Transparent unit details",
+    "f4Body": "See exact unit details before making any move."
+  },
+  "HowItWorks": {
+    "heading": "How It Works",
+    "step1": "Download the app and create your account in minutes.",
+    "step2": "Browse compounds, explore available units, and compare prices and layouts.",
+    "step3": "Choose your payment plan or contact an expert or developer directly.",
+    "step1Alt": "Download the app from the App Store",
+    "step2Alt": "Browse compounds and explore units",
+    "step3Alt": "Book a session or choose a plan",
+    "getApp": "Get the App"
+  },
+  "TrustedDevelopers": {
+    "imageAlt": "Trusted developers",
+    "heading": "Trusted developers",
+    "body": "We work with leading real estate developers to bring you verified projects, accurate unit details, and transparent pricing.",
+    "cta": "Explore developer projects inside the app."
+  },
+  "Professionalism": {
+    "heading": "We believe trust is built on professionalism.",
+    "intro": "Every department in our team is designed to provide you with expert support at every step of your journey towards owning the perfect property.",
+    "tabSales": "Sales",
+    "tabFinancial": "Financial",
+    "tabLegal": "Legal Affairs",
+    "salesTitle": "Sales & Investment Management Team",
+    "salesBody": "Our experts are your direct bridge to the best opportunities. They help you understand the market, provide smart investment recommendations, and accompany you until the deal is finalized to ensure maximum return.",
+    "salesImageAlt": "Sales & investment management team",
+    "financialTitle": "Financial & Administrative Team",
+    "financialBody": "We guarantee you complete transparency in all financial matters. This team is dedicated to designing flexible and clear payment systems and managing all financial details with precision for a secure and smooth transaction.",
+    "financialImageAlt": "Financial & administrative team",
+    "legalTitle": "Legal Affairs & Regulatory Department",
+    "legalBody": "We prioritize your legal safety. Our legal team verifies all property documentation and reviews contracts to ensure every transaction is completed within a sound and secure legal framework, giving you total peace of mind.",
+    "legalImageAlt": "Legal affairs & regulatory department",
+    "numbersHeading": "Adham by numbers",
+    "statClients": "satisfied client",
+    "statUnits": "residential & commercial unit",
+    "statCities": "city"
+  },
+  "DownloadCTA": {
+    "heading": "finding proper property is much simpler",
+    "headingLine2": "when search with adham",
+    "sub": "See for yourself, try Adham's App for free.",
+    "getItOn": "Get it on",
+    "googlePlay": "Google Play",
+    "appleStore": "Apple store"
+  },
+  "Faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "Answers about the Adham Fathallah platform and your data.",
+    "sectionHeading": "FAQ",
+    "loadError": "Unable to load FAQ. Please try again later."
+  },
+  "Contact": {
+    "title": "Contact us",
+    "subtitle": "Reach the team by phone, social, email, or visit our office.",
+    "loadError": "Unable to load contact information. Please try again later."
+  },
+  "Privacy": {
+    "title": "Privacy Policy",
+    "loadError": "Unable to load privacy policy. Please try again later.",
+    "notFound": "Privacy policy could not be found."
+  },
+  "Terms": {
+    "title": "Terms of Use",
+    "loadError": "Unable to load terms. Please try again later.",
+    "notFound": "Terms of use could not be found."
+  },
+  "Aria": {
+    "backToTop": "Back to top"
+  },
+  "Metadata": {
+    "siteName": "Master Land — Adham Fathallah",
+    "homeTitle": "Adham Fathallah — Find Your Ideal Property Unit with Ease | Master Land",
+    "homeDescription": "Browse exclusive real-estate units in Egypt's top compounds with live prices, transparent layouts, flexible payment plans, and free expert consultation. Download the Adham Fathallah app today."
+  }
+}

@@ -1,0 +1,110 @@
+export type SupportedLocale = "en" | "ar";
+
+export const storeLinks = {
+  googlePlay: "https://play.google.com",
+  appStore: "https://apps.apple.com",
+} as const;
+
+export const LINKS = {
+  stores: storeLinks,
+  socials: {
+    instagram: "https://instagram.com/AdhamFathallahProperty",
+    youtube: "https://www.youtube.com/@AdhamFathallahProperty",
+    facebook: "https://facebook.com/AdhamFathallahProperty",
+    whatsapp: "https://wa.me/201011584105",
+    email: "mailto:info@afproperty.com",
+    phone: "tel:+201011584105",
+    maps: "https://maps.app.goo.gl/Hy6cnAv24oVQipwG6",
+  },
+} as const;
+
+export const SEO = {
+  en: {
+    title:
+      "Adham Fathallah — Find Your Ideal Property Unit with Ease | Master Land",
+    description:
+      "Browse exclusive real-estate units in Egypt's top compounds with live prices, transparent layouts, flexible payment plans, and free expert consultation. Download the Adham Fathallah app today.",
+    keywords: [
+      "Adham Fathallah",
+      "Master Land",
+      "real estate Egypt",
+      "compounds Egypt",
+      "property finder",
+      "buy apartment Egypt",
+      "New Cairo real estate",
+      "flexible payment plans",
+      "live property prices",
+      "real estate app",
+      "Property for sale",
+      "Apartments for sale Egypt",
+      "Egypt real estate",
+      "Property Egypt",
+      "apartments for sale in New Cairo 2026",
+      "best compounds in New Capital Egypt",
+      "property prices in Egypt today",
+      "buy apartment in Egypt installments",
+      "real estate investment Egypt 2026",
+      "cheapest apartments in Egypt",
+      "compare compound prices Egypt",
+      "new cairo property prices",
+      "best real estate deals in Egypt 2026",
+      "apartments for sale in Sheikh Zayed Egypt",
+      "property prices in 6 October Egypt today",
+      "buy property in Egypt with installments",
+      "real estate market analysis Egypt 2026",
+    ],
+  },
+  ar: {
+    title: "أدهم فتح الله — عقارات مصر | ماستر لاند",
+    description:
+      "عقارات مصر من Adham Fathallah: ابحث عن عقارات للبيع وشقق للبيع في مصر مع أسعار عقارات وأسعار كمبوندات محدثة يومياً لعام 2026 في القاهرة الجديدة والعاصمة الإدارية و6 أكتوبر والشيخ زايد والساحل الشمالي.",
+    keywords: [
+      "عقارات مصر",
+      "عقارات للبيع",
+      "شقق للبيع",
+      "شقق للبيع في مصر",
+      "أسعار العقارات",
+      "أسعار العقارات اليوم",
+      "أسعار الكمبوندات",
+      "القاهرة الجديدة",
+      "التجمع الخامس",
+      "العاصمة الإدارية",
+      "6 أكتوبر",
+      "الشيخ زايد",
+      "الساحل الشمالي",
+      "أسعار الشقق في التجمع الخامس 2026",
+      "أفضل كمبوندات القاهرة الجديدة",
+      "أسعار الكمبوندات في مصر اليوم",
+      "شقق للبيع بالتقسيط في مصر بدون مقدم",
+      "عقارات العاصمة الإدارية الجديدة أسعار",
+      "مقارنة أسعار العقارات في القاهرة الجديدة",
+      "أرخص شقق للبيع في مصر",
+      "أفضل استثمار عقاري في مصر 2026",
+      "شقق للبيع في الشيخ زايد بالتقسيط",
+      "أسعار الشقق في 6 أكتوبر اليوم",
+      "عقارات للبيع في الساحل الشمالي",
+      "أفضل كمبوند في التجمع الخامس 2026",
+      "هل اشتري شقة في مصر 2026",
+      "تحليل أسعار العقارات في مصر اليوم",
+      "مقارنة بين كمبوندات العاصمة الإدارية",
+      "أفضل مشاريع عقارية في القاهرة الجديدة 2026",
+      "apartments for sale in New Cairo 2026",
+      "best compounds in New Capital Egypt",
+      "property prices in Egypt today",
+      "buy apartment in Egypt installments",
+      "real estate investment Egypt 2026",
+      "cheapest apartments in Egypt",
+      "compare compound prices Egypt",
+      "new cairo property prices",
+      "best real estate deals in Egypt 2026",
+      "apartments for sale in Sheikh Zayed Egypt",
+      "property prices in 6 October Egypt today",
+      "buy property in Egypt with installments",
+      "real estate market analysis Egypt 2026",
+    ],
+  },
+} satisfies Record<
+  SupportedLocale,
+  { title: string; description: string; keywords: string[] }
+>;
+

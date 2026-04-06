@@ -2,41 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 type TabKey = "sales" | "financial" | "legal";
-
-const tabs: { key: TabKey; label: string }[] = [
-  { key: "sales", label: "Sales" },
-  { key: "financial", label: "Financial" },
-  { key: "legal", label: "Legal Affairs" },
-];
-
-const contentByTab: Record<
-  TabKey,
-  { title: string; body: string; imageSrc: string; imageAlt: string }
-> = {
-  sales: {
-    title: "Sales & Investment Management Team",
-    body:
-      "Our experts are your direct bridge to the best opportunities. They help you understand the market, provide smart investment recommendations, and accompany you until the deal is finalized to ensure maximum return.",
-    imageSrc: "/images/team.webp",
-    imageAlt: "Sales & investment management team",
-  },
-  financial: {
-    title: "Financial & Administrative Team",
-    body:
-      "We guarantee you complete transparency in all financial matters. This team is dedicated to designing flexible and clear payment systems and managing all financial details with precision for a secure and smooth transaction.",
-    imageSrc: "/images/prof-financial.webp",
-    imageAlt: "Financial & administrative team",
-  },
-  legal: {
-    title: "Legal Affairs & Regulatory Department",
-    body:
-      "We prioritize your legal safety. Our legal team verifies all property documentation and reviews contracts to ensure every transaction is completed within a sound and secure legal framework, giving you total peace of mind.",
-    imageSrc: "/images/proflegal.webp",
-    imageAlt: "Legal affairs & regulatory department",
-  },
-};
 
 type StatFormat = "kPlus1Decimal" | "plusInt" | "int";
 
@@ -86,7 +54,6 @@ function useCountUp({
 
     const tick = (now: number) => {
       const t = Math.min(1, (now - startTime) / durationMs);
-      // easeOutCubic
       const eased = 1 - Math.pow(1 - t, 3);
       setValue(from + (to - from) * eased);
       if (t < 1) rafRef.current = requestAnimationFrame(tick);
@@ -130,10 +97,42 @@ function StatCard({
 }
 
 export default function ProfessionalismSection() {
+  const t = useTranslations("Professionalism");
   const [active, setActive] = useState<TabKey>("sales");
-  const content = contentByTab[active];
   const statsRef = useRef<HTMLDivElement | null>(null);
   const [statsVisible, setStatsVisible] = useState(false);
+
+  const tabs: { key: TabKey; label: string }[] = [
+    { key: "sales", label: t("tabSales") },
+    { key: "financial", label: t("tabFinancial") },
+    { key: "legal", label: t("tabLegal") },
+  ];
+
+  const contentByTab: Record<
+    TabKey,
+    { title: string; body: string; imageSrc: string; imageAlt: string }
+  > = {
+    sales: {
+      title: t("salesTitle"),
+      body: t("salesBody"),
+      imageSrc: "/images/team.webp",
+      imageAlt: t("salesImageAlt"),
+    },
+    financial: {
+      title: t("financialTitle"),
+      body: t("financialBody"),
+      imageSrc: "/images/prof-financial.webp",
+      imageAlt: t("financialImageAlt"),
+    },
+    legal: {
+      title: t("legalTitle"),
+      body: t("legalBody"),
+      imageSrc: "/images/proflegal.webp",
+      imageAlt: t("legalImageAlt"),
+    },
+  };
+
+  const content = contentByTab[active];
 
   useEffect(() => {
     const el = statsRef.current;
@@ -160,31 +159,29 @@ export default function ProfessionalismSection() {
       <div className="container">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl font-semibold text-primary sm:text-3xl">
-            We believe trust is built on professionalism.
+            {t("heading")}
           </h2>
           <p className="mt-3 text-base leading-relaxed text-primary sm:text-lg">
-            Every department in our team is designed to provide you with expert
-            support at every step of your journey towards owning the perfect
-            property.
+            {t("intro")}
           </p>
         </div>
 
         <div className="mt-8 flex justify-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-surface bg-white p-1">
-            {tabs.map((t) => {
-              const isActive = t.key === active;
+            {tabs.map((tab) => {
+              const isActive = tab.key === active;
               return (
                 <button
-                  key={t.key}
+                  key={tab.key}
                   type="button"
-                  onClick={() => setActive(t.key)}
+                  onClick={() => setActive(tab.key)}
                   className={`rounded-full cursor-pointer px-4 py-2 text-sm font-medium transition-colors ${
                     isActive
                       ? "bg-copper-soft text-primary"
                       : "text-primary hover:text-primary"
                   }`}
                 >
-                  {t.label}
+                  {tab.label}
                 </button>
               );
             })}
@@ -193,7 +190,7 @@ export default function ProfessionalismSection() {
 
         <div className="mt-12 p-6 sm:p-10">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_520px] lg:gap-12">
-            <div className="text-center lg:text-left">
+            <div className="max-lg:text-center ">
               <h3 className="text-lg font-semibold text-primary sm:text-xl">
                 {content.title}
               </h3>
@@ -221,7 +218,7 @@ export default function ProfessionalismSection() {
 
         <div className="mt-16">
           <h3 className="text-center text-xl font-semibold text-primary sm:text-2xl">
-            Adham by numbers
+            {t("numbersHeading")}
           </h3>
 
           <div
@@ -231,20 +228,24 @@ export default function ProfessionalismSection() {
             <StatCard
               end={4800}
               format="kPlus1Decimal"
-              label="satisfied client"
+              label={t("statClients")}
               enabled={statsVisible}
             />
             <StatCard
               end={862}
               format="plusInt"
-              label="residential & commercial unit"
+              label={t("statUnits")}
               enabled={statsVisible}
             />
-            <StatCard end={7} format="int" label="city" enabled={statsVisible} />
+            <StatCard
+              end={7}
+              format="int"
+              label={t("statCities")}
+              enabled={statsVisible}
+            />
           </div>
         </div>
       </div>
     </section>
   );
 }
-

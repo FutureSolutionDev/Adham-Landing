@@ -2,16 +2,28 @@ import type { Metadata } from "next";
 import LegalPageShell from "@/components/legal/LegalPageShell";
 import ContactSection from "@/components/faq/ContactSection";
 import { getFaqContacts } from "@/lib/api/adham";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Contact us",
-  description:
-    "Phone, WhatsApp, social channels, email, and office location for Adham Fathallah and AF Property.",
+type Props = {
+  params: Promise<{ locale: string }>;
 };
 
-export default async function ContactPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Contact" });
+  return {
+    title: t("title"),
+    description: t("subtitle"),
+  };
+}
+
+export default async function ContactPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Contact");
+
   let contacts: Awaited<
     ReturnType<typeof getFaqContacts>
   >["data"]["Contacts"];
@@ -23,9 +35,7 @@ export default async function ContactPage() {
     return (
       <LegalPageShell>
         <div className="container max-w-5xl px-4 py-8">
-          <p className="text-primary">
-            Unable to load contact information. Please try again later.
-          </p>
+          <p className="text-primary">{t("loadError")}</p>
         </div>
       </LegalPageShell>
     );
@@ -36,10 +46,10 @@ export default async function ContactPage() {
       <div className="container max-w-5xl px-4">
         <header className="mb-6 text-center sm:mb-8">
           <h1 className="text-3xl font-semibold text-primary sm:text-4xl">
-            Contact us
+            {t("title")}
           </h1>
           <p className="mt-2 text-sm text-primary/65 sm:text-base">
-            Reach the team by phone, social, email, or visit our office.
+            {t("subtitle")}
           </p>
         </header>
         <ContactSection contacts={contacts} showHeading={false} />

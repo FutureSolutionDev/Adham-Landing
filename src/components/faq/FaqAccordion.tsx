@@ -1,15 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "next-intl";
 import type { FaqItem } from "@/lib/api/adham";
 
 export default function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [open, setOpen] = useState<number | null>(0);
+  const locale = useLocale();
+  const isArabic = locale === "ar";
 
   return (
     <div className="space-y-2">
       {items.map((item, i) => {
         const isOpen = open === i;
+        const question =
+          isArabic ? item.Question ?? item.QuestionEn : item.QuestionEn ?? item.Question;
+        const answer =
+          isArabic ? item.Answer ?? item.AnswerEn : item.AnswerEn ?? item.Answer;
         return (
           <div
             key={i}
@@ -17,11 +24,13 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
           >
             <button
               type="button"
-              className="flex w-full items-start justify-between gap-4 px-5 py-4 text-left text-sm font-semibold text-primary sm:text-base"
+              className="cursor-pointer flex w-full items-start justify-between gap-4 px-5 py-4 text-left text-sm font-semibold text-primary sm:text-base"
               onClick={() => setOpen(isOpen ? null : i)}
               aria-expanded={isOpen}
             >
-              <span>{item.QuestionEn}</span>
+              <span dir={isArabic ? "rtl" : "ltr"} className={isArabic ? "font-serif" : undefined}>
+                {question}
+              </span>
               <span
                 className="shrink-0 text-lg leading-none text-copper"
                 aria-hidden
@@ -32,16 +41,10 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
             {isOpen && (
               <div className="border-t border-primary/10 px-5 py-4">
                 <p className="text-sm leading-relaxed text-primary/85">
-                  {item.AnswerEn}
+                  <span dir={isArabic ? "rtl" : "ltr"} className={isArabic ? "font-serif" : undefined}>
+                    {answer}
+                  </span>
                 </p>
-                {item.Answer && item.Answer !== item.AnswerEn && (
-                  <p
-                    className="mt-3 border-t border-primary/10 pt-3 font-serif text-sm leading-relaxed text-primary/70"
-                    dir="rtl"
-                  >
-                    {item.Answer}
-                  </p>
-                )}
               </div>
             )}
           </div>

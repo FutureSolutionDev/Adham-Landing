@@ -3,29 +3,41 @@ import { LegalArticleView } from "@/components/legal/LegalArticleBlocks";
 import LegalPageShell from "@/components/legal/LegalPageShell";
 import type { LegalSection } from "@/lib/api/adham";
 import { findLegalSection, getTermsPrivacy } from "@/lib/api/adham";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
+/** Avoid calling the CMS at build time if the API is unreachable. */
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description: "Privacy policy for the Adham Fathallah platform operated by AF Property.",
+type Props = {
+  params: Promise<{ locale: string }>;
 };
 
-export default async function PrivacyPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Terms" });
+  return {
+    title: t("title"),
+  };
+}
+
+export default async function TermsPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Terms");
+  const isArabic = locale === "ar";
+
   let meta: Awaited<ReturnType<typeof getTermsPrivacy>>["data"];
   let section: LegalSection | undefined;
 
   try {
     const res = await getTermsPrivacy();
     meta = res.data;
-    section = findLegalSection(res.data, "privacy_policy");
+    section = findLegalSection(res.data, "TermsOfUse");
   } catch {
     return (
       <LegalPageShell>
         <div className="container max-w-3xl px-4 py-8">
-          <p className="text-primary">
-            Unable to load privacy policy. Please try again later.
-          </p>
+          <p className="text-primary">{t("loadError")}</p>
         </div>
       </LegalPageShell>
     );
@@ -35,7 +47,7 @@ export default async function PrivacyPage() {
     return (
       <LegalPageShell>
         <div className="container max-w-3xl px-4 py-8">
-          <p className="text-primary">Privacy policy could not be found.</p>
+          <p className="text-primary">{t("notFound")}</p>
         </div>
       </LegalPageShell>
     );
@@ -51,18 +63,26 @@ export default async function PrivacyPage() {
             {meta.CompanyName}
           </p>
           <h1 className="mt-2 text-3xl font-semibold text-primary sm:text-4xl">
-            {section.TitleEn}
+            {isArabic ? section.Title : section.TitleEn}
           </h1>
-          <p className="mt-2 font-serif text-sm text-primary/65" dir="rtl">
-            {section.Title}
-          </p>
+          {!isArabic ? (
+            <p className="mt-2 font-serif text-sm text-primary/65" dir="rtl">
+              {section.Title}
+            </p>
+          ) : (
+            <p className="mt-2 text-sm text-primary/65">{section.TitleEn}</p>
+          )}
           <p className="mt-4 text-xs text-primary/50">
             Last updated {meta.LastUpdated} · Version {meta.Version}
           </p>
         </header>
         <div className="space-y-12">
           {articles.map((article) => (
-            <LegalArticleView key={article.ArticleId} article={article} />
+            <LegalArticleView
+              key={article.ArticleId}
+              article={article}
+              locale={isArabic ? "ar" : "en"}
+            />
           ))}
         </div>
       </div>

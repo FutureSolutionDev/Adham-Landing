@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
 function CheckItem({ children }: { children: React.ReactNode }) {
   return (
@@ -24,7 +25,9 @@ function CheckItem({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function ProblemSection() {
+export default async function ProblemSection() {
+  const t = await getTranslations("Problem");
+
   return (
     <section className="py-20">
       <div className="container">
@@ -32,8 +35,7 @@ export default function ProblemSection() {
           {/* Top-left text card */}
           <div className="rounded-3xl bg-surface px-8 py-10 lg:max-w-[520px] lg:self-center">
             <p className="text-lg leading-relaxed text-primary sm:text-xl">
-              Finding a home inside a compound takes time, effort, and endless
-              phone calls — with prices that change without notice.
+              {t("lead")}
             </p>
           </div>
 
@@ -42,7 +44,7 @@ export default function ProblemSection() {
             <div className="relative mx-auto aspect-square w-full md:aspect-auto md:h-100 md:w-100">
               <Image
                 src="/images/problem-top-right.webp"
-                alt="Real estate research"
+                alt={t("topImageAlt")}
                 fill
                 priority
                 className="relative z-10 rounded-3xl object-cover"
@@ -56,7 +58,7 @@ export default function ProblemSection() {
             <div className="relative mx-auto aspect-square w-full md:aspect-auto md:h-100 md:w-100">
               <Image
                 src="/images/problem-bottom-left.webp"
-                alt="App on phone"
+                alt={t("bottomImageAlt")}
                 fill
                 className="relative z-10 rounded-3xl object-cover"
               />
@@ -67,22 +69,19 @@ export default function ProblemSection() {
           {/* Bottom-right checklist card */}
           <div className="rounded-3xl bg-surface px-8 py-10 lg:justify-self-end lg:max-w-[520px]">
             <h3 className="text-lg font-semibold text-primary sm:text-xl">
-              Our app brings everything together in one place
+              {t("checklistTitle")}
             </h3>
 
             <ul className="mt-6 space-y-3">
-              <CheckItem>Clear listings</CheckItem>
-              <CheckItem>updated prices</CheckItem>
-              <CheckItem>direct access to experts and developers</CheckItem>
+              <CheckItem>{t("item1")}</CheckItem>
+              <CheckItem>{t("item2")}</CheckItem>
+              <CheckItem>{t("item3")}</CheckItem>
             </ul>
 
-            <p className="mt-6 text-xl text-primary">
-              decide faster &amp; smarter.
-            </p>
+            <p className="mt-6 text-xl text-primary">{t("tagline")}</p>
           </div>
         </div>
       </div>
     </section>
   );
 }
-

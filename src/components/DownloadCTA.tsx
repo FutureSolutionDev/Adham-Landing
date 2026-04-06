@@ -1,7 +1,10 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { storeLinks } from "@/lib/store-links";
 
-export default function DownloadCTA() {
+export default async function DownloadCTA() {
+  const t = await getTranslations("DownloadCTA");
+
   return (
     <section id="download" className="relative py-16">
       <div
@@ -12,18 +15,18 @@ export default function DownloadCTA() {
       <div className="container">
         <div className="mx-auto max-w-3xl rounded-3xl bg-surface px-6 py-10 text-center  sm:px-10">
           <h3 className="text-xl font-semibold leading-snug text-primary sm:text-2xl">
-            finding proper property is much simpler
+            {t("heading")}
             <br />
-            when search with adham
+            {t("headingLine2")}
           </h3>
-          <p className="mt-3 text-sm text-primary sm:text-base">
-            See for yourself, try Adham&apos;s App for free.
-          </p>
+          <p className="mt-3 text-sm text-primary sm:text-base">{t("sub")}</p>
 
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <a
               href={storeLinks.googlePlay}
-              target={storeLinks.googlePlay.startsWith("http") ? "_blank" : undefined}
+              target={
+                storeLinks.googlePlay.startsWith("http") ? "_blank" : undefined
+              }
               rel={
                 storeLinks.googlePlay.startsWith("http")
                   ? "noopener noreferrer"
@@ -41,14 +44,16 @@ export default function DownloadCTA() {
                 />
               </span>
               <span className="flex flex-col items-start leading-none">
-                <span className="text-[10px] text-white/70">Get it on</span>
-                <span className="text-sm font-semibold">Google Play</span>
+                <span className="text-[10px] text-white/70">{t("getItOn")}</span>
+                <span className="text-sm font-semibold">{t("googlePlay")}</span>
               </span>
             </a>
 
             <a
               href={storeLinks.appStore}
-              target={storeLinks.appStore.startsWith("http") ? "_blank" : undefined}
+              target={
+                storeLinks.appStore.startsWith("http") ? "_blank" : undefined
+              }
               rel={
                 storeLinks.appStore.startsWith("http")
                   ? "noopener noreferrer"
@@ -66,8 +71,8 @@ export default function DownloadCTA() {
                 />
               </span>
               <span className="flex flex-col items-start leading-none">
-                <span className="text-[10px] text-white/70">Get it on</span>
-                <span className="text-sm font-semibold">Apple store</span>
+                <span className="text-[10px] text-white/70">{t("getItOn")}</span>
+                <span className="text-sm font-semibold">{t("appleStore")}</span>
               </span>
             </a>
           </div>
@@ -76,4 +81,3 @@ export default function DownloadCTA() {
     </section>
   );
 }
-

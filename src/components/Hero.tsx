@@ -1,6 +1,12 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 
-export default function Hero() {
+export default async function Hero() {
+  const t = await getTranslations("Hero");
+  const locale = await getLocale();
+  const isArabic = locale === "ar";
+
   return (
     <section
       id="home"
@@ -37,22 +43,26 @@ export default function Hero() {
 
       <div className="container relative flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-6">
         {/* Left content */}
-        <div className="relative flex w-full flex-col items-center text-center lg:w-2/3 lg:items-start lg:text-left">
+        <div className="relative flex w-full flex-col items-center max-lg:text-center lg:w-2/3 lg:items-start ">
           <h1 className="text-5xl leading-[1.1] tracking-tight text-primary sm:text-6xl lg:text-7xl">
-            Find your ideal{" "}
+            {t("titleBefore")}{" "}
             <span className="inline-flex translate-y-1 items-center">
               <span className="mx-2">
-                <Image src="/images/tabler_home.webp" alt="Master Land" width={50} height={50} />
+                <Image
+                  src="/images/tabler_home.webp"
+                  alt={t("logoAlt")}
+                  width={50}
+                  height={50}
+                />
               </span>
-            </span>
-            unit
+            </span>{" "}
+            {t("titleMiddle")}
             <br />
-            with Ease
+            {t("titleAfter")}
           </h1>
 
           <p className="mt-8 max-w-lg text-lg leading-relaxed text-primary/50 sm:text-xl">
-            Explore exclusive units with live prices, clear layouts,
-            and flexible payment plans with expert support.
+            {t("subtitle")}
           </p>
 
           <div className="mt-12 flex flex-col gap-4 sm:flex-row">
@@ -60,13 +70,13 @@ export default function Hero() {
               href="#download"
               className="inline-flex items-center justify-center rounded-2xl bg-primary px-8 py-4 text-base font-semibold text-white transition-all hover:bg-primary-light hover:shadow-lg"
             >
-              Download App Now!
+              {t("download")}
             </a>
             <a
               href="#consultation"
               className="inline-flex items-center justify-center rounded-2xl border border-primary/20 bg-white/70 px-8 py-4 text-base font-semibold text-primary transition-all hover:border-primary/35 hover:bg-white hover:shadow-md"
             >
-              Get Free Consultation
+              {t("consultation")}
             </a>
           </div>
           <Image
@@ -74,7 +84,9 @@ export default function Hero() {
             alt=""
             width={220}
             height={140}
-            className="pointer-events-none absolute -top-40 left-[65%] hidden lg:block"
+            className={`pointer-events-none absolute -top-40 hidden lg:block ${
+              isArabic ? "right-[65%] scale-x-[-1]" : "left-[65%]"
+            }`}
             priority
           />
         </div>
@@ -83,10 +95,10 @@ export default function Hero() {
         <div className="relative flex w-full items-center justify-center lg:w-1/3 lg:justify-end">
           <Image
             src="/images/phone.webp"
-            alt="Hero image"
+            alt={t("heroImageAlt")}
             width={500}
             height={500}
-            className="h-auto w-[340px] sm:w-[440px] lg:-translate-y-20 lg:w-[500px]"
+            className="h-auto w-[340px] sm:w-[440px]  lg:w-[500px]"
             priority
           />
         </div>

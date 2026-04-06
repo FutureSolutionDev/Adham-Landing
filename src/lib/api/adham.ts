@@ -70,6 +70,22 @@ export interface FaqContactsResponse {
   data: FaqContactsData;
 }
 
+export interface DeveloperLogo {
+  Name: string;
+  Image: string;
+}
+
+export interface StatsResponse {
+  message: string;
+  error: boolean;
+  code: number;
+  data: {
+    Stats: { City: number; Client: number; Units: number };
+    Devs: Record<string, DeveloperLogo[]>;
+    meta?: { Source?: string; TimeLeft?: number };
+  };
+}
+
 async function fetchJson<T>(path: string): Promise<T> {
   const url = `${ADHAM_API_BASE}${path}`;
   const res = await fetch(url, {
@@ -87,6 +103,10 @@ export async function getTermsPrivacy(): Promise<TermsPrivacyResponse> {
 
 export async function getFaqContacts(): Promise<FaqContactsResponse> {
   return fetchJson<FaqContactsResponse>("/api/v3/app/faq-contacts");
+}
+
+export async function getStats(): Promise<StatsResponse> {
+  return fetchJson<StatsResponse>("/api/v3/app/stats");
 }
 
 export function findLegalSection(

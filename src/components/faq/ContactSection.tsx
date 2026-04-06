@@ -1,4 +1,5 @@
 import type { ContactItem } from "@/lib/api/adham";
+import { useLocale } from "next-intl";
 
 const MAP_EMBED_SRC =
   "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d27632.355155367488!2d31.4538857!3d30.0355842!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1458236ec8a25869%3A0xccc6947d7bce6524!2sAF%20Property%20%7C%20Adham%20Fathallah!5e0!3m2!1sar!2seg!4v1775396978619!5m2!1sar!2seg";
@@ -68,6 +69,19 @@ function isExternalHref(href: string): boolean {
     href.startsWith("mailto:") ||
     href.startsWith("//")
   );
+}
+
+function hasArabic(text: string): boolean {
+  return /[\u0600-\u06FF]/.test(text);
+}
+
+function getLocalizedTitle(contact: ContactItem, locale: string): string {
+  // API fields are inconsistent: some entries have Arabic in `TitleEn`.
+  const candidates = [contact.Title ?? "", contact.TitleEn ?? ""].filter(Boolean);
+  if (!candidates.length) return "";
+
+  if (locale === "ar") return candidates.find(hasArabic) ?? candidates[0]!;
+  return candidates.find((t) => !hasArabic(t)) ?? candidates[0]!;
 }
 
 function ContactIcon({
@@ -194,6 +208,9 @@ export default function ContactSection({
   /** When false, page provides its own title (e.g. `/contact`). */
   showHeading?: boolean;
 }) {
+  const locale = useLocale();
+  const isArabic = locale === "ar";
+
   return (
     <section
       className={showHeading ? "mt-16" : "mt-0"}
@@ -207,10 +224,12 @@ export default function ContactSection({
               id="contact-heading"
               className="mb-2 text-center text-xl font-semibold text-primary sm:text-2xl"
             >
-              Contact us
+              {isArabic ? "اتصل بنا" : "Contact us"}
             </h2>
             <p className="mb-8 text-center text-sm text-primary/60">
-              Reach the team by phone, social, or visit our office.
+              {isArabic
+                ? "تواصل مع الفريق عبر الهاتف أو وسائل التواصل أو زر مكتبنا."
+                : "Reach the team by phone, social, or visit our office."}
             </p>
           </>
         ) : null}
@@ -222,6 +241,7 @@ export default function ContactSection({
               if (!c) return null;
               const platformKey = row.platforms[0];
               const external = isExternalHref(c.Link);
+              const title = getLocalizedTitle(c, locale);
 
               return (
                 <li
@@ -242,13 +262,10 @@ export default function ContactSection({
                       <ContactIcon platform={platformKey} className="h-6 w-6" />
                     </span>
                     <span
-                      className="line-clamp-2 font-serif text-[10px] leading-snug text-primary/65"
-                      dir="rtl"
+                      className={`mt-1 line-clamp-2 text-[13px] font-semibold leading-tight text-primary ${isArabic ? "font-serif" : ""}`}
+                      dir={isArabic ? "rtl" : "ltr"}
                     >
-                      {row.labelAr}
-                    </span>
-                    <span className="mt-1 line-clamp-2 text-[13px] font-semibold leading-tight text-primary">
-                      {row.labelEn}
+                      {title || (isArabic ? row.labelAr : row.labelEn)}
                     </span>
                     <span className="mt-auto pt-2 text-[10px] leading-snug break-words text-primary/45">
                       {row.subtitle}
@@ -261,7 +278,7 @@ export default function ContactSection({
 
           <div className="w-full">
             <p className="mb-3 text-center text-sm font-medium text-primary/70">
-              Visit us
+              {isArabic ? "زورنا" : "Visit us"}
             </p>
             <div className="overflow-hidden rounded-2xl border border-primary/10 bg-surface shadow-[0_12px_40px_rgba(45,55,72,0.08)]">
               <iframe

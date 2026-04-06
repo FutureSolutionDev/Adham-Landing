@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
 type Feature = {
   title: string;
@@ -18,27 +19,17 @@ function FeatureBlock({ title, body }: Feature) {
   );
 }
 
-export default function ChoosingPropertySection() {
+export default async function ChoosingPropertySection() {
+  const t = await getTranslations("Choosing");
+
   const left: Feature[] = [
-    {
-      title: "Live price updates",
-      body: "No outdated listings or unexpected changes.",
-    },
-    {
-      title: "Free consultation",
-      body: "Get professional guidance for living or investment.",
-    },
+    { title: t("f1Title"), body: t("f1Body") },
+    { title: t("f2Title"), body: t("f2Body") },
   ];
 
   const right: Feature[] = [
-    {
-      title: "Flexible payment plans",
-      body: "Compare installments, down payments, and duration easily.",
-    },
-    {
-      title: "Transparent unit details",
-      body: "See exact unit details before making any move.",
-    },
+    { title: t("f3Title"), body: t("f3Body") },
+    { title: t("f4Title"), body: t("f4Body") },
   ];
 
   return (
@@ -64,8 +55,9 @@ export default function ChoosingPropertySection() {
 
       <div className="container relative">
         <h2 className="mx-auto max-w-2xl text-center text-2xl font-semibold tracking-tight text-primary sm:text-3xl">
-          Your way for choosing the <br className="hidden sm:block" />
-          right property.
+          {t("headingLine1")}{" "}
+          <br className="hidden sm:block" />
+          {t("headingLine2")}
         </h2>
 
         <div className="relative mt-12">
@@ -81,7 +73,7 @@ export default function ChoosingPropertySection() {
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
                   <Image
                     src="/images/phone-mockup.webp"
-                    alt="App preview"
+                    alt={t("phoneAlt")}
                     width={420}
                     height={820}
                     className="h-auto w-[230px] -rotate-12 drop-shadow-[0_24px_50px_rgba(0,0,0,0.16)]"
@@ -113,7 +105,7 @@ export default function ChoosingPropertySection() {
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
                   <Image
                     src="/images/phone-mockup.webp"
-                    alt="App preview"
+                    alt={t("phoneAlt")}
                     width={520}
                     height={980}
                     className="h-auto w-[300px] "
@@ -123,7 +115,7 @@ export default function ChoosingPropertySection() {
               </div>
             </div>
 
-            <div className="flex h-[420px] flex-col items-start justify-between pt-10 pb-10 text-left">
+            <div className="flex h-[420px] flex-col items-start justify-between pt-10 pb-10 ">
               <div className="max-w-[280px]">
                 <FeatureBlock {...right[0]} />
               </div>
@@ -137,4 +129,3 @@ export default function ChoosingPropertySection() {
     </section>
   );
 }
-

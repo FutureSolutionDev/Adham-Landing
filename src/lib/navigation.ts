@@ -14,19 +14,21 @@ export const legalRoutes = {
 } as const;
 
 export const navbarLinks = [
-  { label: "Home", href: "/#home" },
-  { label: "Features", href: "/#features" },
-  { label: "How it work", href: "/#how-it-works" },
-  { label: "Developers", href: "/#developers" },
+  { labelKey: "home" as const, href: "/#home" },
+  { labelKey: "features" as const, href: "/#features" },
+  { labelKey: "howItWork" as const, href: "/#how-it-works" },
+  { labelKey: "developers" as const, href: "/#developers" },
+  { labelKey: "faq" as const, href: legalRoutes.faq },
+  { labelKey: "contact" as const, href: legalRoutes.contact },
 ] as const;
 
 /** FAQ & Contact appear in the footer only (not in the main navbar). */
 export const footerLinks = [
-  { label: "Home", href: "/#home" },
-  { label: "Features", href: "/#features" },
-  { label: "Developers", href: "/#developers" },
-  { label: "FAQ", href: legalRoutes.faq },
-  { label: "Contact", href: legalRoutes.contact },
+  { labelKey: "home" as const, href: "/#home" },
+  { labelKey: "features" as const, href: "/#features" },
+  { labelKey: "developers" as const, href: "/#developers" },
+  { labelKey: "faq" as const, href: legalRoutes.faq },
+  { labelKey: "contact" as const, href: legalRoutes.contact },
 ] as const;
 
 export const scrollSpySectionIds = [
@@ -52,6 +54,6 @@ export function isNavLinkActive(
 
 /** Footer bottom row — legal pages only (FAQ & Contact are in `footerLinks`). */
 export const legalPageLinks = [
-  { label: "Terms & conditions", href: legalRoutes.terms },
-  { label: "Privacy policy", href: legalRoutes.privacy },
+  { labelKey: "terms" as const, href: legalRoutes.terms },
+  { labelKey: "privacy" as const, href: legalRoutes.privacy },
 ] as const;

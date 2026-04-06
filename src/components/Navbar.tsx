@@ -1,15 +1,16 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   isNavLinkActive,
   navbarLinks,
   scrollSpySectionIds,
 } from "@/lib/navigation";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { Link, usePathname } from "@/i18n/navigation";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 
 const HEADER_SCROLL_OFFSET_PX = 96;
 
@@ -18,7 +19,11 @@ export default function Navbar() {
   const isHome = pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const activeSectionId = useActiveSection(scrollSpySectionIds, HEADER_SCROLL_OFFSET_PX);
+  const activeSectionId = useActiveSection(
+    scrollSpySectionIds,
+    HEADER_SCROLL_OFFSET_PX,
+  );
+  const t = useTranslations("Nav");
 
   const handleNavClick = useCallback(
     (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -26,7 +31,7 @@ export default function Navbar() {
         e.preventDefault();
         setMobileOpen(false);
         const id = href.slice(2);
-        if (window.location.pathname === "/") {
+        if (pathname === "/") {
           const el = document.getElementById(id);
           if (!el) return;
           el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -46,7 +51,7 @@ export default function Navbar() {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
       history.replaceState(null, "", href);
     },
-    [],
+    [pathname],
   );
 
   useEffect(() => {
@@ -64,7 +69,7 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <nav className="container flex items-center md:gap-[30%] max-md:justify-between py-4">
+      <nav className="container flex items-center justify-between gap-4 py-4 md:gap-8">
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <Image
@@ -77,49 +82,55 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop nav */}
-        <ul className="hidden items-center gap-10 md:flex">
-          {navbarLinks.map((link) => {
-            const isActive = isNavLinkActive(
-              link.href,
-              pathname,
-              isHome,
-              activeSectionId,
-            );
-            return (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={`font-sans font-medium leading-none tracking-[-0.01em] transition-colors ${
-                    isActive
-                      ? "text-copper"
-                      : "text-primary hover:text-primary/80"
-                  }`}
-                  onClick={handleNavClick(link.href)}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="hidden flex-1 items-center justify-end gap-10 md:flex">
+          <ul className="flex items-center gap-10">
+            {navbarLinks.map((link) => {
+              const isActive = isNavLinkActive(
+                link.href,
+                pathname,
+                isHome,
+                activeSectionId,
+              );
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={` font-medium leading-none tracking-[-0.01em] transition-colors ${
+                      isActive
+                        ? "text-copper"
+                        : "text-primary hover:text-primary/80"
+                    }`}
+                    onClick={handleNavClick(link.href)}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {t(link.labelKey)}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <LocaleSwitcher />
+        </div>
+
         {/* Mobile hamburger */}
-        <button
-          className="flex flex-col gap-1.5 md:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          <span
-            className={`h-0.5 w-6 bg-navy transition-transform ${mobileOpen ? "translate-y-2 rotate-45" : ""}`}
-          />
-          <span
-            className={`h-0.5 w-6 bg-navy transition-opacity ${mobileOpen ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`h-0.5 w-6 bg-navy transition-transform ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`}
-          />
-        </button>
+        <div className="flex items-center gap-3 md:hidden">
+          <LocaleSwitcher />
+          <button
+            className="flex flex-col gap-1.5"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={t("toggleMenu")}
+          >
+            <span
+              className={`h-0.5 w-6 bg-navy transition-transform ${mobileOpen ? "translate-y-2 rotate-45" : ""}`}
+            />
+            <span
+              className={`h-0.5 w-6 bg-navy transition-opacity ${mobileOpen ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`h-0.5 w-6 bg-navy transition-transform ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`}
+            />
+          </button>
+        </div>
       </nav>
 
       {/* Mobile dropdown */}
@@ -137,7 +148,7 @@ export default function Navbar() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className={`font-sans font-medium leading-none tracking-[-0.01em] transition-colors ${
+                    className={`font-medium leading-none tracking-[-0.01em] transition-colors ${
                       isActive
                         ? "text-copper"
                         : "text-navy/70 hover:text-navy"
@@ -145,7 +156,7 @@ export default function Navbar() {
                     onClick={handleNavClick(link.href)}
                     aria-current={isActive ? "page" : undefined}
                   >
-                    {link.label}
+                    {t(link.labelKey)}
                   </Link>
                 </li>
               );

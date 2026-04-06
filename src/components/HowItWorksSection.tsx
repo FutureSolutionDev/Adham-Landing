@@ -1,25 +1,5 @@
 import Image from "next/image";
-
-const steps = [
-  {
-    number: 1,
-    text: "Download the app and create your account in minutes.",
-    image: "/images/how-step1-appstore.webp",
-    imageAlt: "Download the app from the App Store",
-  },
-  {
-    number: 2,
-    text: "Browse compounds, explore available units, and compare prices and layouts.",
-    image: "/images/how-step2-browse.webp",
-    imageAlt: "Browse compounds and explore units",
-  },
-  {
-    number: 3,
-    text: "Choose your payment plan or contact an expert or developer directly.",
-    image: "/images/how-step3-booking.webp",
-    imageAlt: "Book a session or choose a plan",
-  },
-];
+import { getLocale, getTranslations } from "next-intl/server";
 
 function StepNumber({ n }: { n: number }) {
   return (
@@ -37,14 +17,39 @@ function StepNumber({ n }: { n: number }) {
   );
 }
 
-export default function HowItWorksSection() {
+export default async function HowItWorksSection() {
+  const t = await getTranslations("HowItWorks");
+  const locale = await getLocale();
+  const isArabic = locale === "ar";
+
+  const steps = [
+    {
+      number: 1,
+      text: t("step1"),
+      image: "/images/how-step1-appstore.webp",
+      imageAlt: t("step1Alt"),
+    },
+    {
+      number: 2,
+      text: t("step2"),
+      image: "/images/how-step2-browse.webp",
+      imageAlt: t("step2Alt"),
+    },
+    {
+      number: 3,
+      text: t("step3"),
+      image: "/images/how-step3-booking.webp",
+      imageAlt: t("step3Alt"),
+    },
+  ] as const;
+
   return (
     <section
       id="how-it-works"
       className="py-20 font-medium leading-none tracking-normal sm:py-24"
     >
       <div className="container">
-        <h2 className="text-primary">How It Works</h2>
+        <h2 className="text-primary">{t("heading")}</h2>
 
         {/* Desktop zigzag layout */}
         <div className="mt-14 hidden lg:block">
@@ -53,9 +58,7 @@ export default function HowItWorksSection() {
             <div className="grid grid-cols-2 items-center gap-16">
               <div className="max-w-sm">
                 <StepNumber n={1} />
-                <p className="mt-4 text-primary/80">
-                  {steps[0].text}
-                </p>
+                <p className="mt-4 text-primary/80">{steps[0].text}</p>
               </div>
               <div className="flex justify-center">
                 <Image
@@ -75,7 +78,7 @@ export default function HowItWorksSection() {
                 alt=""
                 width={500}
                 height={300}
-                className="h-auto w-[250px] "
+                className={`h-auto w-[250px] ${isArabic ? "scale-x-[-1]" : ""}`}
               />
             </div>
 
@@ -92,9 +95,7 @@ export default function HowItWorksSection() {
               </div>
               <div className="max-w-sm">
                 <StepNumber n={2} />
-                <p className="mt-4 text-primary/80">
-                  {steps[1].text}
-                </p>
+                <p className="mt-4 text-primary/80">{steps[1].text}</p>
               </div>
             </div>
 
@@ -105,7 +106,7 @@ export default function HowItWorksSection() {
                 alt=""
                 width={200}
                 height={500}
-                className="h-auto w-[420px] "
+                className={`h-auto w-[420px] ${isArabic ? "scale-x-[-1]" : ""}`}
               />
             </div>
 
@@ -113,14 +114,12 @@ export default function HowItWorksSection() {
             <div className="grid grid-cols-2 items-center gap-16">
               <div className="max-w-sm">
                 <StepNumber n={3} />
-                <p className="mt-4 text-primary/80">
-                  {steps[2].text}
-                </p>
+                <p className="mt-4 text-primary/80">{steps[2].text}</p>
                 <a
                   href="#download"
                   className="mt-6 inline-flex items-center justify-center rounded-full border border-primary/20 px-6 py-2.5 text-primary transition-colors hover:bg-primary hover:text-white"
                 >
-                  Get the App
+                  {t("getApp")}
                 </a>
               </div>
               <div className="flex justify-center">
@@ -139,7 +138,10 @@ export default function HowItWorksSection() {
         {/* Mobile / tablet stacked layout */}
         <div className="mt-12 flex flex-col gap-16 lg:hidden">
           {steps.map((step, i) => (
-            <div key={step.number} className="flex flex-col items-center gap-6 text-center">
+            <div
+              key={step.number}
+              className="flex flex-col items-center gap-6 text-center"
+            >
               <StepNumber n={step.number} />
               <p className="max-w-sm text-primary/80">{step.text}</p>
               <Image
@@ -154,7 +156,7 @@ export default function HowItWorksSection() {
                   href="#download"
                   className="mt-2 inline-flex items-center justify-center rounded-full border border-primary/20 px-6 py-2.5 text-primary transition-colors hover:bg-primary hover:text-white"
                 >
-                  Get the App
+                  {t("getApp")}
                 </a>
               )}
             </div>

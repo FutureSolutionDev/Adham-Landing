@@ -2,16 +2,28 @@ import type { Metadata } from "next";
 import LegalPageShell from "@/components/legal/LegalPageShell";
 import FaqAccordion from "@/components/faq/FaqAccordion";
 import { getFaqContacts } from "@/lib/api/adham";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "FAQ",
-  description:
-    "Frequently asked questions about the Adham Fathallah platform and AF Property.",
+type Props = {
+  params: Promise<{ locale: string }>;
 };
 
-export default async function FaqPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Faq" });
+  return {
+    title: t("title"),
+    description: t("subtitle"),
+  };
+}
+
+export default async function FaqPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Faq");
+
   let faq: Awaited<ReturnType<typeof getFaqContacts>>["data"]["Faq"];
 
   try {
@@ -21,9 +33,7 @@ export default async function FaqPage() {
     return (
       <LegalPageShell>
         <div className="container max-w-3xl px-4 py-8">
-          <p className="text-primary">
-            Unable to load FAQ. Please try again later.
-          </p>
+          <p className="text-primary">{t("loadError")}</p>
         </div>
       </LegalPageShell>
     );
@@ -34,16 +44,14 @@ export default async function FaqPage() {
       <div className="container max-w-3xl px-4">
         <header className="mb-10 text-center">
           <h1 className="text-3xl font-semibold text-primary sm:text-4xl">
-            Frequently asked questions
+            {t("title")}
           </h1>
-          <p className="mt-2 text-sm text-primary/65">
-            Answers about the Adham Fathallah platform and your data.
-          </p>
+          <p className="mt-2 text-sm text-primary/65">{t("subtitle")}</p>
         </header>
 
         <section aria-labelledby="faq-heading">
           <h2 id="faq-heading" className="sr-only">
-            FAQ
+            {t("sectionHeading")}
           </h2>
           <FaqAccordion items={faq} />
         </section>
