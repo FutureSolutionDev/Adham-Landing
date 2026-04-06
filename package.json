@@ -1,11 +1,12 @@
 {
-  "name": "master-land",
+  "name": "adham-landing",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "start:prod": "PORT=4601 bun Scripts/StartStandalone.ts",
     "lint": "eslint"
   },
   "dependencies": {
