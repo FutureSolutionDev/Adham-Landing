@@ -19,11 +19,30 @@ export default function Navbar() {
   const isHome = pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [forcedActiveSectionId, setForcedActiveSectionId] = useState<
+    string | null
+  >(null);
   const activeSectionId = useActiveSection(
     scrollSpySectionIds,
     HEADER_SCROLL_OFFSET_PX,
   );
   const t = useTranslations("Nav");
+
+  useEffect(() => {
+    if (!forcedActiveSectionId) return;
+    if (activeSectionId === forcedActiveSectionId) {
+      setForcedActiveSectionId(null);
+    }
+  }, [activeSectionId, forcedActiveSectionId]);
+
+  const scrollToSection = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return false;
+    const top =
+      window.scrollY + el.getBoundingClientRect().top - HEADER_SCROLL_OFFSET_PX;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    return true;
+  }, []);
 
   const handleNavClick = useCallback(
     (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -32,10 +51,10 @@ export default function Navbar() {
         setMobileOpen(false);
         const id = href.slice(2);
         if (pathname === "/") {
-          const el = document.getElementById(id);
-          if (!el) return;
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-          history.replaceState(null, "", href);
+          setForcedActiveSectionId(id);
+          if (scrollToSection(id)) {
+            history.replaceState(null, "", href);
+          }
         } else {
           window.location.assign(href);
         }
@@ -46,12 +65,12 @@ export default function Navbar() {
       setMobileOpen(false);
 
       const id = href.slice(1);
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", href);
+      setForcedActiveSectionId(id);
+      if (scrollToSection(id)) {
+        history.replaceState(null, "", href);
+      }
     },
-    [pathname],
+    [pathname, scrollToSection],
   );
 
   useEffect(() => {
@@ -89,7 +108,7 @@ export default function Navbar() {
                 link.href,
                 pathname,
                 isHome,
-                activeSectionId,
+                forcedActiveSectionId ?? activeSectionId,
               );
               return (
                 <li key={link.href}>
@@ -142,7 +161,7 @@ export default function Navbar() {
                 link.href,
                 pathname,
                 isHome,
-                activeSectionId,
+                forcedActiveSectionId ?? activeSectionId,
               );
               return (
                 <li key={link.href}>

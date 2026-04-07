@@ -36,7 +36,6 @@ export const scrollSpySectionIds = [
   "features",
   "how-it-works",
   "developers",
-  "fqa",
 ] as const;
 
 /** Active state: hash links on home, or full path match for routes like `/faq`. */
