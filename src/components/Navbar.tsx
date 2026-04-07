@@ -114,7 +114,6 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <div className="flex items-center gap-3 md:hidden">
-          <LocaleSwitcher />
           <button
             className="flex flex-col gap-1.5"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -136,6 +135,7 @@ export default function Navbar() {
       {/* Mobile dropdown */}
       {mobileOpen && (
         <div className="border-t border-navy/10 bg-cream px-6 pb-6 md:hidden">
+    
           <ul className="flex flex-col gap-4 pt-4">
             {navbarLinks.map((link) => {
               const isActive = isNavLinkActive(
@@ -162,6 +162,9 @@ export default function Navbar() {
               );
             })}
           </ul>
+          <div className="flex pt-4" onClickCapture={() => setMobileOpen(false)}>
+            <LocaleSwitcher />
+          </div>
         </div>
       )}
     </header>

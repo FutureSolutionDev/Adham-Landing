@@ -7,7 +7,7 @@ export default async function TrustedDevelopersSection() {
   return (
     <section id="developers" className="py-16 sm:py-20">
       <div className="container">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16 overflow-hidden">
           {/* Left image */}
           <div className="flex items-center justify-center">
             <TrustedDevelopersOrbit />
