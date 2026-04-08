@@ -1,9 +1,11 @@
 {
-  "name": "Master Land",
-  "short_name": "Master Land",
-  "description": "Explore exclusive units with live prices, clear layouts, and flexible payment plans with expert support.",
+  "name": "Adham Fathallah | أدهم فتح الله",
+  "short_name": "Adham Fathallah",
+  "description": "Explore exclusive units with live prices, clear layouts, and flexible payment plans with expert support. | استكشف وحدات حصرية بأسعار لحظية وتخطيطات واضحة وخطط سداد مرنة.",
   "start_url": "/",
   "display": "standalone",
+  "dir": "auto",
+  "lang": "en",
   "background_color": "#F7F8FA",
   "theme_color": "#2D3748",
   "icons": [

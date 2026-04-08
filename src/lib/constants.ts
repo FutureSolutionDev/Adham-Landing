@@ -21,12 +21,12 @@ export const LINKS = {
 export const SEO = {
   en: {
     title:
-      "Adham Fathallah — Find Your Ideal Property Unit with Ease | Master Land",
+      "Adham Fathallah — Find Your Ideal Property Unit with Ease",
     description:
       "Browse exclusive real-estate units in Egypt's top compounds with live prices, transparent layouts, flexible payment plans, and free expert consultation. Download the Adham Fathallah app today.",
     keywords: [
       "Adham Fathallah",
-      "Master Land",
+      "Adham Fathallah app",
       "real estate Egypt",
       "compounds Egypt",
       "property finder",
@@ -55,7 +55,7 @@ export const SEO = {
     ],
   },
   ar: {
-    title: "أدهم فتح الله — عقارات مصر | ماستر لاند",
+    title: "أدهم فتح الله — عقارات مصر",
     description:
       "عقارات مصر من Adham Fathallah: ابحث عن عقارات للبيع وشقق للبيع في مصر مع أسعار عقارات وأسعار كمبوندات محدثة يومياً لعام 2026 في القاهرة الجديدة والعاصمة الإدارية و6 أكتوبر والشيخ زايد والساحل الشمالي.",
     keywords: [

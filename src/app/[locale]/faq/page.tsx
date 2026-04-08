@@ -13,9 +13,28 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Faq" });
+  const isArabic = locale === "ar";
   return {
     title: t("title"),
     description: t("subtitle"),
+    keywords: isArabic
+      ? [
+          "الأسئلة الشائعة",
+          "مساعدة أدهم فتح الله",
+          "أسئلة عقارية",
+          "أدهم فتح الله",
+        ]
+      : [
+          "FAQ",
+          "frequently asked questions",
+          "Adham Fathallah help",
+          "Adham Fathallah FAQ",
+          "real estate FAQ Egypt",
+        ],
+    alternates: {
+      canonical: "/faq",
+      languages: { en: "/faq", ar: "/ar/faq" },
+    },
   };
 }
 

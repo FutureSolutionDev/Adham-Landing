@@ -11,8 +11,7 @@ import {
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { Link, usePathname } from "@/i18n/navigation";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
-
-const HEADER_SCROLL_OFFSET_PX = 96;
+import { HEADER_OFFSET_PX, scrollToSection } from "@/lib/scroll";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -24,7 +23,7 @@ export default function Navbar() {
   >(null);
   const activeSectionId = useActiveSection(
     scrollSpySectionIds,
-    HEADER_SCROLL_OFFSET_PX,
+    HEADER_OFFSET_PX,
   );
   const t = useTranslations("Nav");
 
@@ -34,15 +33,6 @@ export default function Navbar() {
       setForcedActiveSectionId(null);
     }
   }, [activeSectionId, forcedActiveSectionId]);
-
-  const scrollToSection = useCallback((id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return false;
-    const top =
-      window.scrollY + el.getBoundingClientRect().top - HEADER_SCROLL_OFFSET_PX;
-    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
-    return true;
-  }, []);
 
   const handleNavClick = useCallback(
     (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -93,7 +83,7 @@ export default function Navbar() {
         <Link href="/" className="shrink-0">
           <Image
             src="/images/logo.webp"
-            alt="Master Land"
+            alt="Adham Fathallah"
             width={40}
             height={40}
             className="h-10 w-10"

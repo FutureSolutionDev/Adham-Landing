@@ -24,11 +24,11 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
           >
             <button
               type="button"
-              className="cursor-pointer flex w-full items-start justify-between gap-4 px-5 py-4 text-left text-sm font-semibold text-primary sm:text-base"
+              className="cursor-pointer flex w-full items-start justify-between gap-4 px-5 py-4 t text-sm font-semibold text-primary sm:text-base"
               onClick={() => setOpen(isOpen ? null : i)}
               aria-expanded={isOpen}
             >
-              <span dir={isArabic ? "rtl" : "ltr"} className={isArabic ? "font-serif" : undefined}>
+              <span  className={isArabic ? "font-serif" : undefined}>
                 {question}
               </span>
               <span
@@ -41,7 +41,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
             {isOpen && (
               <div className="border-t border-primary/10 px-5 py-4">
                 <p className="text-sm leading-relaxed text-primary/85">
-                  <span dir={isArabic ? "rtl" : "ltr"} className={isArabic ? "font-serif" : undefined}>
+                  <span  className={isArabic ? "font-serif" : undefined}>
                     {answer}
                   </span>
                 </p>

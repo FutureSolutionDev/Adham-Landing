@@ -96,7 +96,13 @@ function StatCard({
   );
 }
 
-export default function ProfessionalismSection() {
+type Stats = { clients: number; units: number; cities: number };
+
+export default function ProfessionalismSection({
+  stats,
+}: {
+  stats?: Stats;
+}) {
   const t = useTranslations("Professionalism");
   const [active, setActive] = useState<TabKey>("sales");
   const statsRef = useRef<HTMLDivElement | null>(null);
@@ -155,7 +161,7 @@ export default function ProfessionalismSection() {
   }, [statsVisible]);
 
   return (
-    <section id="consultation" className="py-16 sm:py-20">
+    <section id="professionalism" className="py-16 sm:py-20">
       <div className="container">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-2xl font-semibold text-primary sm:text-3xl">
@@ -226,19 +232,19 @@ export default function ProfessionalismSection() {
             className="mt-8 grid gap-4 sm:grid-cols-3 sm:gap-6"
           >
             <StatCard
-              end={4800}
+              end={stats?.clients ?? 4800}
               format="kPlus1Decimal"
               label={t("statClients")}
               enabled={statsVisible}
             />
             <StatCard
-              end={862}
+              end={stats?.units ?? 862}
               format="plusInt"
               label={t("statUnits")}
               enabled={statsVisible}
             />
             <StatCard
-              end={7}
+              end={stats?.cities ?? 7}
               format="int"
               label={t("statCities")}
               enabled={statsVisible}

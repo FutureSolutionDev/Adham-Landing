@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
-import { getLocale } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 export default async function Hero() {
   const t = await getTranslations("Hero");
@@ -72,12 +72,12 @@ export default async function Hero() {
             >
               {t("download")}
             </a>
-            <a
-              href="#consultation"
+            <Link
+              href="/contact"
               className="inline-flex items-center justify-center rounded-2xl border border-primary/20 bg-white/70 px-8 py-4 text-base font-semibold text-primary transition-all hover:border-primary/35 hover:bg-white hover:shadow-md"
             >
               {t("consultation")}
-            </a>
+            </Link>
           </div>
           <Image
             src="/images/arrow.webp"

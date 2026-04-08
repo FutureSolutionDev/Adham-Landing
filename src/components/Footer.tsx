@@ -12,8 +12,7 @@ import {
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LINKS } from "@/lib/constants";
-
-const HEADER_SCROLL_OFFSET_PX = 96;
+import { HEADER_OFFSET_PX, scrollToSection } from "@/lib/scroll";
 
 const socials = [
   { label: "Instagram", href: LINKS.socials.instagram },
@@ -63,7 +62,7 @@ export default function Footer() {
   const isHome = pathname === "/";
   const activeSectionId = useActiveSection(
     scrollSpySectionIds,
-    HEADER_SCROLL_OFFSET_PX,
+    HEADER_OFFSET_PX,
   );
   const t = useTranslations("Footer");
 
@@ -73,10 +72,9 @@ export default function Footer() {
         e.preventDefault();
         const id = href.slice(2);
         if (pathname === "/") {
-          const el = document.getElementById(id);
-          if (!el) return;
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-          history.replaceState(null, "", href);
+          if (scrollToSection(id)) {
+            history.replaceState(null, "", href);
+          }
         } else {
           window.location.assign(href);
         }
@@ -85,10 +83,9 @@ export default function Footer() {
       if (!href.startsWith("#")) return;
       e.preventDefault();
       const id = href.slice(1);
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", href);
+      if (scrollToSection(id)) {
+        history.replaceState(null, "", href);
+      }
     },
     [pathname],
   );
@@ -102,7 +99,7 @@ export default function Footer() {
           <Link href="/" className="shrink-0">
             <Image
               src="/images/logo.webp"
-              alt="Master Land"
+              alt="Adham Fathallah"
               width={56}
               height={56}
               className="h-14 w-14"

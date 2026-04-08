@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import BackToTop from "@/components/BackToTop";
 import { routing } from "@/i18n/routing";
-import { SEO } from "@/lib/constants";
+import { LINKS, SEO } from "@/lib/constants";
 import "../globals.css";
 
 const inter = Inter({
@@ -53,22 +53,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     metadataBase: new URL(siteUrl),
     title: {
       default: title,
-      template: `%s — Adham Fathallah | Master Land`,
+      template: `%s — Adham Fathallah`,
     },
     description,
-    applicationName: "Master Land",
+    applicationName: "Adham Fathallah",
     keywords: seo.keywords,
     authors: [{ name: "Adham Fathallah" }],
     creator: "Adham Fathallah",
-    publisher: "Master Land",
+    publisher: "Adham Fathallah",
     category: "Real Estate",
-    alternates: {
-      canonical: "/",
-      languages: {
-        en: "/",
-        ar: "/ar",
-      },
-    },
     openGraph: {
       type: "website",
       locale: locale === "ar" ? "ar_EG" : "en_US",
@@ -81,7 +74,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: "/android-chrome-512x512.webp",
           width: 512,
           height: 512,
-          alt: "Adham Fathallah — Master Land",
+          alt: "Adham Fathallah",
         },
       ],
     },
@@ -134,7 +127,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
-    name: "Adham Fathallah — Master Land",
+    name: "Adham Fathallah",
     url: siteUrl,
     logo: `${siteUrl}/android-chrome-512x512.webp`,
     description: t("homeDescription"),
@@ -142,7 +135,11 @@ export default async function LocaleLayout({ children, params }: Props) {
       "@type": "Country",
       name: "Egypt",
     },
-    sameAs: [],
+    sameAs: [
+      LINKS.socials.instagram,
+      LINKS.socials.youtube,
+      LINKS.socials.facebook,
+    ],
   };
 
   const dir = locale === "ar" ? "rtl" : "ltr";

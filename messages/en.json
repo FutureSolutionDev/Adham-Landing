@@ -40,7 +40,7 @@
     "download": "Download App Now!",
     "consultation": "Get Free Consultation",
     "heroImageAlt": "Hero image",
-    "logoAlt": "Master Land"
+    "logoAlt": "Adham Fathallah"
   },
   "Problem": {
     "lead": "Finding a home inside a compound takes time, effort, and endless phone calls — with prices that change without notice.",
@@ -122,11 +122,17 @@
   },
   "Privacy": {
     "title": "Privacy Policy",
+    "description": "Learn how Adham Fathallah handles your personal data and protects your privacy.",
+    "lastUpdated": "Last updated",
+    "version": "Version",
     "loadError": "Unable to load privacy policy. Please try again later.",
     "notFound": "Privacy policy could not be found."
   },
   "Terms": {
     "title": "Terms of Use",
+    "description": "Read the terms and conditions for using the Adham Fathallah platform.",
+    "lastUpdated": "Last updated",
+    "version": "Version",
     "loadError": "Unable to load terms. Please try again later.",
     "notFound": "Terms of use could not be found."
   },
@@ -134,8 +140,8 @@
     "backToTop": "Back to top"
   },
   "Metadata": {
-    "siteName": "Master Land — Adham Fathallah",
-    "homeTitle": "Adham Fathallah — Find Your Ideal Property Unit with Ease | Master Land",
+    "siteName": "Adham Fathallah",
+    "homeTitle": "Adham Fathallah — Find Your Ideal Property Unit with Ease",
     "homeDescription": "Browse exclusive real-estate units in Egypt's top compounds with live prices, transparent layouts, flexible payment plans, and free expert consultation. Download the Adham Fathallah app today."
   }
 }

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { storeLinks } from "@/lib/store-links";
+import { storeLinks } from "@/lib/constants";
 
 export default async function DownloadCTA() {
   const t = await getTranslations("DownloadCTA");
@@ -8,7 +8,7 @@ export default async function DownloadCTA() {
   return (
     <section id="download" className="relative py-16">
       <div
-        id="fqa"
+        id="faq"
         className="pointer-events-none absolute left-0 top-0 h-px w-px overflow-hidden"
         aria-hidden="true"
       />
