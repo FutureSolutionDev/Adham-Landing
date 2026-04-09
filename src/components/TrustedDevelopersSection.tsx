@@ -7,7 +7,7 @@ export default async function TrustedDevelopersSection() {
   return (
     <section id="developers" className="py-16 sm:py-20">
       <div className="container">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16 overflow-hidden">
+        <div className="grid items-center  lg:grid-cols-2  overflow-hidden">
           {/* Left image */}
           <div className="flex items-center justify-center">
             <TrustedDevelopersOrbit />
@@ -15,10 +15,10 @@ export default async function TrustedDevelopersSection() {
 
           {/* Right text */}
           <div className="max-lg:text-center ">
-            <h3 className="text-2xl font-semibold text-primary sm:text-3xl">
+            <h3 className="text-2xl  font-medium text-primary sm:text-3xl">
               {t("heading")}
             </h3>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-primary sm:text-lg lg:mx-0 mx-auto">
+            <p className="mt-4 max-w-md text-base leading-relaxed font-normal text-primary sm:text-lg lg:mx-0 mx-auto">
               {t("body")}
             </p>
 

@@ -162,7 +162,7 @@ export default function TrustedDevelopersOrbit({
                 style={{ width: centerSize, height: centerSize }}
               >
                 <div className="relative h-full w-full">
-                  <Image src="/images/logo.webp" alt="AF Property" fill className="object-contain" style={{ padding: centerPad }} priority />
+                  <Image src="/logo.svg" alt="AF Property" fill  style={{ padding: centerPad }} priority />
                 </div>
               </div>
 
@@ -179,8 +179,8 @@ export default function TrustedDevelopersOrbit({
                 const p = r1[i] ?? { x: 0, y: 0 };
                 return (
                   <div key={`${d.Name}-${i}`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
-                    <div className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-white ring-1 ring-white/20" style={{ width: tileOuter, height: tileOuter }}>
-                      <Image src={d.Image} alt={d.Name} width={56} height={56} className="h-full w-full object-contain" style={{ padding: tilePad }} unoptimized />
+                    <div className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-surface" style={{ width: tileOuter, height: tileOuter }}>
+                      <Image src={d.Image} alt={d.Name} width={56} height={56} className="h-full w-full rounded-2xl object-contain" style={{ padding: tilePad }} unoptimized />
                     </div>
                   </div>
                 );
@@ -191,8 +191,8 @@ export default function TrustedDevelopersOrbit({
                 const p = r2[i] ?? { x: 0, y: 0 };
                 return (
                   <div key={`${d.Name}-${i}-mid`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
-                    <div className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-white ring-1 ring-white/20" style={{ width: tileOuter, height: tileOuter }}>
-                      <Image src={d.Image} alt={d.Name} width={56} height={56} className="h-full w-full object-contain" style={{ padding: tilePad }} unoptimized />
+                    <div className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-surface" style={{ width: tileOuter, height: tileOuter }}>
+                      <Image src={d.Image} alt={d.Name} width={56} height={56} className="h-full w-full rounded-2xl object-contain" style={{ padding: tilePad }} unoptimized />
                     </div>
                   </div>
                 );
@@ -203,8 +203,8 @@ export default function TrustedDevelopersOrbit({
                 const p = r3[i] ?? { x: 0, y: 0 };
                 return (
                   <div key={`${d.Name}-${i}-inner`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
-                    <div className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-white ring-1 ring-white/20" style={{ width: tileInner, height: tileInner }}>
-                      <Image src={d.Image} alt={d.Name} width={48} height={48} className="h-full w-full object-contain" style={{ padding: tilePad }} unoptimized />
+                    <div className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-surface" style={{ width: tileInner, height: tileInner }}>
+                      <Image src={d.Image} alt={d.Name} width={48} height={48} className="h-full w-full rounded-2xl object-contain" style={{ padding: tilePad }} unoptimized />
                     </div>
                   </div>
                 );
