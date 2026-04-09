@@ -10,7 +10,7 @@ function StepNumber({ n }: { n: number }) {
           "linear-gradient(90deg, rgba(45, 55, 72, 0.64) 26.34%, rgba(45, 55, 72, 0.24) 63.17%, rgba(45, 55, 72, 0) 100%)",
       }}
     >
-      <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-medium text-primary">
+      <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-sm font-medium text-primary">
         {n}
       </span>
     </span>
@@ -49,72 +49,78 @@ export default async function HowItWorksSection() {
       className="py-20 font-medium leading-none tracking-normal sm:py-24"
     >
       <div className="container">
-        <h2 className="text-primary">{t("heading")}</h2>
+        <h2 className="text-primary font-medium text-xl">{t("heading")}</h2>
 
         {/* Desktop zigzag layout */}
         <div className="mt-14 hidden lg:block">
           <div className="relative">
             {/* Step 1: text left, phone right */}
-            <div className="grid grid-cols-2 items-center gap-16">
+            <div className="grid grid-cols-2 items-center gap-0">
               <div className="max-w-sm">
                 <StepNumber n={1} />
-                <p className="mt-4 text-primary/80">{steps[0].text}</p>
+                <p className="mt-4 text-primary font-medium  leading-relaxed">{steps[0].text}</p>
               </div>
-              <div className="flex justify-center">
+              <div className="relative flex justify-center">
+                <div className="absolute left-1/2 top-1/2 h-[calc(100%+50px)] w-[calc(250px+150px)] -translate-x-1/2 -translate-y-1/2 bg-surface rounded-2xl" />
+
+                
                 <Image
                   src={steps[0].image}
                   alt={steps[0].imageAlt}
-                  width={320}
-                  height={640}
+                  width={250}
+                  height={420}
                   className="h-auto w-[280px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
                 />
               </div>
             </div>
 
-            {/* Connector 1: from step 1 (right) to step 2 (left) */}
-            <div className="relative my-[-40px] flex justify-center">
-              <Image
-                src="/images/vector-connector-2.webp"
-                alt=""
-                width={500}
-                height={300}
-                className={`h-auto w-[250px] ${isArabic ? "scale-x-[-1]" : ""}`}
-              />
-            </div>
+  
 
             {/* Step 2: phone left, text right */}
-            <div className="grid grid-cols-2 items-center gap-16">
-              <div className="flex justify-center">
+            <div className="grid grid-cols-2 items-center gap-0">
+              <div className="relative flex ">
+                <div className="absolute left-0 top-1/2 h-[calc(100%+50px)] w-[calc(250px+150px)] -translate-y-1/2 bg-surface rounded-2xl" />
                 <Image
                   src={steps[1].image}
                   alt={steps[1].imageAlt}
-                  width={320}
-                  height={640}
-                  className="h-auto w-[280px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
+                  width={250}
+                  height={420}
+                  className="h-auto ms-15 w-[280px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
                 />
               </div>
+              {/* Connector 1: from step 1 (right) to step 2 (left) */}
+            <div className="absolute left-[40%] top-100  -translate-y-1/2 ">
+              <Image
+                src="/images/vector-connector-2.webp"
+                alt=""
+                width={200}
+                height={300}
+                className={`h-auto w-[150px] ${isArabic ? "scale-x-[-1]" : ""}`}
+              />
+            </div>
               <div className="max-w-sm">
                 <StepNumber n={2} />
-                <p className="mt-4 text-primary/80">{steps[1].text}</p>
+                <p className="mt-4 text-primary font-medium  leading-relaxed">{steps[1].text}</p>
               </div>
             </div>
 
             {/* Connector 2: from step 2 (left) to step 3 (right) */}
-            <div className="relative my-[-40px] flex justify-center">
-              <Image
-                src="/images/vector-connector-1.webp"
-                alt=""
-                width={200}
-                height={500}
-                className={`h-auto w-[420px] ${isArabic ? "scale-x-[-1]" : ""}`}
-              />
-            </div>
+       
 
             {/* Step 3: text left, phone right */}
-            <div className="grid grid-cols-2 items-center gap-16">
+            <div className="relative grid grid-cols-2 items-center gap-16">
+                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ">
+                <Image
+                  src="/images/vector-connector-1.webp"
+                  alt=""
+                  width={200}
+                  height={300}
+                  className={`h-auto w-[350px] ${isArabic ? "scale-x-[-1]" : ""}`}
+                />
+              </div>
               <div className="max-w-sm">
                 <StepNumber n={3} />
-                <p className="mt-4 text-primary/80">{steps[2].text}</p>
+                <p className="mt-4 text-primary font-medium  leading-relaxed">{steps[2].text}</p>
                 <a
                   href="#download"
                   className="mt-6 inline-flex items-center justify-center rounded-full border border-primary/20 px-6 py-2.5 text-primary transition-colors hover:bg-primary hover:text-white"
@@ -122,15 +128,18 @@ export default async function HowItWorksSection() {
                   {t("getApp")}
                 </a>
               </div>
-              <div className="flex justify-center">
+              <div className="relative flex justify-center">
+                <div className="absolute left-1/2 top-1/2 h-[calc(100%+50px)] w-[calc(100%-240px)] -translate-x-1/2 -translate-y-1/2 bg-surface rounded-2xl" />
                 <Image
                   src={steps[2].image}
                   alt={steps[2].imageAlt}
-                  width={320}
-                  height={640}
+                  width={250}
+                  height={420}
                   className="h-auto w-[280px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
                 />
+                
               </div>
+       
             </div>
           </div>
         </div>
@@ -147,8 +156,8 @@ export default async function HowItWorksSection() {
               <Image
                 src={step.image}
                 alt={step.imageAlt}
-                width={320}
-                height={640}
+                width={250}
+                height={420}
                 className="h-auto w-[260px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
               />
               {i === 2 && (
