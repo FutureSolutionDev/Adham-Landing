@@ -31,54 +31,56 @@ export default async function ProblemSection() {
   return (
     <section className="py-20">
       <div className="container">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-20">
-          {/* Top-left text card */}
-          <div className="rounded-3xl bg-surface px-8 py-10 lg:max-w-[520px] lg:self-center">
-            <p className="text-lg leading-relaxed text-primary sm:text-xl">
-              {t("lead")}
-            </p>
-          </div>
-
-          {/* Top-right image card */}
-          <div className="relative w-full max-w-[min(100%,25rem)] justify-self-center rounded-3xl bg-white max-md:mx-auto md:max-w-none">
-            <div className="relative mx-auto aspect-square w-full md:aspect-auto md:h-100 md:w-100">
-              <Image
-                src="/images/problem-top-right.webp"
-                alt={t("topImageAlt")}
-                fill
-                priority
-                className="relative z-10 rounded-3xl object-cover"
-              />
+        <div className="flex flex-col gap-16 lg:gap-0">
+          {/* ── Row 1 ── */}
+          <div className="flex flex-col items-center gap-8 lg:flex-row lg:justify-center lg:gap-16">
+            <div className="h-fit w-full max-w-[500px] shrink-0 rounded-3xl bg-surface px-8 py-10">
+              <p className="text-lg font-medium text-primary sm:text-xl">
+                {t("lead")}
+              </p>
             </div>
-            <div className="absolute -bottom-10 left-10 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />
-          </div>
 
-          {/* Bottom-left image card */}
-          <div className="relative rounded-3xl max-md:mt-12 md:max-lg:mt-20 lg:justify-self-start max-lg:justify-self-center">
-            <div className="relative mx-auto aspect-square w-full md:aspect-auto md:h-100 md:w-100">
-              <Image
-                src="/images/problem-bottom-left.webp"
-                alt={t("bottomImageAlt")}
-                fill
-                className="relative z-10 rounded-3xl object-cover"
-              />
+            <div className="shrink-0 md:pb-10 md:ps-10">
+              <div className="relative aspect-[350/405.63] w-[min(100%,350px)] md:h-[405.63px] md:w-[350px]">
+                <Image
+                  src="/images/problem-top-right.webp"
+                  alt={t("topImageAlt")}
+                  fill
+                  priority
+                  className="relative z-10 rounded-3xl -translate-x-10  object-cover"
+                />
+                <div className="absolute -bottom-10 left-0 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />
+              </div>
             </div>
-            <div className="absolute -top-10 right-10 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />
           </div>
 
-          {/* Bottom-right checklist card */}
-          <div className="rounded-3xl bg-surface px-8 py-10 lg:justify-self-end lg:max-w-[520px]">
-            <h3 className="text-lg font-semibold text-primary sm:text-xl">
-              {t("checklistTitle")}
-            </h3>
+          {/* ── Row 2 ── */}
+          <div className="flex flex-col items-center gap-8 lg:flex-row lg:justify-center lg:gap-16">
+            <div className="shrink-0 md:pe-10 md:pt-10">
+              <div className="relative aspect-[350/405.63] w-[min(100%,350px)] md:h-[405.63px] md:w-[350px]">
+                <Image
+                  src="/images/problem-bottom-left.webp"
+                  alt={t("bottomImageAlt")}
+                  fill
+                  className="relative z-10 rounded-3xl ms-10 object-cover"
+                />
+                <div className="absolute -top-10 right-0 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />
+              </div>
+            </div>
 
-            <ul className="mt-6 space-y-3">
-              <CheckItem>{t("item1")}</CheckItem>
-              <CheckItem>{t("item2")}</CheckItem>
-              <CheckItem>{t("item3")}</CheckItem>
-            </ul>
+            <div className="h-fit w-full max-w-[500px] shrink-0 rounded-3xl bg-surface px-8 py-10">
+              <h3 className="text-lg font-semibold text-primary sm:text-xl">
+                {t("checklistTitle")}
+              </h3>
 
-            <p className="mt-6 text-xl text-primary">{t("tagline")}</p>
+              <ul className="mt-6 space-y-3">
+                <CheckItem>{t("item1")}</CheckItem>
+                <CheckItem>{t("item2")}</CheckItem>
+                <CheckItem>{t("item3")}</CheckItem>
+              </ul>
+
+              <p className="mt-6 text-xl text-primary">{t("tagline")}</p>
+            </div>
           </div>
         </div>
       </div>

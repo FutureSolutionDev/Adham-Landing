@@ -52,8 +52,8 @@ export default async function Home({ params }: Props) {
         <ProblemSection />
         <ChoosingPropertySection />
         <HowItWorksSection />
-        <TrustedDevelopersSection />
         <ProfessionalismSection stats={stats} />
+        <TrustedDevelopersSection />
         <DownloadCTA />
       </main>
       <Footer />

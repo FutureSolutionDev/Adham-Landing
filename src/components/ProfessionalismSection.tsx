@@ -91,7 +91,7 @@ function StatCard({
       <div className="text-2xl font-semibold tracking-tight text-primary">
         {formatStat(animated, format)}
       </div>
-      <div className="mt-2 text-sm text-primary">{label}</div>
+      <div className="mt-2 text-md font-normal text-primary">{label}</div>
     </div>
   );
 }
@@ -161,13 +161,13 @@ export default function ProfessionalismSection({
   }, [statsVisible]);
 
   return (
-    <section id="professionalism" className="py-16 sm:py-20">
+    <section id="consultation" className="py-16 sm:py-20">
       <div className="container">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-2xl font-semibold text-primary sm:text-3xl">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-2xl font-medium text-primary sm:text-3xl">
             {t("heading")}
           </h2>
-          <p className="mt-3 text-base leading-relaxed text-primary sm:text-lg">
+          <p className="mt-3 text-base leading-relaxed font-normal text-primary sm:text-lg">
             {t("intro")}
           </p>
         </div>
@@ -197,10 +197,10 @@ export default function ProfessionalismSection({
         <div className="mt-12 p-6 sm:p-10">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_520px] lg:gap-12">
             <div className="max-lg:text-center ">
-              <h3 className="text-lg font-semibold text-primary sm:text-xl">
+              <h3 className="text-lg font-medium text-primary sm:text-xl">
                 {content.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-primary sm:text-base">
+              <p className="mt-3 text-sm leading-relaxed max-w-md max-lg:mx-auto font-normal text-primary sm:text-base">
                 {content.body}
               </p>
             </div>
@@ -229,22 +229,22 @@ export default function ProfessionalismSection({
 
           <div
             ref={statsRef}
-            className="mt-8 grid gap-4 sm:grid-cols-3 sm:gap-6"
+            className="mt-8 grid gap-4 sm:grid-cols-3 sm:gap-6 "
           >
             <StatCard
-              end={stats?.clients ?? 4800}
+              end={4800}
               format="kPlus1Decimal"
               label={t("statClients")}
               enabled={statsVisible}
             />
             <StatCard
-              end={stats?.units ?? 862}
+              end={862}
               format="plusInt"
               label={t("statUnits")}
               enabled={statsVisible}
             />
             <StatCard
-              end={stats?.cities ?? 7}
+              end={7}
               format="int"
               label={t("statCities")}
               enabled={statsVisible}
