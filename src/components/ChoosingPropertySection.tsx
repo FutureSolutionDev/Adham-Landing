@@ -9,10 +9,10 @@ type Feature = {
 function FeatureBlock({ title, body }: Feature) {
   return (
     <div className="max-w-sm">
-      <h3 className="text-base font-semibold tracking-tight text-primary sm:text-lg">
+      <h3 className="text-base  font-medium text-primary sm:text-lg">
         {title}
       </h3>
-      <p className="mt-2 text-sm w-60 leading-relaxed text-primary/60 sm:text-base">
+      <p className="mt-2 text-sm w-58  font-normal text-primary sm:text-base">
         {body}
       </p>
     </div>
@@ -89,39 +89,36 @@ export default async function ChoosingPropertySection() {
             </div>
           </div>
 
-          {/* Desktop (grid layout to prevent overlap) */}
-          <div className="hidden lg:grid lg:grid-cols-[1fr_460px_1fr] lg:items-center lg:gap-10">
-            <div className="flex h-[420px] flex-col items-end justify-between pt-10 pb-10 ">
-              <div className="max-w-[280px]">
-                <FeatureBlock {...left[0]} />
-              </div>
-              <div className="max-w-[280px]">
-                <FeatureBlock {...left[1]} />
-              </div>
+          {/* Desktop */}
+          <div className="relative hidden h-[520px] lg:block">
+            {/* Left – top */}
+            <div className="absolute top-[5%] xl:top-0 lg:left-40 xl:left-0 max-w-[260px]">
+              <FeatureBlock {...left[0]} />
+            </div>
+            {/* Left – bottom */}
+            <div className="absolute top-[56%] lg:left-40 xl:left-0 max-w-[260px]">
+              <FeatureBlock {...left[1]} />
             </div>
 
-            <div className="flex justify-center">
-              <div className="relative h-[460px] w-[460px]">
-                <div className="absolute inset-0 z-10 flex items-center justify-center">
-                  <Image
-                    src="/images/phone-mockup.webp"
-                    alt={t("phoneAlt")}
-                    width={520}
-                    height={980}
-                    className="h-auto w-[300px] "
-                    priority
-                  />
-                </div>
-              </div>
+            {/* Centre phone */}
+            <div className="absolute inset-0 z-10 flex items-center justify-center">
+              <Image
+                src="/images/phone-mockup.webp"
+                alt={t("phoneAlt")}
+                width={520}
+                height={980}
+                className="h-auto w-[260px]"
+                priority
+              />
             </div>
 
-            <div className="flex h-[420px] flex-col items-start justify-between pt-10 pb-10 ">
-              <div className="max-w-[280px]">
-                <FeatureBlock {...right[0]} />
-              </div>
-              <div className="max-w-[280px]">
-                <FeatureBlock {...right[1]} />
-              </div>
+            {/* Right – top */}
+            <div className="absolute top-[30%] xl:top-[10%] lg:right-50 xl:right-0 max-w-[260px]">
+              <FeatureBlock {...right[0]} />
+            </div>
+            {/* Right – bottom */}
+            <div className="absolute top-[75%] lg:right-50 xl:right-0 max-w-[260px]">
+              <FeatureBlock {...right[1]} />
             </div>
           </div>
         </div>
