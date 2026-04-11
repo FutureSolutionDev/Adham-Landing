@@ -70,7 +70,7 @@ export default async function HowItWorksSection() {
                   width={250}
                   height={420}
                   sizes="280px"
-                  className="h-auto w-[280px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
+                  className="relative z-10 h-auto w-[280px]"
                 />
               </div>
             </div>
@@ -87,7 +87,7 @@ export default async function HowItWorksSection() {
                   width={250}
                   height={420}
                   sizes="280px"
-                  className="h-auto ms-15 w-[280px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
+                  className="relative z-10 h-auto ms-15 w-[280px] "
                 />
               </div>
               {/* Connector 1: from step 1 (right) to step 2 (left) */}
@@ -140,7 +140,7 @@ export default async function HowItWorksSection() {
                   width={250}
                   height={420}
                   sizes="280px"
-                  className="h-auto w-[280px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
+                  className="relative z-10 h-auto w-[280px]"
                 />
                 
               </div>
@@ -164,7 +164,7 @@ export default async function HowItWorksSection() {
                 width={250}
                 height={420}
                 sizes="260px"
-                className="h-auto w-[260px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
+                className="relative z-10 h-auto w-[260px]"
               />
               {i === 2 && (
                 <a
