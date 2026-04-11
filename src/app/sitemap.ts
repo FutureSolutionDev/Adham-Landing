@@ -1,9 +1,8 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
+import { getSiteUrl } from "@/lib/constants";
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000")
-  .trim()
-  .replace(/\/+$/, "");
+const siteUrl = getSiteUrl();
 
 const PATHS = ["/", "/contact", "/faq", "/privacy", "/terms"] as const;
 

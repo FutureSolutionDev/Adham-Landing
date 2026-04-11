@@ -23,17 +23,21 @@ function computeRingPositions(count: number, radius: number, angleOffsetRad = 0)
 export default function TrustedDevelopersOrbit({
   fallbackSrc = "/images/trusted-developers.webp",
   intervalMs = 15000,
+  initialDevsByCity,
 }: {
   fallbackSrc?: string;
   intervalMs?: number;
+  initialDevsByCity?: Record<string, DevLogo[]>;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  // null = not measured yet; avoids the 520px-overflow flash on first render.
   const [scale, setScale] = useState<number | null>(null);
 
-  const [devsByCity, setDevsByCity] = useState<Record<string, DevLogo[]>>({});
+  const hasServerData = initialDevsByCity && Object.keys(initialDevsByCity).length > 0;
+  const [devsByCity, setDevsByCity] = useState<Record<string, DevLogo[]>>(
+    initialDevsByCity ?? {},
+  );
   const [cityIdx, setCityIdx] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!hasServerData);
 
   useEffect(() => {
     const el = wrapperRef.current;
@@ -49,6 +53,7 @@ export default function TrustedDevelopersOrbit({
   }, []);
 
   useEffect(() => {
+    if (hasServerData) return;
     let cancelled = false;
     async function load() {
       try {
@@ -65,7 +70,7 @@ export default function TrustedDevelopersOrbit({
     }
     load();
     return () => { cancelled = true; };
-  }, []);
+  }, [hasServerData]);
 
   const cities = useMemo(() => Object.keys(devsByCity), [devsByCity]);
   const currentCity = cities.length ? cities[cityIdx % cities.length] : null;
@@ -128,7 +133,7 @@ export default function TrustedDevelopersOrbit({
 
       ) : !cities.length || logos.length === 0 ? (
         /* ── Fallback image ────────────────────────────────────── */
-        <Image src={fallbackSrc} alt="" width={720} height={720} className="h-auto w-full" priority />
+        <Image src={fallbackSrc} alt="" width={720} height={720} sizes="(min-width: 640px) 520px, 100vw" className="h-auto w-full" />
 
       ) : (
         /* ── Orbit canvas ──────────────────────────────────────── */
@@ -147,11 +152,6 @@ export default function TrustedDevelopersOrbit({
 
           return (
             <div className="relative mx-auto rounded-full" style={{ width: size, height: size }}>
-              <style>{`
-                @keyframes orbitRotate        { from { transform: rotate(0deg);   } to { transform: rotate(360deg);  } }
-                @keyframes orbitRotateReverse { from { transform: rotate(0deg);   } to { transform: rotate(-360deg); } }
-              `}</style>
-
               <div className="absolute inset-[4%] rounded-full border border-[#F2F2F2]"  style={{ animation: "orbitRotate 28s linear infinite" }} />
               <div className="absolute inset-[16%] rounded-full border border-[#F2F2F2]" style={{ animation: "orbitRotateReverse 22s linear infinite" }} />
               <div className="absolute inset-[28%] rounded-full border border-[#F2F2F2]" style={{ animation: "orbitRotate 18s linear infinite" }} />

@@ -76,8 +76,8 @@ export default async function ChoosingPropertySection() {
                     alt={t("phoneAlt")}
                     width={420}
                     height={820}
+                    sizes="230px"
                     className="h-auto w-[230px] -rotate-12 drop-shadow-[0_24px_50px_rgba(0,0,0,0.16)]"
-                    priority
                   />
                 </div>
               </div>
@@ -107,8 +107,8 @@ export default async function ChoosingPropertySection() {
                 alt={t("phoneAlt")}
                 width={520}
                 height={980}
+                sizes="260px"
                 className="h-auto w-[260px]"
-                priority
               />
             </div>
 

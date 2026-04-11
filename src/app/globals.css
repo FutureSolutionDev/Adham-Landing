@@ -30,3 +30,13 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
 }
+
+@keyframes orbitRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbitRotateReverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}

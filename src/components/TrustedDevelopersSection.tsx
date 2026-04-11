@@ -1,7 +1,13 @@
 import { getTranslations } from "next-intl/server";
 import TrustedDevelopersOrbit from "@/components/TrustedDevelopersOrbit";
 
-export default async function TrustedDevelopersSection() {
+type DevLogo = { Name: string; Image: string };
+
+export default async function TrustedDevelopersSection({
+  initialDevsByCity,
+}: {
+  initialDevsByCity?: Record<string, DevLogo[]>;
+}) {
   const t = await getTranslations("TrustedDevelopers");
 
   return (
@@ -10,7 +16,7 @@ export default async function TrustedDevelopersSection() {
         <div className="grid items-center  lg:grid-cols-2  overflow-hidden">
           {/* Left image */}
           <div className="flex items-center justify-center">
-            <TrustedDevelopersOrbit />
+            <TrustedDevelopersOrbit initialDevsByCity={initialDevsByCity} />
           </div>
 
           {/* Right text */}

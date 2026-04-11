@@ -46,7 +46,7 @@ export default async function ProblemSection() {
                   src="/images/problem-top-right.webp"
                   alt={t("topImageAlt")}
                   fill
-                  priority
+                  sizes="(min-width: 768px) 350px, min(100%, 350px)"
                   className="relative z-10 rounded-3xl -translate-x-10  object-cover"
                 />
                 <div className="absolute -bottom-10 left-0 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />
@@ -62,6 +62,7 @@ export default async function ProblemSection() {
                   src="/images/problem-bottom-left.webp"
                   alt={t("bottomImageAlt")}
                   fill
+                  sizes="(min-width: 768px) 350px, min(100%, 350px)"
                   className="relative z-10 rounded-3xl ms-10 object-cover"
                 />
                 <div className="absolute -top-10 right-0 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />

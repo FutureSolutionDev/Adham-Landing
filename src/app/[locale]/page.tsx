@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import ProblemSection from "@/components/ProblemSection";
-import ChoosingPropertySection from "@/components/ChoosingPropertySection";
-import HowItWorksSection from "@/components/HowItWorksSection";
-import TrustedDevelopersSection from "@/components/TrustedDevelopersSection";
-import ProfessionalismSection from "@/components/ProfessionalismSection";
-import DownloadCTA from "@/components/DownloadCTA";
-import Footer from "@/components/Footer";
 import { getStats } from "@/lib/api/adham";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+
+const ProblemSection = dynamic(() => import("@/components/ProblemSection"));
+const ChoosingPropertySection = dynamic(() => import("@/components/ChoosingPropertySection"));
+const HowItWorksSection = dynamic(() => import("@/components/HowItWorksSection"));
+const ProfessionalismSection = dynamic(() => import("@/components/ProfessionalismSection"));
+const TrustedDevelopersSection = dynamic(() => import("@/components/TrustedDevelopersSection"));
+const DownloadCTA = dynamic(() => import("@/components/DownloadCTA"));
+const Footer = dynamic(() => import("@/components/Footer"));
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -33,6 +35,7 @@ export default async function Home({ params }: Props) {
   setRequestLocale(locale);
 
   let stats: { clients: number; units: number; cities: number } | undefined;
+  let devsByCity: Record<string, { Name: string; Image: string }[]> | undefined;
   try {
     const res = await getStats();
     stats = {
@@ -40,6 +43,7 @@ export default async function Home({ params }: Props) {
       units: res.data.Stats.Units,
       cities: res.data.Stats.City,
     };
+    devsByCity = res.data.Devs;
   } catch {
     /* falls back to defaults inside ProfessionalismSection */
   }
@@ -53,7 +57,7 @@ export default async function Home({ params }: Props) {
         <ChoosingPropertySection />
         <HowItWorksSection />
         <ProfessionalismSection stats={stats} />
-        <TrustedDevelopersSection />
+        <TrustedDevelopersSection initialDevsByCity={devsByCity} />
         <DownloadCTA />
       </main>
       <Footer />

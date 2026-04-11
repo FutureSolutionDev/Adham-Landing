@@ -4,7 +4,7 @@ import FaqAccordion from "@/components/faq/FaqAccordion";
 import { getFaqContacts } from "@/lib/api/adham";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 type Props = {
   params: Promise<{ locale: string }>;

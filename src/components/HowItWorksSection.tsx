@@ -69,6 +69,7 @@ export default async function HowItWorksSection() {
                   alt={steps[0].imageAlt}
                   width={250}
                   height={420}
+                  sizes="280px"
                   className="h-auto w-[280px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
                 />
               </div>
@@ -85,6 +86,7 @@ export default async function HowItWorksSection() {
                   alt={steps[1].imageAlt}
                   width={250}
                   height={420}
+                  sizes="280px"
                   className="h-auto ms-15 w-[280px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
                 />
               </div>
@@ -95,6 +97,7 @@ export default async function HowItWorksSection() {
                 alt=""
                 width={200}
                 height={300}
+                sizes="150px"
                 className={`h-auto w-[150px] ${isArabic ? "scale-x-[-1]" : ""}`}
               />
             </div>
@@ -115,6 +118,7 @@ export default async function HowItWorksSection() {
                   alt=""
                   width={200}
                   height={300}
+                  sizes="350px"
                   className={`h-auto w-[350px] ${isArabic ? "scale-x-[-1]" : ""}`}
                 />
               </div>
@@ -135,6 +139,7 @@ export default async function HowItWorksSection() {
                   alt={steps[2].imageAlt}
                   width={250}
                   height={420}
+                  sizes="280px"
                   className="h-auto w-[280px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
                 />
                 
@@ -158,6 +163,7 @@ export default async function HowItWorksSection() {
                 alt={step.imageAlt}
                 width={250}
                 height={420}
+                sizes="260px"
                 className="h-auto w-[260px] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
               />
               {i === 2 && (

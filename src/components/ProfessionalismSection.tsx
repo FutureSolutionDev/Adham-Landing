@@ -214,7 +214,6 @@ export default function ProfessionalismSection({
                     fill
                     className="object-cover"
                     sizes="(min-width: 1024px) 520px, 90vw"
-                    priority
                   />
                 </div>
               </div>

@@ -1,5 +1,12 @@
 export type SupportedLocale = "en" | "ar";
 
+/** Public site origin for metadata, sitemap, robots, JSON-LD (no trailing slash). */
+export const SITE_URL = "https://adham-land.futuresolutionsdev.com" as const;
+
+export function getSiteUrl(): string {
+  return SITE_URL.replace(/\/+$/, "");
+}
+
 export const storeLinks = {
   googlePlay: "https://play.google.com",
   appStore: "https://apps.apple.com",

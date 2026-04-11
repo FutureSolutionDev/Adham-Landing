@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import BackToTop from "@/components/BackToTop";
 import { routing } from "@/i18n/routing";
-import { LINKS, SEO } from "@/lib/constants";
+import { getSiteUrl, LINKS, SEO } from "@/lib/constants";
 import "../globals.css";
 
 const inter = Inter({
@@ -16,7 +16,7 @@ const inter = Inter({
 });
 
 const tajawal = Tajawal({
-  weight: ["200", "300", "400", "500", "700", "800", "900"],
+  weight: ["400", "500", "700"],
   subsets: ["arabic", "latin"],
   display: "swap",
   variable: "--font-tajawal",
@@ -29,8 +29,7 @@ const ibmPlexArabic = IBM_Plex_Sans_Arabic({
   variable: "--font-ibm-plex-arabic",
 });
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const siteUrl = getSiteUrl();
 
 type Props = {
   children: ReactNode;
@@ -69,20 +68,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       url: "/",
-      images: [
-        {
-          url: "/android-chrome-512x512.webp",
-          width: 512,
-          height: 512,
-          alt: "Adham Fathallah",
-        },
-      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/android-chrome-512x512.webp"],
     },
     robots: {
       index: true,
@@ -159,6 +149,10 @@ export default async function LocaleLayout({ children, params }: Props) {
       suppressHydrationWarning
     >
       <head>
+        <link rel="dns-prefetch" href="https://master-cdn.futuresolutionsdev.com" />
+        <link rel="preconnect" href="https://master-cdn.futuresolutionsdev.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://adham.futuresolutionsdev.com" />
+        <link rel="preconnect" href="https://adham.futuresolutionsdev.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

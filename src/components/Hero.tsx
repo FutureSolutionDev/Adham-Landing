@@ -19,6 +19,8 @@ export default async function Hero() {
           alt=""
           width={1200}
           height={150}
+          sizes="80vw"
+          priority
           className="h-full w-full"
         />
       </div>
@@ -28,6 +30,7 @@ export default async function Hero() {
           alt=""
           width={900}
           height={600}
+          sizes="80vw"
           className="h-full w-full"
         />
       </div>
@@ -37,6 +40,7 @@ export default async function Hero() {
           alt=""
           width={900}
           height={600}
+          sizes="20vw"
           className="h-full w-full"
         />
       </div>
@@ -98,6 +102,7 @@ export default async function Hero() {
             alt={t("heroImageAlt")}
             width={500}
             height={500}
+            sizes="(min-width: 1024px) 500px, (min-width: 640px) 440px, 340px"
             className="h-auto w-[340px] sm:w-[440px]  lg:w-[500px]"
             priority
           />
