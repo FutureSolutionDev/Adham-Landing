@@ -3,14 +3,10 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-const BASE = 520;
+const BASE = 700;
 
 type DevLogo = { Name: string; Image: string };
 type StatsPayload = { data?: { Devs?: Record<string, DevLogo[]> } };
-
-function clampLogos(logos: DevLogo[], max: number) {
-  return logos.slice(0, Math.max(0, max));
-}
 
 function computeRingPositions(count: number, radius: number, angleOffsetRad = 0) {
   if (count <= 0) return [];
@@ -19,6 +15,14 @@ function computeRingPositions(count: number, radius: number, angleOffsetRad = 0)
     return { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius };
   });
 }
+
+const RINGS = [
+  { max: 4, radius: 325, offset: 0.3,  tile: 62 },
+  { max: 2, radius: 265, offset: -0.4, tile: 58 },
+  { max: 2, radius: 200, offset: 0.6,  tile: 54 },
+  { max: 2, radius: 145, offset: -0.2, tile: 50 },
+  { max: 2, radius: 105, offset: 0.8,  tile: 46 },
+] as const;
 
 export default function TrustedDevelopersOrbit({
   fallbackSrc = "/images/trusted-developers.webp",
@@ -85,129 +89,93 @@ export default function TrustedDevelopersOrbit({
     return () => window.clearInterval(id);
   }, [cities.length, intervalMs]);
 
-  const ring1 = clampLogos(logos, 12);
-  const ring2 = clampLogos(logos.slice(12), 8);
-  const ring3 = clampLogos(logos.slice(20), 6);
+  const ringLogos = useMemo(() => {
+    let idx = 0;
+    return RINGS.map((cfg) => {
+      const slice = logos.slice(idx, idx + cfg.max);
+      idx += cfg.max;
+      return slice;
+    });
+  }, [logos]);
 
   return (
-    // w-full on all screens, capped at 520px on sm+
-    <div ref={wrapperRef} className="w-full sm:max-w-[520px]">
+    <div ref={wrapperRef} className="w-full sm:max-w-[700px]">
 
-      {/* Pure-CSS placeholder shown before the container is measured.
-          Uses aspect-ratio so it never overflows. */}
       {scale === null ? (
         <div className="w-full animate-pulse rounded-full bg-[#F2F2F2]" style={{ aspectRatio: "1 / 1" }} />
 
       ) : loading ? (
-        /* ── Skeleton (scale is known, data still loading) ─────── */
         (() => {
           const s = scale;
           const size = Math.round(BASE * s);
           return (
             <div className="relative mx-auto animate-pulse rounded-full" style={{ width: size, height: size }}>
-              <div className="absolute inset-[4%] rounded-full border border-[#F2F2F2]" />
-              <div className="absolute inset-[16%] rounded-full border border-[#F2F2F2]" />
-              <div className="absolute inset-[28%] rounded-full border border-[#F2F2F2]" />
+              <div className="absolute inset-[2%] rounded-full border-[1.5px] border-[#EBEBEB]" />
+              <div className="absolute inset-[12%] rounded-full border-[1.5px] border-[#EBEBEB]" />
+              <div className="absolute inset-[22%] rounded-full border-[1.5px] border-[#EBEBEB]" />
+              <div className="absolute inset-[32%] rounded-full border-[1.5px] border-[#EBEBEB]" />
+              <div className="absolute inset-[42%] rounded-full border-[1.5px] border-[#EBEBEB]" />
               <div
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F2F2F2]"
-                style={{ width: Math.round(112 * s), height: Math.round(112 * s) }}
+                style={{ width: Math.round(140 * s), height: Math.round(140 * s) }}
               />
-              {computeRingPositions(12, 230 * s, 0.25).map((p, i) => (
-                <div key={`sk1-${i}`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
-                  <div className="-translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white/10" style={{ width: Math.round(56 * s), height: Math.round(56 * s) }} />
-                </div>
-              ))}
-              {computeRingPositions(8, 160 * s, -0.15).map((p, i) => (
-                <div key={`sk2-${i}`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
-                  <div className="-translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white/10" style={{ width: Math.round(56 * s), height: Math.round(56 * s) }} />
-                </div>
-              ))}
-              {computeRingPositions(6, 105 * s, 0.05).map((p, i) => (
-                <div key={`sk3-${i}`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
-                  <div className="-translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white/10" style={{ width: Math.round(48 * s), height: Math.round(48 * s) }} />
-                </div>
-              ))}
+              {RINGS.map((cfg, ri) =>
+                computeRingPositions(cfg.max, cfg.radius * s, cfg.offset).map((p, i) => (
+                  <div key={`sk-${ri}-${i}`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
+                    <div className="-translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white/10" style={{ width: Math.round(cfg.tile * s), height: Math.round(cfg.tile * s) }} />
+                  </div>
+                ))
+              )}
             </div>
           );
         })()
 
       ) : !cities.length || logos.length === 0 ? (
-        /* ── Fallback image ────────────────────────────────────── */
-        <Image src={fallbackSrc} alt="" width={720} height={720} sizes="(min-width: 640px) 520px, 100vw" className="h-auto w-full" />
+        <Image src={fallbackSrc} alt="" width={720} height={720} sizes="(min-width: 640px) 700px, 100vw" className="h-auto w-full" />
 
       ) : (
-        /* ── Orbit canvas ──────────────────────────────────────── */
         (() => {
           const s = scale;
           const size       = Math.round(BASE * s);
-          const r1         = computeRingPositions(ring1.length, 220 * s, 0.25);
-          const r2         = computeRingPositions(ring2.length, 155 * s, -0.15);
-          const r3         = computeRingPositions(ring3.length, 105 * s, 0.05);
-          const tileOuter  = Math.round(56 * s);
-          const tileInner  = Math.round(48 * s);
+          const centerSize = Math.round(140 * s);
+          const centerPad  = Math.max(12, Math.round(28 * s));
           const tilePad    = Math.max(4, Math.round(8 * s));
-          const centerSize = Math.round(112 * s);
-          const centerPad  = Math.max(8, Math.round(24 * s));
-          const cityOffset = Math.max(32, Math.round(80 * s));
 
           return (
             <div className="relative mx-auto rounded-full" style={{ width: size, height: size }}>
-              <div className="absolute inset-[4%] rounded-full border border-[#F2F2F2]"  style={{ animation: "orbitRotate 28s linear infinite" }} />
-              <div className="absolute inset-[16%] rounded-full border border-[#F2F2F2]" style={{ animation: "orbitRotateReverse 22s linear infinite" }} />
-              <div className="absolute inset-[28%] rounded-full border border-[#F2F2F2]" style={{ animation: "orbitRotate 18s linear infinite" }} />
+              {/* 5 orbit ring outlines */}
+              <div className="absolute inset-[2%] rounded-full border-[1.5px] border-[#EBEBEB]"  style={{ animation: "orbitRotate 30s linear infinite" }} />
+              <div className="absolute inset-[12%] rounded-full border-[1.5px] border-[#EBEBEB]" style={{ animation: "orbitRotateReverse 26s linear infinite" }} />
+              <div className="absolute inset-[22%] rounded-full border-[1.5px] border-[#EBEBEB]" style={{ animation: "orbitRotate 22s linear infinite" }} />
+              <div className="absolute inset-[32%] rounded-full border-[1.5px] border-[#EBEBEB]" style={{ animation: "orbitRotateReverse 18s linear infinite" }} />
+              <div className="absolute inset-[42%] rounded-full border-[1.5px] border-[#EBEBEB]" style={{ animation: "orbitRotate 14s linear infinite" }} />
 
-              {/* Center logo */}
+              {/* Center circle with logo */}
               <div
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-surface"
                 style={{ width: centerSize, height: centerSize }}
               >
                 <div className="relative h-full w-full">
-                  <Image src="/logo.svg" alt="AF Property" fill  style={{ padding: centerPad }} priority />
+                  <Image src="/logo.svg" alt="AF Property" fill style={{ padding: centerPad }} priority />
                 </div>
               </div>
 
-              {/* City label */}
-              <div
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide text-white/85 ring-1 ring-white/15"
-                style={{ marginTop: cityOffset }}
-              >
-                {currentCity}
-              </div>
+              {/* 5 rings — 2 individual logo tiles per ring */}
+              {RINGS.map((cfg, ri) => {
+                const items = ringLogos[ri] ?? [];
+                const positions = computeRingPositions(items.length, cfg.radius * s, cfg.offset);
+                const tileSize = Math.round(cfg.tile * s);
 
-              {/* Ring 1 – outer */}
-              {ring1.map((d, i) => {
-                const p = r1[i] ?? { x: 0, y: 0 };
-                return (
-                  <div key={`${d.Name}-${i}`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
-                    <div className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-surface" style={{ width: tileOuter, height: tileOuter }}>
-                      <Image src={d.Image} alt={d.Name} width={56} height={56} className="h-full w-full rounded-2xl object-contain" style={{ padding: tilePad }} unoptimized />
+                return items.map((d, i) => {
+                  const p = positions[i] ?? { x: 0, y: 0 };
+                  return (
+                    <div key={`r${ri}-${d.Name}-${i}`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
+                      <div className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-surface shadow-sm" style={{ width: tileSize, height: tileSize }}>
+                        <Image src={d.Image} alt={d.Name} width={cfg.tile} height={cfg.tile} className="h-full w-full rounded-2xl object-contain" style={{ padding: tilePad }} unoptimized />
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-
-              {/* Ring 2 – middle */}
-              {ring2.map((d, i) => {
-                const p = r2[i] ?? { x: 0, y: 0 };
-                return (
-                  <div key={`${d.Name}-${i}-mid`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
-                    <div className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-surface" style={{ width: tileOuter, height: tileOuter }}>
-                      <Image src={d.Image} alt={d.Name} width={56} height={56} className="h-full w-full rounded-2xl object-contain" style={{ padding: tilePad }} unoptimized />
-                    </div>
-                  </div>
-                );
-              })}
-
-              {/* Ring 3 – inner */}
-              {ring3.map((d, i) => {
-                const p = r3[i] ?? { x: 0, y: 0 };
-                return (
-                  <div key={`${d.Name}-${i}-inner`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
-                    <div className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-surface" style={{ width: tileInner, height: tileInner }}>
-                      <Image src={d.Image} alt={d.Name} width={48} height={48} className="h-full w-full rounded-2xl object-contain" style={{ padding: tilePad }} unoptimized />
-                    </div>
-                  </div>
-                );
+                  );
+                });
               })}
             </div>
           );
