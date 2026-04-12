@@ -105,8 +105,17 @@ export async function getFaqContacts(): Promise<FaqContactsResponse> {
   return fetchJson<FaqContactsResponse>("/api/v3/app/faq-contacts");
 }
 
+/** Live stats — not cached so values match the upstream API on each request. */
 export async function getStats(): Promise<StatsResponse> {
-  return fetchJson<StatsResponse>("/api/v3/app/stats");
+  const url = `${ADHAM_API_BASE}/api/v3/app/stats`;
+  const res = await fetch(url, {
+    cache: "no-store",
+    headers: { accept: "application/json" },
+  });
+  if (!res.ok) {
+    throw new Error(`API /api/v3/app/stats failed: ${res.status}`);
+  }
+  return res.json() as Promise<StatsResponse>;
 }
 
 export function findLegalSection(

@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import ProfessionalismSection from "@/components/ProfessionalismSection";
+import TrustedDevelopersSection from "@/components/TrustedDevelopersSection";
 import { getStats } from "@/lib/api/adham";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-const ProblemSection = dynamic(() => import("@/components/ProblemSection"));
-const ChoosingPropertySection = dynamic(() => import("@/components/ChoosingPropertySection"));
-const HowItWorksSection = dynamic(() => import("@/components/HowItWorksSection"));
-const ProfessionalismSection = dynamic(() => import("@/components/ProfessionalismSection"));
-const TrustedDevelopersSection = dynamic(() => import("@/components/TrustedDevelopersSection"));
-const DownloadCTA = dynamic(() => import("@/components/DownloadCTA"));
-const Footer = dynamic(() => import("@/components/Footer"));
+const ProblemSection = nextDynamic(() => import("@/components/ProblemSection"));
+const ChoosingPropertySection = nextDynamic(
+  () => import("@/components/ChoosingPropertySection"),
+);
+const HowItWorksSection = nextDynamic(() => import("@/components/HowItWorksSection"));
+const DownloadCTA = nextDynamic(() => import("@/components/DownloadCTA"));
+const Footer = nextDynamic(() => import("@/components/Footer"));
+
+/** Home loads fresh stats from the API each time (not a static snapshot). */
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -34,18 +39,12 @@ export default async function Home({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  let stats: { clients: number; units: number; cities: number } | undefined;
   let devsByCity: Record<string, { Name: string; Image: string }[]> | undefined;
   try {
     const res = await getStats();
-    stats = {
-      clients: res.data.Stats.Client,
-      units: res.data.Stats.Units,
-      cities: res.data.Stats.City,
-    };
     devsByCity = res.data.Devs;
   } catch {
-    /* falls back to defaults inside ProfessionalismSection */
+    /* TrustedDevelopersSection can load without initial data */
   }
 
   return (
@@ -56,7 +55,7 @@ export default async function Home({ params }: Props) {
         <ProblemSection />
         <ChoosingPropertySection />
         <HowItWorksSection />
-        <ProfessionalismSection stats={stats} />
+        <ProfessionalismSection />
         <TrustedDevelopersSection initialDevsByCity={devsByCity} />
         <DownloadCTA />
       </main>

@@ -70,26 +70,46 @@ function useCountUp({
 
 function StatCard({
   label,
-  end,
+  value,
   format,
   enabled,
 }: {
   label: string;
-  end: number;
+  value: number | null;
   format: StatFormat;
   enabled: boolean;
 }) {
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   const animated = useCountUp({
     start: 0,
-    end,
+    end: value ?? 0,
     durationMs: 900,
-    enabled,
+    enabled: hasMounted && enabled && value !== null,
   });
+
+  if (value === null) {
+    return (
+      <div className="rounded-2xl bg-surface px-6 py-6 text-center">
+        <div className="text-2xl font-semibold tracking-tight text-primary/45">
+          —
+        </div>
+        <div className="mt-2 text-md font-normal text-primary">{label}</div>
+      </div>
+    );
+  }
+
+  /** Match SSR/first paint: never use `animated` until mounted; then prefer final value until count-up runs. */
+  const shown =
+    !hasMounted || !enabled ? value : animated;
 
   return (
     <div className="rounded-2xl bg-surface px-6 py-6 text-center">
       <div className="text-2xl font-semibold tracking-tight text-primary">
-        {formatStat(animated, format)}
+        {formatStat(shown, format)}
       </div>
       <div className="mt-2 text-md font-normal text-primary">{label}</div>
     </div>
@@ -98,15 +118,44 @@ function StatCard({
 
 type Stats = { clients: number; units: number; cities: number };
 
-export default function ProfessionalismSection({
-  stats,
-}: {
-  stats?: Stats;
-}) {
+function formatForClientCount(value: number): StatFormat {
+  return value >= 1000 ? "kPlus1Decimal" : "plusInt";
+}
+
+type StatsApiPayload = {
+  data?: { Stats?: { Client: number; Units: number; City: number } };
+};
+
+export default function ProfessionalismSection() {
   const t = useTranslations("Professionalism");
   const [active, setActive] = useState<TabKey>("sales");
   const statsRef = useRef<HTMLDivElement | null>(null);
   const [statsVisible, setStatsVisible] = useState(false);
+  const [liveStats, setLiveStats] = useState<Stats | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/stats", { cache: "no-store" })
+      .then((r) => {
+        if (!r.ok) throw new Error(String(r.status));
+        return r.json();
+      })
+      .then((json: StatsApiPayload) => {
+        const s = json?.data?.Stats;
+        if (cancelled || !s) return;
+        setLiveStats({
+          clients: s.Client,
+          units: s.Units,
+          cities: s.City,
+        });
+      })
+      .catch(() => {
+        if (!cancelled) setLiveStats(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const tabs: { key: TabKey; label: string }[] = [
     { key: "sales", label: t("tabSales") },
@@ -139,6 +188,10 @@ export default function ProfessionalismSection({
   };
 
   const content = contentByTab[active];
+
+  const clients = liveStats?.clients ?? null;
+  const units = liveStats?.units ?? null;
+  const cities = liveStats?.cities ?? null;
 
   useEffect(() => {
     const el = statsRef.current;
@@ -195,8 +248,8 @@ export default function ProfessionalismSection({
         </div>
 
         <div className="mt-12 p-6 sm:p-10">
-          <div className="grid items-center gap-8 lg:grid-cols-[1fr_520px] lg:gap-12">
-            <div className="max-lg:text-center ">
+          <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-0">
+            <div className="max-lg:text-center flex flex-col justify-center h-full">
               <h3 className="text-lg font-medium text-primary sm:text-xl">
                 {content.title}
               </h3>
@@ -206,14 +259,13 @@ export default function ProfessionalismSection({
             </div>
 
             <div className="flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-[520px] overflow-hidden rounded-3xl bg-white shadow-[0_18px_55px_rgba(0,0,0,0.08)]">
-                <div className="relative aspect-16/10 w-full">
+              <div className="relative w-full max-w-[620px] overflow-hidden rounded-3xl">
+                <div className="relative w-full h-[420px] ">
                   <Image
                     src={content.imageSrc}
                     alt={content.imageAlt}
                     fill
                     className="object-cover"
-                    sizes="(min-width: 1024px) 520px, 90vw"
                   />
                 </div>
               </div>
@@ -231,19 +283,21 @@ export default function ProfessionalismSection({
             className="mt-8 grid gap-4 sm:grid-cols-3 sm:gap-6 "
           >
             <StatCard
-              end={4800}
-              format="kPlus1Decimal"
+              value={clients}
+              format={
+                clients === null ? "plusInt" : formatForClientCount(clients)
+              }
               label={t("statClients")}
               enabled={statsVisible}
             />
             <StatCard
-              end={862}
+              value={units}
               format="plusInt"
               label={t("statUnits")}
               enabled={statsVisible}
             />
             <StatCard
-              end={7}
+              value={cities}
               format="int"
               label={t("statCities")}
               enabled={statsVisible}
