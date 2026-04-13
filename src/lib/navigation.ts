@@ -18,8 +18,6 @@ export const navbarLinks = [
   { labelKey: "features" as const, href: "/#features" },
   { labelKey: "howItWork" as const, href: "/#how-it-works" },
   { labelKey: "developers" as const, href: "/#developers" },
-  { labelKey: "faq" as const, href: legalRoutes.faq },
-  { labelKey: "contact" as const, href: legalRoutes.contact },
 ] as const;
 
 /** FAQ & Contact appear in the footer only (not in the main navbar). */

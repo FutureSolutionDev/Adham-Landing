@@ -18,7 +18,7 @@ export default function Navbar() {
   const isHome = pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState<boolean | null>(null);
   const [forcedActiveSectionId, setForcedActiveSectionId] = useState(
     null as string | null,
   );
@@ -35,6 +35,10 @@ export default function Navbar() {
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
+
+  useEffect(() => {
+    if (isDesktop) setMobileOpen(false);
+  }, [isDesktop]);
 
   useEffect(() => {
     if (!forcedActiveSectionId) return;
@@ -101,9 +105,10 @@ export default function Navbar() {
         </Link>
 
         {/* ✅ Desktop nav — JS controlled, shows at >= 1200px */}
-        {isDesktop && (
-          <div className="flex flex-1 items-center justify-end gap-10">
-            <ul className="flex items-center gap-10">
+        {isDesktop === true && (
+          <div className="flex flex-1 items-center gap-6">
+            <div className="flex flex-1 justify-center">
+              <ul className="flex items-center gap-10">
               {navbarLinks.map((link) => {
                 const isActive = isNavLinkActive(
                   link.href,
@@ -115,7 +120,7 @@ export default function Navbar() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className={`text-xl font-medium leading-none tracking-[-0.01em] transition-colors ${
+                      className={`text-xl md:text-base xl:text-xl font-medium leading-none tracking-[-0.01em] transition-colors ${
                         isActive
                           ? "text-copper"
                           : "text-primary hover:text-primary/80"
@@ -128,13 +133,16 @@ export default function Navbar() {
                   </li>
                 );
               })}
-            </ul>
-            <LocaleSwitcher />
+              </ul>
+            </div>
+            <div className="shrink-0">
+              <LocaleSwitcher />
+            </div>
           </div>
         )}
 
         {/* ✅ Mobile hamburger — JS controlled, shows at < 1200px */}
-        {!isDesktop && (
+        {isDesktop === false && (
           <div className="flex items-center gap-3">
             <button
               className="flex flex-col gap-1.5 p-1"
@@ -163,7 +171,7 @@ export default function Navbar() {
       </nav>
 
       {/* ✅ Mobile dropdown — only when hamburger is open */}
-      {!isDesktop && mobileOpen && (
+      {isDesktop === false && mobileOpen && (
         <div className="border-t border-navy/10 bg-cream px-6 pb-6">
           <ul className="flex flex-col gap-4 pt-4">
             {navbarLinks.map((link) => {
@@ -177,7 +185,7 @@ export default function Navbar() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className={`text-2xl font-medium leading-none tracking-[-0.01em] transition-colors ${
+                    className={`text-xl md:text-base xl:text-xl font-medium leading-none tracking-[-0.01em] transition-colors ${
                       isActive
                         ? "text-copper"
                         : "text-navy/70 hover:text-navy"
