@@ -18,14 +18,23 @@ export default function Navbar() {
   const isHome = pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [forcedActiveSectionId, setForcedActiveSectionId] = useState<
-    string | null
-  >(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [forcedActiveSectionId, setForcedActiveSectionId] = useState(
+    null as string | null,
+  );
   const activeSectionId = useActiveSection(
     scrollSpySectionIds,
     HEADER_OFFSET_PX,
   );
   const t = useTranslations("Nav");
+
+  // ✅ Breakpoint controlled by JS — 1200px exactly
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1200);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     if (!forcedActiveSectionId) return;
@@ -60,7 +69,7 @@ export default function Navbar() {
         history.replaceState(null, "", href);
       }
     },
-    [pathname, scrollToSection],
+    [pathname],
   );
 
   useEffect(() => {
@@ -78,73 +87,84 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <nav className="container flex items-center justify-between gap-4 py-4 md:gap-8">
+      <nav className="container flex items-center justify-between gap-4 py-4">
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <Image
             src="/images/logo.webp"
             alt="Adham Fathallah"
-            width={40}
-            height={40}
-            className="h-10 w-10"
+            width={50}
+            height={50}
+            className="h-18 w-18"
             priority
           />
         </Link>
 
-        <div className="hidden flex-1 items-center justify-end gap-10 md:flex">
-          <ul className="flex items-center gap-10">
-            {navbarLinks.map((link) => {
-              const isActive = isNavLinkActive(
-                link.href,
-                pathname,
-                isHome,
-                forcedActiveSectionId ?? activeSectionId,
-              );
-              return (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className={` font-medium leading-none tracking-[-0.01em] transition-colors ${
-                      isActive
-                        ? "text-copper"
-                        : "text-primary hover:text-primary/80"
-                    }`}
-                    onClick={handleNavClick(link.href)}
-                    aria-current={isActive ? "page" : undefined}
-                  >
-                    {t(link.labelKey)}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-          <LocaleSwitcher />
-        </div>
+        {/* ✅ Desktop nav — JS controlled, shows at >= 1200px */}
+        {isDesktop && (
+          <div className="flex flex-1 items-center justify-end gap-10">
+            <ul className="flex items-center gap-10">
+              {navbarLinks.map((link) => {
+                const isActive = isNavLinkActive(
+                  link.href,
+                  pathname,
+                  isHome,
+                  forcedActiveSectionId ?? activeSectionId,
+                );
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className={`text-xl font-medium leading-none tracking-[-0.01em] transition-colors ${
+                        isActive
+                          ? "text-copper"
+                          : "text-primary hover:text-primary/80"
+                      }`}
+                      onClick={handleNavClick(link.href)}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {t(link.labelKey)}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <LocaleSwitcher />
+          </div>
+        )}
 
-        {/* Mobile hamburger */}
-        <div className="flex items-center gap-3 md:hidden">
-          <button
-            className="flex flex-col gap-1.5"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={t("toggleMenu")}
-          >
-            <span
-              className={`h-0.5 w-6 bg-navy transition-transform ${mobileOpen ? "translate-y-2 rotate-45" : ""}`}
-            />
-            <span
-              className={`h-0.5 w-6 bg-navy transition-opacity ${mobileOpen ? "opacity-0" : ""}`}
-            />
-            <span
-              className={`h-0.5 w-6 bg-navy transition-transform ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`}
-            />
-          </button>
-        </div>
+        {/* ✅ Mobile hamburger — JS controlled, shows at < 1200px */}
+        {!isDesktop && (
+          <div className="flex items-center gap-3">
+            <button
+              className="flex flex-col gap-1.5 p-1"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={t("toggleMenu")}
+              aria-expanded={mobileOpen}
+            >
+              <span
+                className={`block h-0.5 w-6 bg-navy transition-all duration-300 ${
+                  mobileOpen ? "translate-y-2 rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`block h-0.5 w-6 bg-navy transition-all duration-300 ${
+                  mobileOpen ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`block h-0.5 w-6 bg-navy transition-all duration-300 ${
+                  mobileOpen ? "-translate-y-2 -rotate-45" : ""
+                }`}
+              />
+            </button>
+          </div>
+        )}
       </nav>
 
-      {/* Mobile dropdown */}
-      {mobileOpen && (
-        <div className="border-t border-navy/10 bg-cream px-6 pb-6 md:hidden">
-    
+      {/* ✅ Mobile dropdown — only when hamburger is open */}
+      {!isDesktop && mobileOpen && (
+        <div className="border-t border-navy/10 bg-cream px-6 pb-6">
           <ul className="flex flex-col gap-4 pt-4">
             {navbarLinks.map((link) => {
               const isActive = isNavLinkActive(
@@ -157,7 +177,7 @@ export default function Navbar() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className={`font-medium leading-none tracking-[-0.01em] transition-colors ${
+                    className={`text-2xl font-medium leading-none tracking-[-0.01em] transition-colors ${
                       isActive
                         ? "text-copper"
                         : "text-navy/70 hover:text-navy"
@@ -171,7 +191,10 @@ export default function Navbar() {
               );
             })}
           </ul>
-          <div className="flex pt-4" onClickCapture={() => setMobileOpen(false)}>
+          <div
+            className="flex pt-4"
+            onClickCapture={() => setMobileOpen(false)}
+          >
             <LocaleSwitcher />
           </div>
         </div>
