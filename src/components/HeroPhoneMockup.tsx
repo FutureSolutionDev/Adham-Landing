@@ -16,7 +16,7 @@ export default function HeroPhoneMockup({
   breakpointPx = 1025,
 }: HeroPhoneMockupProps) {
   const [isOverBreakpoint, setIsOverBreakpoint] = useState<boolean>(false);
-  /** Which phone asset to show: 1200–1499px vs ≥1500px (set in JS, not Tailwind breakpoints). */
+  /** Which phone asset to show: 1200–1599px vs ≥1600px (set in JS, not Tailwind breakpoints). */
   const [phoneVariant, setPhoneVariant] = useState<"mid" | "large" | null>(null);
 
   useEffect(() => {
@@ -37,10 +37,10 @@ export default function HeroPhoneMockup({
 
   useEffect(() => {
     const m1200 = window.matchMedia("(min-width: 1200px)");
-    const m1500 = window.matchMedia("(min-width: 1600px)");
+    const m1600 = window.matchMedia("(min-width: 1600px)");
 
     const syncPhoneVariant = () => {
-      if (m1500.matches) setPhoneVariant("large");
+      if (m1600.matches) setPhoneVariant("large");
       else if (m1200.matches) setPhoneVariant("mid");
       else setPhoneVariant(null);
     };
@@ -63,11 +63,11 @@ export default function HeroPhoneMockup({
     };
 
     add(m1200, syncPhoneVariant);
-    add(m1500, syncPhoneVariant);
+    add(m1600, syncPhoneVariant);
 
     return () => {
       remove(m1200, syncPhoneVariant);
-      remove(m1500, syncPhoneVariant);
+      remove(m1600, syncPhoneVariant);
     };
   }, []);
 
@@ -90,11 +90,11 @@ export default function HeroPhoneMockup({
         <Image
           src="/images/phone.webp"
           alt={alt}
-          width={500}
+          width={450}
           height={809}
-          sizes="(min-width: 1200px) and (max-width: 1499px) min(92vw, 560px), 100vw"
+          sizes="(min-width: 1200px) and (max-width: 1599px) min(92vw, 560px), 100vw"
           quality={90}
-          className="block h-auto w-auto max-h-[min(72vh,809px)] max-w-[min(92vw,560px)] object-contain object-bottom"
+          className="block h-auto w-auto max-h-[min(72vh,809px)] max-w-[min(92vw,560px)] object-contain object-bottom "
           priority
         />
       )}
@@ -104,9 +104,9 @@ export default function HeroPhoneMockup({
           alt={alt}
           width={650}
           height={809}
-          sizes="(min-width: 1500px) min(90vw, 400px), 100vw"
+          sizes="(min-width: 1600px) min(90vw, 400px), 100vw"
           quality={90}
-          className="block h-auto w-auto max-h-[min(58vh,650px)] max-w-[min(90vw,400px)] object-contain object-bottom"
+          className="block h-auto w-auto max-h-[min(58vh,650px)] max-w-[min(90vw,400px)] object-contain object-bottom "
           priority
         />
       )}
