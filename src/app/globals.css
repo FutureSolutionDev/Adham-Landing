@@ -19,6 +19,14 @@
   .container {
     @apply xl:w-[88%] max-w-[1200px] sm:w-[80%] w-[90%] !mx-auto;
   }
+  .hero-phone {
+    display: none;
+  }
+  @media (min-width: 1025px) {
+    .hero-phone {
+      display: flex;
+    }
+  }
 }
 
 body {

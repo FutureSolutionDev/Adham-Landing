@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import HeroPhoneMockup from "./HeroPhoneMockup";
 
 export default async function Hero() {
   const t = await getTranslations("Hero");
@@ -78,7 +79,18 @@ export default async function Hero() {
           >
             {t("subtitle")}
           </p>
-
+          <div className="lg:hidden">
+            <Image
+              src="/images/phone.webp"
+              alt={t("heroImageAlt")}
+              width={420}
+              height={809}
+              sizes="(max-width: 1599px) min(92vw, 560px), min(90vw, 400px)"
+              quality={90}
+              className="block h-auto w-auto max-h-[min(72vh,809px)] max-w-[min(92vw,560px)] object-contain object-bottom min-[1600px]:max-h-[min(58vh,650px)] min-[1600px]:max-w-[min(90vw,400px)]"
+              priority
+            />
+          </div>
           <div className="mt-12 flex flex-col gap-4 sm:flex-row">
             <a
               href="#download"
@@ -107,19 +119,7 @@ export default async function Hero() {
 
        
       </div>
-      {/* Phone: one image; tighter cap at 1600px+ (e.g. 1536×864 uses the larger slot only) */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-28 z-10 flex items-end justify-center lg:inset-x-auto lg:right-0 lg:top-32 lg:w-1/2 lg:justify-end">
-        <Image
-          src="/images/phone.webp"
-          alt={t("heroImageAlt")}
-          width={420}
-          height={809}
-          sizes="(max-width: 1599px) min(92vw, 560px), min(90vw, 400px)"
-          quality={90}
-          className="h-auto w-auto max-h-[min(72vh,809px)] max-w-[min(92vw,560px)] object-contain object-bottom min-[1600px]:max-h-[min(58vh,650px)] min-[1600px]:max-w-[min(90vw,400px)]"
-          priority
-        />
-      </div>
+      <HeroPhoneMockup isArabic={isArabic} alt={t("heroImageAlt")} />
     </section>
   );
 }
