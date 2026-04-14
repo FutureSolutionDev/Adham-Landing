@@ -35,6 +35,9 @@ export default function TrustedDevelopersOrbit({
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState<number | null>(null);
+  const orbitT0Ref = useRef<number>(
+    typeof performance !== "undefined" ? performance.now() : 0,
+  );
 
   const hasServerData = initialDevsByCity && Object.keys(initialDevsByCity).length > 0;
   const [devsByCity, setDevsByCity] = useState<Record<string, DevLogo[]>>(
@@ -55,6 +58,13 @@ export default function TrustedDevelopersOrbit({
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  // Keep all orbit animations phase-aligned across re-renders (e.g. when city/logos change).
+  // We do this by applying a negative animation-delay based on elapsed time since mount.
+  const orbitElapsedSec =
+    typeof performance !== "undefined"
+      ? (performance.now() - orbitT0Ref.current) / 1000
+      : 0;
 
   useEffect(() => {
     if (hasServerData) return;
@@ -165,17 +175,76 @@ export default function TrustedDevelopersOrbit({
                 const items = ringLogos[ri] ?? [];
                 const positions = computeRingPositions(items.length, cfg.radius * s, cfg.offset);
                 const tileSize = Math.round(cfg.tile * s);
+                const isReverse = ri % 2 === 1;
+                const durationSec = 30 - ri * 4; // 30, 26, 22, 18, 14
+                const ringAnim = `${isReverse ? "orbitRotateReverse" : "orbitRotate"} ${durationSec}s linear infinite`;
+                const counterAnim = `${isReverse ? "orbitRotate" : "orbitRotateReverse"} ${durationSec}s linear infinite`;
+                const phaseDelaySec = -(orbitElapsedSec % durationSec);
 
-                return items.map((d, i) => {
-                  const p = positions[i] ?? { x: 0, y: 0 };
-                  return (
-                    <div key={`r${ri}-${d.Name}-${i}`} className="absolute left-1/2 top-1/2" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
-                      <div className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-surface shadow-sm" style={{ width: tileSize, height: tileSize }}>
-                        <Image src={d.Image} alt={d.Name} width={cfg.tile} height={cfg.tile} className="h-full w-full rounded-2xl object-contain" style={{ padding: tilePad }} unoptimized />
-                      </div>
-                    </div>
-                  );
-                });
+                return (
+                  <div
+                    key={`ring-tiles-${ri}`}
+                    className="absolute inset-0"
+                    style={{
+                      animation: ringAnim,
+                      animationDelay: `${phaseDelaySec}s`,
+                      transformOrigin: "50% 50%",
+                      willChange: "transform",
+                    }}
+                  >
+                    {items.map((d, i) => {
+                      const p = positions[i] ?? { x: 0, y: 0 };
+                      return (
+                        <div
+                          key={`r${ri}-${i}`}
+                          className="absolute left-1/2 top-1/2"
+                          style={{ transform: `translate(${p.x}px, ${p.y}px)` }}
+                        >
+                          <div
+                            className="-translate-x-1/2 -translate-y-1/2"
+                            style={{ width: tileSize, height: tileSize }}
+                          >
+                            {/* Counter-rotate ONLY this wrapper so the card/logo stays upright */}
+                            <div
+                              style={{
+                                width: tileSize,
+                                height: tileSize,
+                                animation: counterAnim,
+                                animationDelay: `${phaseDelaySec}s`,
+                                transformOrigin: "50% 50%",
+                                willChange: "transform",
+                              }}
+                            >
+                              <div
+                                className="group relative h-full w-full cursor-pointer overflow-hidden rounded-2xl bg-surface shadow-sm"
+                                title={d.Name}
+                                tabIndex={0}
+                                role="img"
+                                aria-label={d.Name}
+                              >
+                                <Image
+                                  src={d.Image}
+                                  alt={d.Name}
+                                  width={cfg.tile}
+                                  height={cfg.tile}
+                                  className="h-full w-full rounded-2xl object-contain"
+                                  style={{ padding: tilePad }}
+                                  unoptimized
+                                />
+                                {/* Tooltip name on hover/focus */}
+                                <div className="pointer-events-none absolute -top-2 left-1/2 z-20 w-max max-w-[220px] -translate-x-1/2 -translate-y-full rounded-full bg-primary px-3 py-1 text-center text-[11px] font-medium leading-tight text-white opacity-0 shadow-sm transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-[calc(100%+2px)] group-focus:opacity-100 group-focus:-translate-y-[calc(100%+2px)]">
+                                  {d.Name}
+                                </div>
+                                {/* Soft overlay (optional) */}
+                                <div className="pointer-events-none absolute inset-0 bg-primary/10 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus:opacity-100" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
               })}
             </div>
           );

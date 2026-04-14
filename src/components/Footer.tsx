@@ -98,7 +98,7 @@ export default function Footer() {
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <Image
-              src="/images/logo.webp"
+              src="/logo.svg"
               alt="Adham Fathallah"
               width={56}
               height={56}
@@ -119,7 +119,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className={`text-sm font-medium transition-colors ${
+                    className={`text-[20px] font-medium leading-none tracking-[-0.01em] transition-colors ${
                       isActive
                         ? "text-copper-light"
                         : "text-surface hover:text-white"
@@ -166,7 +166,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`text-sm transition-colors hover:text-white/80 ${
+                    className={`text-[14px] font-medium leading-none tracking-[-0.01em] transition-colors hover:text-white/80 ${
                       isLegalActive ? "text-copper-light" : "text-surface"
                     }`}
                     aria-current={isLegalActive ? "page" : undefined}

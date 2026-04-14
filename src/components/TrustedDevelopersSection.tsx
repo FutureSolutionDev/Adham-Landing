@@ -21,10 +21,10 @@ export default async function TrustedDevelopersSection({
 
           {/* Right text */}
           <div className="max-lg:text-center ">
-            <h3 className="text-2xl  font-medium text-primary sm:text-3xl">
+            <h3 className="text-2xl font-medium leading-none text-primary sm:text-[32px]">
               {t("heading")}
             </h3>
-            <p className="mt-4 max-w-md text-base leading-relaxed font-normal text-primary sm:text-lg lg:mx-0 mx-auto">
+            <p className="mt-4 max-w-md text-lg font-normal leading-none text-primary sm:text-[24px] lg:mx-0 mx-auto">
               {t("body")}
             </p>
 

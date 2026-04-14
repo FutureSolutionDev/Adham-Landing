@@ -49,16 +49,22 @@ export default async function HowItWorksSection() {
       className="py-20 font-medium leading-none tracking-normal sm:py-24"
     >
       <div className="container">
-        <h2 className="text-primary font-medium text-xl">{t("heading")}</h2>
 
         {/* Desktop zigzag layout */}
         <div className="mt-14 hidden lg:block">
           <div className="relative">
             {/* Step 1: text left, phone right */}
-            <div className="grid grid-cols-2 items-center gap-0">
-              <div className="max-w-sm">
+            <div className="grid grid-cols-2 gap-0">
+              <div className="max-w-sm ">
+                <div className="pb-16 mb-10">
+
+                  <h2 className="text-primary font-medium text-xl">{t("heading")}</h2>
+                </div>
+
                 <StepNumber n={1} />
-                <p className="mt-4 text-primary font-medium  leading-relaxed">{steps[0].text}</p>
+                <p className="mt-4 text-primary text-xl font-medium leading-none sm:text-[28px]">
+                  {steps[0].text}
+                </p>
               </div>
               <div className="relative flex justify-center">
                 <div className="absolute left-1/2 top-1/2 h-[calc(100%+50px)] w-[calc(250px+150px)] -translate-x-1/2 -translate-y-1/2 bg-surface rounded-2xl" />
@@ -103,7 +109,9 @@ export default async function HowItWorksSection() {
             </div>
               <div className="max-w-sm">
                 <StepNumber n={2} />
-                <p className="mt-4 text-primary font-medium  leading-relaxed">{steps[1].text}</p>
+                <p className="mt-4 text-primary text-xl font-medium leading-none sm:text-[28px]">
+                  {steps[1].text}
+                </p>
               </div>
             </div>
 
@@ -124,7 +132,9 @@ export default async function HowItWorksSection() {
               </div>
               <div className="max-w-sm">
                 <StepNumber n={3} />
-                <p className="mt-4 text-primary font-medium  leading-relaxed">{steps[2].text}</p>
+                <p className="mt-4 text-primary text-xl font-medium leading-none sm:text-[28px]">
+                  {steps[2].text}
+                </p>
                 <a
                   href="#download"
                   className="mt-6 inline-flex items-center justify-center rounded-full border border-primary/20 px-6 py-2.5 text-primary transition-colors hover:bg-primary hover:text-white"

@@ -94,8 +94,8 @@ function StatCard({
   if (value === null) {
     return (
       <div className="rounded-2xl bg-surface px-6 py-6 text-center">
-        <div className="text-2xl font-semibold tracking-tight text-primary/45">
-          —
+        <div className="text-2xl font-semibold tracking-tight text-primary">
+          
         </div>
         <div className="mt-2 text-md font-normal text-primary">{label}</div>
       </div>
@@ -108,10 +108,10 @@ function StatCard({
 
   return (
     <div className="rounded-2xl bg-surface px-6 py-6 text-center">
-      <div className="text-2xl font-semibold tracking-tight text-primary">
+      <div className="text-2xl font-medium leading-none tracking-tight text-primary sm:text-[32px]">
         {formatStat(shown, format)}
       </div>
-      <div className="mt-2 text-md font-normal text-primary">{label}</div>
+      <div className="mt-2 text-lg font-normal leading-none text-primary sm:text-[24px]">{label}</div>
     </div>
   );
 }
@@ -217,10 +217,10 @@ export default function ProfessionalismSection() {
     <section id="consultation" className="py-16 sm:py-20">
       <div className="container">
         <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-medium text-primary sm:text-3xl">
+          <h2 className="text-2xl font-medium leading-none text-primary sm:text-[32px]">
             {t("heading")}
           </h2>
-          <p className="mt-3 text-base leading-relaxed font-normal text-primary sm:text-lg">
+          <p className="mt-3 text-lg font-normal leading-none text-primary sm:text-[24px]">
             {t("intro")}
           </p>
         </div>
@@ -250,17 +250,17 @@ export default function ProfessionalismSection() {
         <div className="mt-12 p-6 sm:p-10">
           <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-0">
             <div className="max-lg:text-center flex flex-col justify-center h-full">
-              <h3 className="text-lg font-medium text-primary sm:text-xl">
+              <h3 className="text-xl font-medium leading-none text-primary sm:text-[28px]">
                 {content.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed max-w-md max-lg:mx-auto font-normal text-primary sm:text-base">
+              <p className="mt-3 text-lg font-normal leading-none max-w-md max-lg:mx-auto text-primary sm:text-[24px]">
                 {content.body}
               </p>
             </div>
 
             <div className="flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-[620px] overflow-hidden rounded-3xl">
-                <div className="relative w-full h-[420px] ">
+              <div className="relative w-full max-w-[520px] overflow-hidden rounded-3xl">
+                <div className="relative w-full h-[420px] sm:h-[320px] ">
                   <Image
                     src={content.imageSrc}
                     alt={content.imageAlt}
@@ -274,7 +274,7 @@ export default function ProfessionalismSection() {
         </div>
 
         <div className="mt-16">
-          <h3 className="text-center text-xl font-semibold text-primary sm:text-2xl">
+          <h3 className="text-center text-2xl font-medium leading-none text-primary sm:text-[32px]">
             {t("numbersHeading")}
           </h3>
 

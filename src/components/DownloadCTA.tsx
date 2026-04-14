@@ -13,13 +13,15 @@ export default async function DownloadCTA() {
         aria-hidden="true"
       />
       <div className="container">
-        <div className="mx-auto max-w-3xl rounded-3xl bg-surface px-6 py-10 text-center  sm:px-10">
-          <h3 className="text-xl font-semibold leading-snug text-primary sm:text-2xl">
+        <div className="mx-auto max-w-3xl rounded-2xl bg-surface px-6 py-10 text-center  sm:px-10">
+          <h3 className="text-2xl font-medium leading-none text-primary sm:text-[32px]">
             {t("heading")}
             <br />
             {t("headingLine2")}
           </h3>
-          <p className="mt-3 text-sm text-primary sm:text-base">{t("sub")}</p>
+          <p className="mt-3 text-lg font-normal leading-none text-primary sm:text-[24px]">
+            {t("sub")}
+          </p>
 
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <a
@@ -32,7 +34,7 @@ export default async function DownloadCTA() {
                   ? "noopener noreferrer"
                   : undefined
               }
-              className="inline-flex items-center gap-3 rounded-2xl bg-primary px-5 py-3 text-white shadow-sm transition-colors hover:bg-primary-light"
+              className="inline-flex h-[76px] w-[231px] items-center justify-center gap-4 rounded-2xl bg-primary px-6 py-3 text-white shadow-sm transition-colors hover:bg-primary-light"
             >
               <span className="inline-flex h-7 w-7 items-center justify-center">
                 <Image
@@ -59,7 +61,7 @@ export default async function DownloadCTA() {
                   ? "noopener noreferrer"
                   : undefined
               }
-              className="inline-flex items-center gap-3 rounded-2xl bg-primary px-5 py-3 text-white shadow-sm transition-colors hover:bg-primary-light"
+              className="inline-flex h-[76px] w-[231px] items-center justify-center gap-4 rounded-2xl bg-primary px-6 py-3 text-white shadow-sm transition-colors hover:bg-primary-light"
             >
               <span className="inline-flex h-7 w-7 items-center justify-center">
                 <Image
