@@ -71,9 +71,6 @@ export default function HeroPhoneMockup({
     };
   }, []);
 
-  const bottomOffsetPx =
-    phoneVariant === "large" ? 140 : phoneVariant === "mid" ? 120 : 80;
-
   return (
     <div
       className={`pointer-events-none absolute inset-x-0 top-28 z-10 items-end justify-center lg:inset-x-auto lg:top-32 lg:w-1/2 ${
@@ -83,18 +80,19 @@ export default function HeroPhoneMockup({
       }`}
       style={{
         display: isOverBreakpoint ? "flex" : "none",
-        bottom: `-${bottomOffsetPx}px`,
+        /* Align to section padding box — avoid negative bottom (clips in prod with overflow / short viewports). */
+        bottom: 0,
       }}
     >
       {phoneVariant === "mid" && (
         <Image
           src="/images/phone.webp"
           alt={alt}
-          width={450}
+          width={420}
           height={809}
           sizes="(min-width: 1200px) and (max-width: 1599px) min(92vw, 560px), 100vw"
           quality={90}
-          className="block h-auto w-auto max-h-[min(72vh,809px)] max-w-[min(92vw,560px)] object-contain object-bottom "
+          className="block h-auto w-auto max-h-[min(65svh,809px)] max-w-[min(92vw,560px)] object-contain object-bottom"
           priority
         />
       )}
@@ -102,11 +100,11 @@ export default function HeroPhoneMockup({
         <Image
           src="/images/phone.webp"
           alt={alt}
-          width={650}
+          width={600}
           height={809}
           sizes="(min-width: 1600px) min(90vw, 400px), 100vw"
           quality={90}
-          className="block h-auto w-auto max-h-[min(58vh,650px)] max-w-[min(90vw,400px)] object-contain object-bottom "
+          className="block h-auto w-auto max-h-[min(52svh,650px)] max-w-[min(90vw,400px)] object-contain object-bottom"
           priority
         />
       )}
