@@ -2,7 +2,9 @@
   "LocaleSwitcher": {
     "en": "English",
     "ar": "العربية",
-    "ariaLabel": "Language"
+    "ariaLabel": "Language",
+    "switchToEnglish": "Switch to English",
+    "switchToArabic": "Switch to Arabic"
   },
   "Nav": {
     "home": "Home",

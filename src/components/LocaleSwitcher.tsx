@@ -8,37 +8,20 @@ export default function LocaleSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
 
+  const targetLocale = locale === "ar" ? "en" : "ar";
+  const ariaLabel =
+    targetLocale === "en" ? t("switchToEnglish") : t("switchToArabic");
+  const label = targetLocale === "en" ? "EN" : "AR";
+
+  /* Same surface + motion as BackToTop button */
   return (
-    <div
-      className="flex items-center gap-2 rounded-full border border-primary/15 bg-white/60 px-2 py-1 text-xs font-semibold text-primary/80 backdrop-blur-sm md:text-[13px]"
-      role="navigation"
-      aria-label={t("ariaLabel")}
+    <Link
+      href={pathname}
+      locale={targetLocale}
+      aria-label={ariaLabel}
+      className="inline-flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-primary text-[13px] font-semibold tracking-widest text-white shadow-[0_18px_40px_rgba(0,0,0,0.18)] transition-all duration-300 ease-[cubic-bezier(0.34,1.35,0.64,1)] will-change-transform hover:-translate-y-px hover:scale-[1.06] hover:bg-primary-light hover:shadow-[0_22px_48px_rgba(0,0,0,0.22)] active:translate-y-0 active:scale-[0.98] motion-reduce:transition-none motion-reduce:hover:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
     >
-      <Link
-        href={pathname}
-        locale="en"
-        className={`rounded-full px-2 py-0.5 transition-colors ${
-          locale === "en"
-            ? "bg-copper-soft text-primary"
-            : "text-primary/60 hover:text-primary"
-        }`}
-      >
-        {t("en")}
-      </Link>
-      <span className="text-primary/25" aria-hidden>
-        |
-      </span>
-      <Link
-        href={pathname}
-        locale="ar"
-        className={`rounded-full px-2 py-0.5 transition-colors ${
-          locale === "ar"
-            ? "bg-copper-soft text-primary"
-            : "text-primary/60 hover:text-primary"
-        }`}
-      >
-        {t("ar")}
-      </Link>
-    </div>
+      {label}
+    </Link>
   );
 }

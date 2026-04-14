@@ -10,7 +10,6 @@ import {
 } from "@/lib/navigation";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { Link, usePathname } from "@/i18n/navigation";
-import LocaleSwitcher from "@/components/LocaleSwitcher";
 import { HEADER_OFFSET_PX, scrollToSection } from "@/lib/scroll";
 
 export default function Navbar() {
@@ -135,9 +134,6 @@ export default function Navbar() {
               })}
               </ul>
             </div>
-            <div className="shrink-0">
-              <LocaleSwitcher />
-            </div>
           </div>
         )}
 
@@ -199,12 +195,6 @@ export default function Navbar() {
               );
             })}
           </ul>
-          <div
-            className="flex pt-4"
-            onClickCapture={() => setMobileOpen(false)}
-          >
-            <LocaleSwitcher />
-          </div>
         </div>
       )}
     </header>

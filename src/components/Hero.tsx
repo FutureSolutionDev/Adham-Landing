@@ -45,12 +45,19 @@ export default async function Hero() {
         />
       </div>
 
-      <div className="container relative flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-6">
-        {/* Left content */}
-        <div className="relative flex w-full flex-col items-center max-lg:text-center lg:w-2/3 lg:items-start ">
-          <h1 className="text-5xl leading-[1.1] tracking-tight text-primary sm:text-6xl lg:text-7xl">
+      <div className="container relative z-20 flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-6">
+        {/* Left content — above phone mockups */}
+        <div className="relative z-30 flex w-full flex-col items-center max-lg:text-center lg:w-2/3 lg:items-start">
+          <h1
+            className="font-semibold tracking-normal text-primary leading-[1.1]"
+            style={{
+              fontFamily: "var(--font-inter), system-ui, sans-serif",
+              // 64px (4rem) cap; reaches max from ~1150px+ viewport width
+              fontSize: "clamp(1.75rem, 5vw + 0.5rem, 4rem)",
+            }}
+          >
             {t("titleBefore")}{" "}
-            <span className="inline-flex translate-y-1 items-center">
+            <span className="inline-flex translate-y-[0.125em] items-center">
               <span className="mx-2">
                 <Image
                   src="/images/tabler_home.webp"
@@ -65,7 +72,10 @@ export default async function Hero() {
             {t("titleAfter")}
           </h1>
 
-          <p className="mt-8 max-w-lg text-lg leading-relaxed text-primary/50 sm:text-xl">
+          <p
+            className="mt-8 max-w-lg font-medium tracking-normal text-primary leading-[100%] text-[clamp(1rem,2.2vw+0.5rem,1.75rem)] sm:text-[28px]"
+            style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}
+          >
             {t("subtitle")}
           </p>
 
@@ -95,18 +105,20 @@ export default async function Hero() {
           />
         </div>
 
-        {/* Right side — arrow + phone */}
-        <div className="relative flex w-full items-center justify-center lg:w-1/3 lg:justify-end">
-          <Image
-            src="/images/phone.webp"
-            alt={t("heroImageAlt")}
-            width={500}
-            height={500}
-            sizes="(min-width: 1024px) 500px, (min-width: 640px) 440px, 340px"
-            className="h-auto w-[340px] sm:w-[440px]  lg:w-[500px]"
-            priority
-          />
-        </div>
+       
+      </div>
+      {/* Phone: one image; tighter cap at 1600px+ (e.g. 1536×864 uses the larger slot only) */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-28 z-10 flex items-end justify-center lg:inset-x-auto lg:right-0 lg:top-32 lg:w-1/2 lg:justify-end">
+        <Image
+          src="/images/phone.webp"
+          alt={t("heroImageAlt")}
+          width={420}
+          height={809}
+          sizes="(max-width: 1599px) min(92vw, 560px), min(90vw, 400px)"
+          quality={90}
+          className="h-auto w-auto max-h-[min(72vh,809px)] max-w-[min(92vw,560px)] object-contain object-bottom min-[1600px]:max-h-[min(58vh,650px)] min-[1600px]:max-w-[min(90vw,400px)]"
+          priority
+        />
       </div>
     </section>
   );
