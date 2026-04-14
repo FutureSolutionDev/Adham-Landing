@@ -25,7 +25,7 @@ export async function GET() {
       status: 200,
       headers: {
         // Allow CDN caching a bit while still keeping it fresh.
-        "cache-control": "public, s-maxage=60, stale-while-revalidate=300",
+        "cache-control": "public, max-age=60, stale-while-revalidate=300,stale-if-error=3600",
       },
     });
   } catch {
