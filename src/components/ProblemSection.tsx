@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 function CheckItem({ children }: { children: React.ReactNode }) {
   return (
-    <li className="flex items-start gap-3 text-base ">
+    <li className="flex items-start gap-3 text-base">
       <span className="mt-0.5 inline-flex h-5 w-5 flex-none items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -30,47 +30,81 @@ export default async function ProblemSection() {
 
   return (
     <section className="py-20">
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            [data-img-row1] { justify-content: center; }
+            [data-img-row2] { justify-content: center; }
+            @media (min-width: 1024px) {
+              [data-img-row1] { justify-content: flex-end; }
+              [data-img-row2] { justify-content: flex-start; }
+            }
+          `,
+        }}
+      />
       <div className="container">
         <div className="flex flex-col gap-16 lg:gap-0">
           {/* ── Row 1 ── */}
-          <div className="flex flex-col items-center gap-8 lg:flex-row lg:justify-center lg:gap-16">
-            <div className="h-fit w-full max-w-[500px] shrink-0 rounded-3xl bg-surface px-8 py-10">
-              <p className="text-lg font-medium text-primary sm:text-xl">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            <div className="h-fit w-full rounded-3xl bg-surface px-8 py-10">
+              <p className="text-2xl font-medium leading-none tracking-normal text-primary">
                 {t("lead")}
               </p>
             </div>
 
-            <div className="shrink-0 md:pb-10 md:ps-10">
+            <div data-img-row1 className="flex w-full md:pb-10 md:ps-10">
               <div className="relative aspect-[350/405.63] w-[min(100%,350px)] md:h-[405.63px] md:w-[350px]">
+                {/* Mobile/tablet (<1024px): normal centered image */}
                 <Image
                   src="/images/problem-top-right.webp"
                   alt={t("topImageAlt")}
                   fill
-                  sizes="(min-width: 768px) 350px, min(100%, 350px)"
-                  className="relative z-10 rounded-3xl -translate-x-10  object-cover"
+                  sizes="min(100vw, 350px)"
+                  className="relative z-10 rounded-3xl object-cover lg:hidden"
                 />
+
+                {/* Desktop (>=1024px): keep current style */}
+                <Image
+                  src="/images/problem-top-right.webp"
+                  alt={t("topImageAlt")}
+                  fill
+                  sizes="350px"
+                  className="relative z-10 hidden rounded-3xl -translate-x-10 object-cover lg:block"
+                />
+
                 <div className="absolute -bottom-10 left-0 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />
               </div>
             </div>
           </div>
 
           {/* ── Row 2 ── */}
-          <div className="flex flex-col items-center gap-8 lg:flex-row lg:justify-center lg:gap-16">
-            <div className="shrink-0 md:pe-10 md:pt-10">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            <div data-img-row2 className="flex w-full md:pb-10 md:ps-10">
               <div className="relative aspect-[350/405.63] w-[min(100%,350px)] md:h-[405.63px] md:w-[350px]">
+                {/* Mobile/tablet (<1024px): normal centered image */}
                 <Image
                   src="/images/problem-bottom-left.webp"
                   alt={t("bottomImageAlt")}
                   fill
-                  sizes="(min-width: 768px) 350px, min(100%, 350px)"
-                  className="relative z-10 rounded-3xl ms-10 object-cover"
+                  sizes="min(100vw, 350px)"
+                  className="z-10 rounded-3xl object-cover w-full mx-auto   lg:hidden"
                 />
+
+                {/* Desktop (>=1024px): keep current style */}
+                <Image
+                  src="/images/problem-bottom-left.webp"
+                  alt={t("bottomImageAlt")}
+                  fill
+                  sizes="350px"
+                  className="relative z-10 hidden rounded-3xl ms-10 object-cover  lg:block"
+                />
+
                 <div className="absolute -top-10 right-0 z-0 hidden h-full w-full rounded-3xl bg-surface md:block" />
               </div>
             </div>
 
-            <div className="h-fit w-full max-w-[500px] shrink-0 rounded-3xl bg-surface px-8 py-10">
-              <h3 className="text-lg font-semibold text-primary sm:text-xl">
+            <div className="h-fit w-full rounded-3xl bg-surface px-8 py-10">
+              <h3 className="text-2xl font-medium leading-none tracking-normal text-primary">
                 {t("checklistTitle")}
               </h3>
 
@@ -80,7 +114,9 @@ export default async function ProblemSection() {
                 <CheckItem>{t("item3")}</CheckItem>
               </ul>
 
-              <p className="mt-6 text-xl text-primary">{t("tagline")}</p>
+              <p className="mt-6 text-2xl font-medium leading-none tracking-normal text-primary">
+                {t("tagline")}
+              </p>
             </div>
           </div>
         </div>
