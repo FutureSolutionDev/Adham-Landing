@@ -61,7 +61,7 @@ export default async function ChoosingPropertySection() {
               <div className="relative h-[320px] w-[320px]">
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
                   <Image
-                    src="/images/phone-mockup.webp"
+                    src="/images/Group 3.png"
                     alt={t("phoneAlt")}
                     width={420}
                     height={820}
