@@ -11,7 +11,7 @@ export default async function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center pt-20"
+      className="relative flex min-h-screen items-center overflow-hidden pt-20"
     >
       {/* Background brush texture */}
       <div className="absolute left-0 top-20 h-[50%] w-[80%] overflow-hidden">
