@@ -11,6 +11,8 @@ export default async function Hero() {
   return (
     <section
       id="home"
+
+      dir="ltr"
       className="relative flex min-h-screen items-center overflow-hidden pt-20"
     >
       {/* Background brush texture */}
