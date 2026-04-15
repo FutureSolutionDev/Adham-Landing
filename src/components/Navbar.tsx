@@ -90,7 +90,7 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <nav className="container flex items-center justify-between gap-4 py-4">
+      <nav className="container flex items-center justify-between gap-4 py-2">
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <Image
