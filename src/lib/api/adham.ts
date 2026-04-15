@@ -75,6 +75,11 @@ export interface DeveloperLogo {
   Image: string;
 }
 
+export interface StoreLinks {
+  Google: string;
+  Apple: string;
+}
+
 export interface StatsResponse {
   message: string;
   error: boolean;
@@ -82,6 +87,7 @@ export interface StatsResponse {
   data: {
     Stats: { City: number; Client: number; Units: number };
     Devs: Record<string, DeveloperLogo[]>;
+    StoreLinks?: StoreLinks;
     meta?: { Source?: string; TimeLeft?: number };
   };
 }
@@ -116,6 +122,19 @@ export async function getStats(): Promise<StatsResponse> {
     throw new Error(`API /api/v3/app/stats failed: ${res.status}`);
   }
   return res.json() as Promise<StatsResponse>;
+}
+
+export async function getStoreLinks(): Promise<StoreLinks> {
+  try {
+    const { data } = await getStats();
+    if (data.StoreLinks?.Google && data.StoreLinks?.Apple) {
+      return data.StoreLinks;
+    }
+  } catch {}
+  return {
+    Google: "https://play.google.com",
+    Apple: "https://apps.apple.com",
+  };
 }
 
 export function findLegalSection(

@@ -1,9 +1,12 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { storeLinks } from "@/lib/constants";
+import { getStoreLinks } from "@/lib/api/adham";
 
 export default async function DownloadCTA() {
-  const t = await getTranslations("DownloadCTA");
+  const [t, storeLinks] = await Promise.all([
+    getTranslations("DownloadCTA"),
+    getStoreLinks(),
+  ]);
 
   return (
     <section id="download" className="relative py-16">
@@ -25,56 +28,40 @@ export default async function DownloadCTA() {
 
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <a
-              href={storeLinks.googlePlay}
-              target={
-                storeLinks.googlePlay.startsWith("http") ? "_blank" : undefined
-              }
-              rel={
-                storeLinks.googlePlay.startsWith("http")
-                  ? "noopener noreferrer"
-                  : undefined
-              }
-              className="inline-flex h-[76px] w-[231px] items-center justify-center gap-4 rounded-2xl bg-primary px-6 py-3 text-white shadow-sm transition-colors hover:bg-primary-light"
+              href={storeLinks.Google}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-4 rounded-2xl bg-primary px-8 py-4 text-white shadow-sm transition-colors hover:bg-primary-light"
             >
-              <span className="inline-flex h-7 w-7 items-center justify-center">
-                <Image
-                  src="/images/google-play-icon.webp"
-                  alt=""
-                  width={28}
-                  height={28}
-                  className="h-6 w-6"
-                />
-              </span>
+              <Image
+                src="/images/google-play-icon.webp"
+                alt=""
+                width={29}
+                height={34}
+                className="h-[34px] w-[29px] shrink-0"
+              />
               <span className="flex flex-col items-start leading-none">
-                <span className="text-[10px] text-white/70">{t("getItOn")}</span>
-                <span className="text-sm font-semibold">{t("googlePlay")}</span>
+                <span className="text-base font-medium text-white/70">{t("getItOn")}</span>
+                <span className="text-2xl font-semibold">{t("googlePlay")}</span>
               </span>
             </a>
 
             <a
-              href={storeLinks.appStore}
-              target={
-                storeLinks.appStore.startsWith("http") ? "_blank" : undefined
-              }
-              rel={
-                storeLinks.appStore.startsWith("http")
-                  ? "noopener noreferrer"
-                  : undefined
-              }
-              className="inline-flex h-[76px] w-[231px] items-center justify-center gap-4 rounded-2xl bg-primary px-6 py-3 text-white shadow-sm transition-colors hover:bg-primary-light"
+              href={storeLinks.Apple}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-4 rounded-2xl bg-primary px-8 py-4 text-white shadow-sm transition-colors hover:bg-primary-light"
             >
-              <span className="inline-flex h-7 w-7 items-center justify-center">
-                <Image
-                  src="/images/apple-icon.webp"
-                  alt=""
-                  width={24}
-                  height={24}
-                  className="h-6 w-6"
-                />
-              </span>
+              <Image
+                src="/images/apple-icon.webp"
+                alt=""
+                width={29}
+                height={34}
+                className="h-[34px] w-[29px] shrink-0"
+              />
               <span className="flex flex-col items-start leading-none">
-                <span className="text-[10px] text-white/70">{t("getItOn")}</span>
-                <span className="text-sm font-semibold">{t("appleStore")}</span>
+                <span className="text-base font-medium text-white">{t("getItOn")}</span>
+                <span className="text-2xl font-semibold">{t("appleStore")}</span>
               </span>
             </a>
           </div>

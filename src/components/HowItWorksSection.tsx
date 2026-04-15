@@ -86,7 +86,7 @@ export default async function HowItWorksSection() {
             {/* Step 2: phone left, text right */}
             <div className="grid grid-cols-2 items-center gap-0">
               <div className="relative flex ">
-                <div className="absolute left-0 top-1/2 h-[calc(100%+50px)] w-[calc(250px+150px)] -translate-y-1/2 bg-surface rounded-2xl" />
+                <div className="absolute inset-s-0 top-1/2 h-[calc(100%+50px)] w-[calc(250px+150px)] -translate-y-1/2 bg-surface rounded-2xl" />
                 <Image
                   src={steps[1].image}
                   alt={steps[1].imageAlt}
