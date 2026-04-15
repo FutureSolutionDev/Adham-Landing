@@ -38,11 +38,7 @@ export default function HeroPhoneMockup({ isArabic, alt }: HeroPhoneMockupProps)
         alt={alt}
         width={imgWidth}
         height={Math.round(imgWidth * (873 / 528))}
-        className={`block h-auto w-auto object-contain object-bottom ${
-          isLarge
-            ? "max-h-[min(58vh,650px)] max-w-[min(50vw,650px)]"
-            : "max-h-[min(72vh,809px)] max-w-[min(50vw,450px)]"
-        }`}
+        // className={`block h-auto w-auto object-contain object-bottom max-h-[min(72vh,809px)] max-w-[min(50vw,450px)] min-[1600px]:max-h-[min(58vh,650px)] min-[1600px]:max-w-[min(50vw,650px)]`}
         priority
       />
     </div>
