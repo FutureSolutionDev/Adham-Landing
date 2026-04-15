@@ -9,16 +9,12 @@ const nextConfig: NextConfig = {
   output: "standalone",
   distDir: BuildDistDir && BuildDistDir.length > 0 ? BuildDistDir : ".next",
   reactStrictMode: false,
-  serverExternalPackages: ["sharp"],
   turbopack: {
     root: process.cwd(),
   },
   compress: true,
   images: {
-    formats: ["image/avif", "image/webp"],
-    deviceSizes: [400, 560, 640, 750, 828, 1080, 1200, 1920],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 31536000,
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
