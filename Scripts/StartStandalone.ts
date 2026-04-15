@@ -51,14 +51,17 @@ const PrepareStandalone = async (): Promise<void> => {
  */
 const StartServer = async (): Promise<void> => {
  const Port = process.env.PORT ?? "3031";
- const ServerEntry = join(process.cwd(), ".next", "standalone", "server.js");
+ const StandaloneRoot = join(process.cwd(), ".next", "standalone");
+ const ServerEntry = join(StandaloneRoot, "server.js");
+ const SharpPath = join(StandaloneRoot, "node_modules", "sharp");
 
  await new Promise<void>((Resolve, Reject) => {
   const Child = spawn("bun", [ServerEntry], {
    cwd: process.cwd(),
    env: {
     ...process.env,
-    PORT: Port
+    PORT: Port,
+    NEXT_SHARP_PATH: existsSync(SharpPath) ? SharpPath : ""
    },
    stdio: "inherit"
   });

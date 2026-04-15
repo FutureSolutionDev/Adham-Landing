@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   distDir: BuildDistDir && BuildDistDir.length > 0 ? BuildDistDir : ".next",
   reactStrictMode: false,
+  serverExternalPackages: ["sharp"],
   turbopack: {
     root: process.cwd(),
   },
@@ -17,8 +18,7 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [400, 560, 640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Keep low so `/_next/image` and CDNs revalidate after deploys (was 1y → browsers showed long-lived disk cache).
-    minimumCacheTTL: Number(300),
+    minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: "https",
@@ -42,8 +42,7 @@ const nextConfig: NextConfig = {
       headers: [
         {
           key: "Cache-Control",
-          value:
-            "public, max-age=300, stale-while-revalidate=86400, must-revalidate",
+          value: "public, max-age=31536000, immutable",
         },
       ],
     },
@@ -52,7 +51,7 @@ const nextConfig: NextConfig = {
       headers: [
         {
           key: "Cache-Control",
-          value: "public, max-age=30, stale-while-revalidate=30",
+          value: "public, max-age=31536000, immutable",
         },
       ],
     },
