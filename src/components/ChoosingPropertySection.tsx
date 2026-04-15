@@ -101,7 +101,7 @@ export default async function ChoosingPropertySection() {
                 width={350}
                 height={980}
                 sizes="300px"
-                className="h-auto w-[250px]"
+                // className="h-auto w-[250px]"
               />
             </div>
 
