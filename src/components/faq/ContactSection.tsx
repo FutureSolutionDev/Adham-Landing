@@ -47,12 +47,6 @@ const CONTACT_ROWS: {
     labelEn: "Email",
     subtitle: "info@afproperty.com",
   },
-  {
-    platforms: ["Address"],
-    labelAr: "العنوان",
-    labelEn: "Address",
-    subtitle: "Open in Google Maps",
-  },
 ];
 
 function findContact(
@@ -160,28 +154,6 @@ function ContactIcon({
         />
       </svg>
     );
-  if (p === "address")
-    return (
-      <svg
-        className={common}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.75}
-        aria-hidden
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-        />
-      </svg>
-    );
   return (
     <svg
       className={common}
@@ -235,7 +207,7 @@ export default function ContactSection({
         ) : null}
 
         <div className="flex flex-col gap-12">
-          <ul className="flex flex-wrap justify-center gap-3 sm:gap-4">
+          <ul className="mx-auto grid w-full max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
             {CONTACT_ROWS.map((row) => {
               const c = findContact(contacts, row.platforms);
               if (!c) return null;
@@ -246,7 +218,7 @@ export default function ContactSection({
               return (
                 <li
                   key={row.platforms.join("-")}
-                  className="w-[calc(50%-0.375rem)] min-w-[9.5rem] max-w-[11.5rem] sm:w-[calc(33.333%-0.667rem)] sm:max-w-[12rem] lg:w-[calc(25%-0.75rem)]"
+                  className="min-w-0"
                 >
                   <a
                     href={c.Link}
@@ -277,9 +249,6 @@ export default function ContactSection({
           </ul>
 
           <div className="w-full">
-            <p className="mb-3 text-center text-sm font-medium text-primary/70">
-              {isArabic ? "زورنا" : "Visit us"}
-            </p>
             <div className="overflow-hidden rounded-2xl border border-primary/10 bg-surface shadow-[0_12px_40px_rgba(45,55,72,0.08)]">
               <iframe
                 title="AF Property | Adham Fathallah — Google Maps"
