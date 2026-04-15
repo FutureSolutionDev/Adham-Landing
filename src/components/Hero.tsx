@@ -112,9 +112,12 @@ export default async function Hero() {
             alt=""
             width={220}
             height={140}
-            className={`pointer-events-none absolute -top-40 hidden lg:block ${
-              isArabic ? "right-[65%] scale-x-[-1]" : "left-[65%]"
+            className={`pointer-events-none absolute hidden lg:block ${
+              isArabic
+                ? ""
+                : "left-[65%] -top-40"
             }`}
+            style={isArabic ? { top: "-60%" , left: "65%" } : undefined}
             priority
           />
         </div>

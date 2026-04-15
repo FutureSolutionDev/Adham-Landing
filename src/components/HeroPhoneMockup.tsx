@@ -27,7 +27,7 @@ export default function HeroPhoneMockup({ isArabic, alt }: HeroPhoneMockupProps)
   return (
     <div
       className={`pointer-events-none absolute inset-x-0 top-28 z-10 flex items-end justify-center max-[1199px]:hidden lg:inset-x-auto lg:top-32 lg:w-1/2 ${
-        isArabic
+        false
           ? "lg:left-0 lg:right-auto lg:justify-end"
           : "lg:right-0 lg:left-auto lg:justify-end"
       }`}
