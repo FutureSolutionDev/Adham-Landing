@@ -83,11 +83,9 @@ export default async function Hero() {
             <Image
               src="/images/phone.webp"
               alt={t("heroImageAlt")}
-              width={420}
-              height={809}
-              sizes="(max-width: 1599px) min(92vw, 560px), min(90vw, 400px)"
-              quality={90}
-              className="block h-auto w-auto max-h-[min(72vh,809px)] max-w-[min(92vw,560px)] object-contain object-bottom min-[1600px]:max-h-[min(58vh,650px)] min-[1600px]:max-w-[min(90vw,400px)]"
+              width={528}
+              height={873}
+              className="block h-auto w-auto max-h-[min(72vh,809px)] max-w-[min(92vw,560px)] object-contain object-bottom"
               priority
             />
           </div>
