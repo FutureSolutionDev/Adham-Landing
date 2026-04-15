@@ -30,7 +30,7 @@ export default async function TrustedDevelopersSection({
 
             <div className="mt-7">
               <a
-                href="#developers"
+                href="#download"
                 className="inline-flex items-center justify-center rounded-2xl bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-light"
               >
                 {t("cta")}
