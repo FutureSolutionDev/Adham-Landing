@@ -143,7 +143,7 @@ export default async function HowItWorksSection() {
                 </a>
               </div>
               <div className="relative flex justify-center">
-                <div className="absolute left-1/2 top-1/2 h-[calc(100%+50px)] w-[calc(100%-240px)] -translate-x-1/2 -translate-y-1/2 bg-surface rounded-2xl" />
+                <div className="absolute left-1/2 top-1/2 h-[calc(100%+50px)] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-surface" />
                 <Image
                   src={steps[2].image}
                   alt={steps[2].imageAlt}
