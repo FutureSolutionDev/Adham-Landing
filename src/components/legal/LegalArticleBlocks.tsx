@@ -16,11 +16,15 @@ function DefinitionBlock({ point, locale }: { point: LegalPoint; locale: Locale 
   const def = pick(locale, point.Definition as string, point.DefinitionEn as string);
   if (!term && !def) return null;
   return (
-    <div className="border-l-2 border-copper/40 pl-4">
-      <dt className={`font-semibold text-primary ${locale === "ar" ? "font-serif" : ""}`} dir={locale === "ar" ? "rtl" : "ltr"}>
+    <div
+      style={{ borderInlineStartWidth: 2, borderInlineStartStyle: "solid", paddingInlineStart: "1rem" }}
+      className="border-copper/40"
+      dir={locale === "ar" ? "rtl" : "ltr"}
+    >
+      <dt className={`font-semibold text-primary ${locale === "ar" ? "font-serif" : ""}`}>
         {term}
       </dt>
-      <dd className={`mt-1 text-sm leading-relaxed text-primary/80 ${locale === "ar" ? "font-serif" : ""}`} dir={locale === "ar" ? "rtl" : "ltr"}>
+      <dd className={`mt-1 text-sm leading-relaxed text-primary/80 ${locale === "ar" ? "font-serif" : ""}`}>
         {def}
       </dd>
     </div>
