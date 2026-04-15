@@ -11,7 +11,7 @@ export default async function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center pt-20 pb-10 lg:pb-44 xl:pb-52 overflow-hidden"
+      className="relative flex min-h-screen items-center overflow-hidden pt-20"
     >
       {/* Background brush texture */}
       <div className="absolute left-0 top-20 h-[50%] w-[80%] overflow-hidden">
@@ -83,9 +83,11 @@ export default async function Hero() {
             <Image
               src="/images/phone.webp"
               alt={t("heroImageAlt")}
-              width={528}
-              height={873}
-              className="block h-auto w-auto max-h-[min(72vh,809px)] max-w-[min(92vw,560px)] object-contain object-bottom"
+              width={420}
+              height={809}
+              sizes="(max-width: 1599px) min(92vw, 560px), min(90vw, 400px)"
+              quality={90}
+              className="block h-auto w-auto max-h-[min(72vh,809px)] max-w-[min(92vw,560px)] object-contain object-bottom min-[1600px]:max-h-[min(58vh,650px)] min-[1600px]:max-w-[min(90vw,400px)]"
               priority
             />
           </div>
