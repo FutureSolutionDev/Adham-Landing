@@ -50,11 +50,16 @@ export default async function Hero() {
 
       <div className="container relative z-20 flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-6">
         {/* Left content — above phone mockups */}
-        <div className="relative z-30 flex w-full flex-col items-center max-lg:text-center lg:w-2/3 lg:items-start">
+        <div
+          className={`relative z-30 flex w-full flex-col items-center max-lg:text-center lg:w-2/3 ${
+            isArabic ? "lg:items-end" : "lg:items-start"
+          }`}
+        >
           <h1
             className="font-semibold tracking-normal text-primary leading-[1.1]"
             style={{
               fontFamily: "var(--font-inter), system-ui, sans-serif",
+              textAlign: isArabic ? "right" : "left",
               // 64px (4rem) cap; reaches max from ~1150px+ viewport width
               fontSize: "clamp(1.75rem, 5vw + 0.5rem, 4rem)",
             }}
@@ -77,7 +82,10 @@ export default async function Hero() {
 
           <p
             className="mt-8 max-w-lg font-medium tracking-normal text-primary leading-[100%] text-[clamp(1rem,2.2vw+0.5rem,1.75rem)] sm:text-[28px]"
-            style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}
+            style={{
+              fontFamily: "var(--font-inter), system-ui, sans-serif",
+              textAlign: isArabic ? "right" : "left",
+            }}
           >
             {t("subtitle")}
           </p>
@@ -93,7 +101,11 @@ export default async function Hero() {
               priority
             />
           </div>
-          <div className="mt-12 flex flex-col gap-4 sm:flex-row">
+          <div
+            className={`mt-12 flex flex-col gap-4 sm:flex-row ${
+              isArabic ? "items-end sm:flex-row-reverse" : ""
+            }`}
+          >
             <a
               href="#download"
               className="inline-flex items-center justify-center rounded-2xl bg-primary px-8 py-4 text-base font-semibold text-white transition-all hover:bg-primary-light hover:shadow-lg"

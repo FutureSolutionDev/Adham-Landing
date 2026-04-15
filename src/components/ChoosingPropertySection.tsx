@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 type Feature = {
   title: string;
@@ -21,6 +21,8 @@ function FeatureBlock({ title, body }: Feature) {
 
 export default async function ChoosingPropertySection() {
   const t = await getTranslations("Choosing");
+  const locale = await getLocale();
+  const isArabic = locale === "ar";
 
   const left: Feature[] = [
     { title: t("f1Title"), body: t("f1Body") },
@@ -90,14 +92,16 @@ export default async function ChoosingPropertySection() {
             </div>
 
             {/* Centre phone */}
-            <div className="absolute inset-0 z-10 flex items-center justify-center">
+            <div
+              className="macp-phone absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
+            >
               <Image
                 src="/images/Group 3.png"
                 alt={t("phoneAlt")}
-                width={520}
+                width={350}
                 height={980}
-                sizes="260px"
-                className="h-auto w-[260px]"
+                sizes="300px"
+                className="h-auto w-[250px]"
               />
             </div>
 
