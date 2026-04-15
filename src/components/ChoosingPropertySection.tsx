@@ -6,9 +6,13 @@ type Feature = {
   body: string;
 };
 
-function FeatureBlock({ title, body }: Feature) {
+function FeatureBlock({
+  title,
+  body,
+  className,
+}: Feature & { className?: string }) {
   return (
-    <div className="max-w-sm">
+    <div className={`max-w-sm ${className ?? ""}`.trim()}>
       <h3 className="text-xl font-medium leading-none text-primary sm:text-[28px]">
         {title}
       </h3>
@@ -93,7 +97,7 @@ export default async function ChoosingPropertySection() {
 
             {/* Centre phone */}
             <div
-              className="macp-phone absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
+              className="macp-phone absolute left-[48%] top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
             >
               <Image
                 src="/images/Group 3.png"
@@ -106,12 +110,12 @@ export default async function ChoosingPropertySection() {
             </div>
 
             {/* Right – top */}
-            <div className="absolute top-[10%] xl:top-[30%] lg:right-50 xl:right-0 max-w-[260px]">
-              <FeatureBlock {...right[0]} />
+            <div className="absolute top-[10%] xl:top-[20%] lg:right-50 xl:right-0">
+              <FeatureBlock {...right[0]} className="max-w-md" />
             </div>
             {/* Right – bottom */}
-            <div className="absolute top-[75%] lg:right-50 xl:right-0 max-w-[260px]">
-              <FeatureBlock {...right[1]} />
+            <div className="absolute top-[75%] lg:right-50 xl:right-0">
+              <FeatureBlock {...right[1]} className="max-w-md" />
             </div>
           </div>
         </div>

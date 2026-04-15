@@ -129,6 +129,7 @@ type StatsApiPayload = {
 export default function ProfessionalismSection() {
   const t = useTranslations("Professionalism");
   const [active, setActive] = useState<TabKey>("sales");
+  const [imageLoading, setImageLoading] = useState(true);
   const statsRef = useRef<HTMLDivElement | null>(null);
   const [statsVisible, setStatsVisible] = useState(false);
   const [liveStats, setLiveStats] = useState<Stats | null>(null);
@@ -233,7 +234,10 @@ export default function ProfessionalismSection() {
                 <button
                   key={tab.key}
                   type="button"
-                  onClick={() => setActive(tab.key)}
+                  onClick={() => {
+                    setImageLoading(true);
+                    setActive(tab.key);
+                  }}
                   className={`rounded-full cursor-pointer px-4 py-2 text-sm font-medium transition-colors ${
                     isActive
                       ? "bg-copper-soft text-primary"
@@ -261,11 +265,23 @@ export default function ProfessionalismSection() {
             <div className="flex justify-center lg:justify-end">
               <div className="relative w-full max-w-[520px] overflow-hidden rounded-3xl">
                 <div className="relative w-full h-[420px] sm:h-[320px] ">
+                  {imageLoading && (
+                    <>
+                      <div className="absolute inset-0 animate-pulse bg-surface" />
+                      <div className="absolute inset-0 z-10 grid place-items-center">
+                        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary/20 border-t-primary" />
+                      </div>
+                    </>
+                  )}
                   <Image
+                    key={content.imageSrc}
                     src={content.imageSrc}
                     alt={content.imageAlt}
                     fill
-                    className="object-cover"
+                    className={`object-cover transition-opacity duration-200 ${
+                      imageLoading ? "opacity-0" : "opacity-100"
+                    }`}
+                    onLoadingComplete={() => setImageLoading(false)}
                   />
                 </div>
               </div>
