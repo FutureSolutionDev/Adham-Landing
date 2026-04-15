@@ -57,7 +57,7 @@ export default async function ChoosingPropertySection() {
 
         <div className="relative mt-12">
           {/* Mobile / small screens (stacked) */}
-          <div className="grid items-center gap-10 lg:hidden">
+          <div className="grid items-center gap-10 xl:hidden">
             <div className="flex flex-col items-center gap-10 text-center">
               <FeatureBlock {...left[0]} />
               <FeatureBlock {...right[0]} />
@@ -85,7 +85,7 @@ export default async function ChoosingPropertySection() {
           </div>
 
           {/* Desktop */}
-          <div className="relative hidden h-[520px] lg:block">
+          <div className="relative hidden h-[520px] xl:block">
             {/* Left – top */}
             <div className="absolute top-[5%] xl:top-0 lg:left-40 xl:left-0 max-w-[260px]">
               <FeatureBlock {...left[0]} />
