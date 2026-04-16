@@ -12,7 +12,7 @@ function FeatureBlock({
   className,
 }: Feature & { className?: string }) {
   return (
-    <div className={`max-w-sm ${className ?? ""}`.trim()}>
+    <div className={className ?? "max-w-sm"}>
       <h3 className="text-xl font-medium leading-none text-primary sm:text-[28px]">
         {title}
       </h3>
@@ -111,11 +111,11 @@ export default async function ChoosingPropertySection() {
 
             {/* Right – top */}
             <div className="absolute top-[10%] xl:top-[20%] lg:right-50 xl:right-0">
-              <FeatureBlock {...right[0]} className="max-w-[315px]" />
+              <FeatureBlock {...right[0]} className="max-w-[317px]" />
             </div>
             {/* Right – bottom */}
             <div className="absolute top-[75%] lg:right-50 xl:right-0">
-              <FeatureBlock {...right[1]} className="max-w-[315px]"  />
+              <FeatureBlock {...right[1]} className="max-w-[317px]"  />
             </div>
           </div>
         </div>
