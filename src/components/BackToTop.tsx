@@ -7,6 +7,8 @@ import LocaleSwitcher from "@/components/LocaleSwitcher";
 export default function BackToTop() {
   const t = useTranslations("Aria");
   const [visible, setVisible] = useState(false);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const [isRtl, setIsRtl] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 500);
@@ -15,8 +17,31 @@ export default function BackToTop() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    setIsRtl(document.documentElement.dir === "rtl");
+  }, []);
+
+  useEffect(() => {
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+
+    const obs = new IntersectionObserver(
+      ([entry]) => setIsFooterVisible(Boolean(entry?.isIntersecting)),
+      { root: null, threshold: 0.01 },
+    );
+
+    obs.observe(footer);
+    return () => obs.disconnect();
+  }, []);
+
   return (
-    <div className="fixed bottom-6 right-6 z-60 flex flex-col items-end gap-3">
+    <div
+      className={[
+        "fixed z-60 flex flex-col items-end gap-3",
+        isRtl ? "left-6" : "right-6",
+        isFooterVisible ? "bottom-24" : "bottom-6",
+      ].join(" ")}
+    >
       <LocaleSwitcher />
       {visible && (
         <button
