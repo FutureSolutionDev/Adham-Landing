@@ -98,7 +98,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-primary">
-      <div className="container py-10">
+      <div className="container py-10 ">
         {/* Top row */}
         <div className="flex flex-col items-start gap-8 sm:flex-row sm:items-center sm:justify-between">
           {/* Logo */}

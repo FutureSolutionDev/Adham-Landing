@@ -56,7 +56,7 @@ export default async function Hero() {
           }`}
         >
           <h1
-            className="font-semibold tracking-normal text-primary leading-[1.1] max-md:pt-5"
+            className="w-full font-semibold tracking-normal text-primary leading-[1.1] max-md:pt-5"
             style={{
               fontFamily: "var(--font-inter), system-ui, sans-serif",
               textAlign: isArabic ? "right" : "left",
@@ -81,7 +81,7 @@ export default async function Hero() {
           </h1>
 
           <p
-            className="mt-8 max-w-lg font-medium tracking-normal text-primary leading-[100%] text-[clamp(1rem,2.2vw+0.5rem,1.75rem)] sm:text-[28px]"
+            className="mt-8 max-w-lg font-medium tracking-normal text-primary leading-[100%] text-[clamp(1rem,2.2vw+0.5rem,1.75rem)] sm:text-[28px] "
             style={{
               fontFamily: "var(--font-inter), system-ui, sans-serif",
               textAlign: isArabic ? "right" : "left",
@@ -102,19 +102,19 @@ export default async function Hero() {
             />
           </div>
           <div
-            className={`mt-12 flex flex-col gap-4 sm:flex-row ${
-              isArabic ? "items-end sm:flex-row-reverse" : ""
+            className={`mt-12 flex w-full flex-col items-stretch gap-4 sm:flex-row sm:items-center ${
+              isArabic ? "sm:flex-row-reverse sm:items-end" : ""
             }`}
           >
             <a
               href="#download"
-              className="inline-flex items-center justify-center rounded-2xl bg-primary px-8 py-4 text-base font-semibold text-white transition-all hover:bg-primary-light hover:shadow-lg"
+              className="inline-flex w-full items-center justify-center rounded-2xl bg-primary px-8 py-4 text-base font-semibold text-white transition-all hover:bg-primary-light hover:shadow-lg sm:w-auto"
             >
               {t("download")}
             </a>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-2xl border border-primary/20 bg-white/70 px-8 py-4 text-base font-semibold text-primary transition-all hover:border-primary/35 hover:bg-white hover:shadow-md"
+              className="inline-flex w-full items-center justify-center rounded-2xl border border-primary/20 bg-white/70 px-8 py-4 text-base font-semibold text-primary transition-all hover:border-primary/35 hover:bg-white hover:shadow-md sm:w-auto"
             >
               {t("consultation")}
             </Link>
