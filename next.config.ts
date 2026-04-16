@@ -21,6 +21,11 @@ const nextConfig: NextConfig = {
         hostname: "master-cdn.futuresolutionsdev.com",
         pathname: "/cdn/**",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.masterv.net",
+        pathname: "/cdn/**",
+      },
     ],
   },
   headers: async () => [

@@ -149,10 +149,10 @@ export default async function LocaleLayout({ children, params }: Props) {
       suppressHydrationWarning
     >
       <head>
-        <link rel="dns-prefetch" href="https://master-cdn.futuresolutionsdev.com" />
-        <link rel="preconnect" href="https://master-cdn.futuresolutionsdev.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://adham.futuresolutionsdev.com" />
-        <link rel="preconnect" href="https://adham.futuresolutionsdev.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://http://cdn.masterv.net/" />
+        <link rel="preconnect" href="https://http://cdn.masterv.net/" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://adhamfathallah.com" />
+        <link rel="preconnect" href="https://adhamfathallah.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
