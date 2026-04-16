@@ -39,7 +39,7 @@ export default function BackToTop() {
       className={[
         "fixed z-60 flex flex-col items-end gap-3",
         isRtl ? "left-6" : "right-6",
-        isFooterVisible ? "bottom-24" : "bottom-6",
+        isFooterVisible ? "bottom-6" : "bottom-6",
       ].join(" ")}
     >
       <LocaleSwitcher />
