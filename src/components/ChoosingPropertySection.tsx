@@ -111,11 +111,11 @@ export default async function ChoosingPropertySection() {
 
             {/* Right – top */}
             <div className="absolute top-[10%] xl:top-[20%] lg:right-50 xl:right-0">
-              <FeatureBlock {...right[0]} className="max-w-md" />
+              <FeatureBlock {...right[0]} className="max-w-[315px]" />
             </div>
             {/* Right – bottom */}
             <div className="absolute top-[75%] lg:right-50 xl:right-0">
-              <FeatureBlock {...right[1]} className="max-w-md" />
+              <FeatureBlock {...right[1]} className="max-w-[315px]"  />
             </div>
           </div>
         </div>
