@@ -10,6 +10,7 @@ type StatFormat = "kPlus1Decimal" | "kPlusSmart" | "plusInt" | "int";
 
 /** Thousands with + prefix; omits “.0” when the K value is a whole number. */
 function formatKPlusNoTrailingZero(value: number): string {
+  if (value === 0) return "0";
   const k = value / 1000;
   const rounded = Math.round(k * 10) / 10;
   if (Math.abs(rounded - Math.round(rounded)) < 1e-6) {
@@ -20,13 +21,18 @@ function formatKPlusNoTrailingZero(value: number): string {
 
 function formatStat(value: number, format: StatFormat) {
   if (format === "kPlus1Decimal") {
+    if (value === 0) return "0";
     const k = value / 1000;
-    return `+${k.toFixed(1)} K`;
+    const fixed = k.toFixed(1);
+    return `+${fixed.endsWith(".0") ? String(Math.round(k)) : fixed} K`;
   }
   if (format === "kPlusSmart") {
     return formatKPlusNoTrailingZero(value);
   }
-  if (format === "plusInt") return `+${Math.round(value)}`;
+  if (format === "plusInt") {
+    const n = Math.round(value);
+    return n === 0 ? "0" : `+${n}`;
+  }
   return `${Math.round(value)}`;
 }
 
@@ -132,7 +138,7 @@ function StatCard({
 type Stats = { clients: number; units: number; cities: number };
 
 function formatForClientCount(value: number): StatFormat {
-  return value >= 1000 ? "kPlus1Decimal" : "plusInt";
+  return value >= 1000 ? "kPlusSmart" : "plusInt";
 }
 
 function formatForUnits(value: number): StatFormat {
