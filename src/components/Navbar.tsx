@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
@@ -39,10 +39,17 @@ export default function Navbar() {
     if (isDesktop) setMobileOpen(false);
   }, [isDesktop]);
 
+  const clearTimer = useRef<ReturnType<typeof setTimeout>>(null);
   useEffect(() => {
     if (!forcedActiveSectionId) return;
     if (activeSectionId === forcedActiveSectionId) {
-      setForcedActiveSectionId(null);
+      clearTimer.current = setTimeout(
+        () => setForcedActiveSectionId(null),
+        300,
+      );
+      return () => {
+        if (clearTimer.current) clearTimeout(clearTimer.current);
+      };
     }
   }, [activeSectionId, forcedActiveSectionId]);
 
