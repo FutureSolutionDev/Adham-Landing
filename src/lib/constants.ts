@@ -1,7 +1,8 @@
 export type SupportedLocale = "en" | "ar";
 
 /** Public site origin for metadata, sitemap, robots, JSON-LD (no trailing slash). */
-export const SITE_URL = "https://adham-land.futuresolutionsdev.com" as const;
+// https://platform-api.adhamfathallah.com/api/v3/app/stats
+export const SITE_URL = "https://platform-api.adhamfathallah.com" as const;
 
 export function getSiteUrl(): string {
   return SITE_URL.replace(/\/+$/, "");

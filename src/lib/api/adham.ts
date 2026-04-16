@@ -1,5 +1,5 @@
 /** Base URL for Adham public API — edit here if the host changes. */
-export const ADHAM_API_BASE = "https://adham.futuresolutionsdev.com";
+export const ADHAM_API_BASE = "https://platform-api.adhamfathallah.com";
 
 const REVALIDATE_SECONDS = 3600;
 
