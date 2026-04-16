@@ -66,7 +66,7 @@ export default async function Hero() {
           >
             {t("titleBefore")}{" "}
             <span className="inline-flex translate-y-[0.125em] items-center">
-              <span className="mx-2">
+              <span className="mx-2 max-md:mx-0">
                 <Image
                   src="/images/tabler_home.webp"
                   alt={t("logoAlt")}
