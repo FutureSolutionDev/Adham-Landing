@@ -6,12 +6,25 @@ import { useTranslations } from "next-intl";
 
 type TabKey = "sales" | "financial" | "legal";
 
-type StatFormat = "kPlus1Decimal" | "plusInt" | "int";
+type StatFormat = "kPlus1Decimal" | "kPlusSmart" | "plusInt" | "int";
+
+/** Thousands with + prefix; omits “.0” when the K value is a whole number. */
+function formatKPlusNoTrailingZero(value: number): string {
+  const k = value / 1000;
+  const rounded = Math.round(k * 10) / 10;
+  if (Math.abs(rounded - Math.round(rounded)) < 1e-6) {
+    return `+${Math.round(rounded)} K`;
+  }
+  return `+${rounded.toFixed(1)} K`;
+}
 
 function formatStat(value: number, format: StatFormat) {
   if (format === "kPlus1Decimal") {
     const k = value / 1000;
     return `+${k.toFixed(1)} K`;
+  }
+  if (format === "kPlusSmart") {
+    return formatKPlusNoTrailingZero(value);
   }
   if (format === "plusInt") return `+${Math.round(value)}`;
   return `${Math.round(value)}`;
@@ -120,6 +133,10 @@ type Stats = { clients: number; units: number; cities: number };
 
 function formatForClientCount(value: number): StatFormat {
   return value >= 1000 ? "kPlus1Decimal" : "plusInt";
+}
+
+function formatForUnits(value: number): StatFormat {
+  return value >= 1000 ? "kPlusSmart" : "plusInt";
 }
 
 type StatsApiPayload = {
@@ -308,7 +325,9 @@ export default function ProfessionalismSection() {
             />
             <StatCard
               value={units}
-              format="plusInt"
+              format={
+                units === null ? "plusInt" : formatForUnits(units)
+              }
               label={t("statUnits")}
               enabled={statsVisible}
             />
