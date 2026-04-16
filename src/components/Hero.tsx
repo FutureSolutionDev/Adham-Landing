@@ -56,7 +56,7 @@ export default async function Hero() {
           }`}
         >
           <h1
-            className="font-semibold tracking-normal text-primary leading-[1.1]"
+            className="font-semibold tracking-normal text-primary leading-[1.1] max-md:pt-5"
             style={{
               fontFamily: "var(--font-inter), system-ui, sans-serif",
               textAlign: isArabic ? "right" : "left",
