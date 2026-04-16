@@ -31,7 +31,7 @@ export default async function DownloadCTA() {
               href={storeLinks.Google}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-4 rounded-2xl bg-primary px-8 py-4 text-white shadow-sm transition-colors hover:bg-primary-light"
+              className="inline-flex items-center justify-center gap-4 rounded-2xl bg-primary px-8 py-4 text-white shadow-sm transition-colors hover:bg-primary-light max-md:w-full max-md:flex-1"
             >
               <Image
                 src="/images/google-play-icon.webp"
@@ -50,7 +50,7 @@ export default async function DownloadCTA() {
               href={storeLinks.Apple}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-4 rounded-2xl bg-primary px-8 py-4 text-white shadow-sm transition-colors hover:bg-primary-light"
+              className="inline-flex items-center justify-center gap-4 rounded-2xl bg-primary px-8 py-4 text-white shadow-sm transition-colors hover:bg-primary-light max-md:w-full max-md:flex-1"
             >
               <Image
                 src="/images/apple-icon.webp"
