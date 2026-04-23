@@ -91,7 +91,7 @@ export default async function Hero() {
           </p>
           <div className="lg:hidden">
             <Image
-              src="/images/phone.webp"
+              src="/images/iPhone Air.png"
               alt={t("heroImageAlt")}
               width={420}
               height={809}

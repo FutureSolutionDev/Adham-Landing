@@ -21,8 +21,8 @@ export default function HeroPhoneMockup({ isArabic, alt }: HeroPhoneMockupProps)
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  const imgWidth = isLarge ? 650 : 450;
-  const bottomOffsetPx = isLarge ? 140 : 120;
+  const imgWidth = isLarge ? 600 : 400;
+  const bottomOffsetPx = isLarge ? 0 : 0;
 
   return (
     <div
@@ -34,7 +34,7 @@ export default function HeroPhoneMockup({ isArabic, alt }: HeroPhoneMockupProps)
       style={{ bottom: `-${bottomOffsetPx}px` }}
     >
       <Image
-        src="/images/phone.webp"
+        src="/images/iPhone Air.png"
         alt={alt}
         width={imgWidth}
         height={Math.round(imgWidth * (873 / 528))}
