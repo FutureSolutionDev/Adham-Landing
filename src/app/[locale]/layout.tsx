@@ -37,7 +37,14 @@ async function getMetadataBaseFromRequest(): Promise<URL> {
   // (staging, preview deployments, custom domains, etc).
   const h = await headers();
   const host = h.get("x-forwarded-host") ?? h.get("host");
-  const proto = h.get("x-forwarded-proto") ?? "https";
+  const forwardedProto = h.get("x-forwarded-proto");
+  // Crawlers sometimes request the site over http; for public domains we still want https OG URLs.
+  const proto =
+    forwardedProto && forwardedProto.length > 0
+      ? forwardedProto
+      : host && /^(localhost|127\.0\.0\.1)(:\d+)?$/i.test(host)
+        ? "http"
+        : "https";
   if (host) return new URL(`${proto}://${host}`);
   return new URL(siteUrl);
 }
