@@ -47,6 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const seo = isArabic ? SEO.ar : SEO.en;
   const title = seo.title || t("homeTitle");
   const description = seo.description || t("homeDescription");
+  const urlPath = locale ? `/${locale}` : "/";
 
   return {
     metadataBase: new URL(siteUrl),
@@ -67,12 +68,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: t("siteName"),
       title,
       description,
-      url: "/",
+      url: urlPath,
+      images: [
+        {
+          url: "/images/logo.png",
+          alt: t("siteName"),
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: ["/images/logo.png"],
     },
     robots: {
       index: true,
