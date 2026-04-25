@@ -159,8 +159,8 @@ export default async function LocaleLayout({ children, params }: Props) {
       <head>
         <link rel="dns-prefetch" href="https://http://cdn.masterv.net/" />
         <link rel="preconnect" href="https://http://cdn.masterv.net/" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://adhamfathallah.com" />
-        <link rel="preconnect" href="https://adhamfathallah.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://adham-land.futuresolutionsdev.com" />
+        <link rel="preconnect" href="https://adham-land.futuresolutionsdev.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
