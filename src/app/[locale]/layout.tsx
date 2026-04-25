@@ -83,9 +83,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: urlPath,
       images: [
         {
-          url: `/${locale}/opengraph-image`,
-          width: 1200,
-          height: 630,
+          url: "/images/logo.png",
           alt: t("siteName"),
         },
       ],
@@ -94,7 +92,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: [`/${locale}/twitter-image`],
+      images: ["/images/logo.png"],
     },
     robots: {
       index: true,
