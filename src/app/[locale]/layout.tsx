@@ -67,6 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = seo.description || t("homeDescription");
   const urlPath = locale ? `/${locale}` : "/";
   const metadataBase = await getMetadataBaseFromRequest();
+  const ogImageUrl = new URL("/images/logo.png", metadataBase).toString();
 
   return {
     metadataBase,
@@ -90,7 +91,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: urlPath,
       images: [
         {
-          url: "/images/logo.png",
+          url: ogImageUrl,
           alt: t("siteName"),
         },
       ],
@@ -99,7 +100,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/logo.png"],
+      images: [ogImageUrl],
     },
     robots: {
       index: true,
