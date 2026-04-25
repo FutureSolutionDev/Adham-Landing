@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = seo.description || t("homeDescription");
   const urlPath = locale ? `/${locale}` : "/";
   const metadataBase = await getMetadataBaseFromRequest();
-  const ogImageUrl = new URL("/images/logo.png", metadataBase).toString();
+  const ogImageUrl = new URL("/images/og.png", metadataBase).toString();
 
   return {
     metadataBase,
@@ -92,6 +92,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [
         {
           url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          type: "image/png",
           alt: t("siteName"),
         },
       ],
@@ -177,8 +180,8 @@ export default async function LocaleLayout({ children, params }: Props) {
       suppressHydrationWarning
     >
       <head>
-        <link rel="dns-prefetch" href="https://http://cdn.masterv.net/" />
-        <link rel="preconnect" href="https://http://cdn.masterv.net/" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn.masterv.net/" />
+        <link rel="preconnect" href="https://cdn.masterv.net/" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://adham-land.futuresolutionsdev.com" />
         <link rel="preconnect" href="https://adham-land.futuresolutionsdev.com" crossOrigin="anonymous" />
         <script
