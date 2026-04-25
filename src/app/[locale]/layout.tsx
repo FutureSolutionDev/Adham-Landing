@@ -4,6 +4,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
 import BackToTop from "@/components/BackToTop";
 import { routing } from "@/i18n/routing";
 import { getSiteUrl, LINKS, SEO } from "@/lib/constants";
@@ -31,6 +32,16 @@ const ibmPlexArabic = IBM_Plex_Sans_Arabic({
 
 const siteUrl = getSiteUrl();
 
+async function getMetadataBaseFromRequest(): Promise<URL> {
+  // Prefer runtime host so OG image URLs match the current domain
+  // (staging, preview deployments, custom domains, etc).
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host");
+  const proto = h.get("x-forwarded-proto") ?? "https";
+  if (host) return new URL(`${proto}://${host}`);
+  return new URL(siteUrl);
+}
+
 type Props = {
   children: ReactNode;
   params: Promise<{ locale: string }>;
@@ -48,9 +59,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = seo.title || t("homeTitle");
   const description = seo.description || t("homeDescription");
   const urlPath = locale ? `/${locale}` : "/";
+  const metadataBase = await getMetadataBaseFromRequest();
 
   return {
-    metadataBase: new URL(siteUrl),
+    metadataBase,
     title: {
       default: title,
       template: `%s — Adham Fathallah`,
@@ -71,7 +83,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: urlPath,
       images: [
         {
-          url: "/images/logo.png",
+          url: `/${locale}/opengraph-image`,
+          width: 1200,
+          height: 630,
           alt: t("siteName"),
         },
       ],
@@ -80,7 +94,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/logo.png"],
+      images: [`/${locale}/twitter-image`],
     },
     robots: {
       index: true,
