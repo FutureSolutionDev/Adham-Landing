@@ -2,6 +2,9 @@
 export const ADHAM_API_BASE = "https://platform-api.adhamfathallah.com";
 
 const REVALIDATE_SECONDS = 3600;
+const STATS_REVALIDATE_SECONDS = 60;
+
+import { unstable_cache } from "next/cache";
 
 export type LegalPoint = Record<string, unknown>;
 
@@ -112,16 +115,26 @@ export async function getFaqContacts(): Promise<FaqContactsResponse> {
 }
 
 /** Live stats — not cached so values match the upstream API on each request. */
-export async function getStats(): Promise<StatsResponse> {
+async function fetchStats(): Promise<StatsResponse> {
   const url = `${ADHAM_API_BASE}/api/v3/app/stats`;
   const res = await fetch(url, {
-    cache: "no-store",
+    // Cache on the server for a short window to protect the upstream API
+    // and speed up dynamic pages without changing layout/styles.
+    next: { revalidate: STATS_REVALIDATE_SECONDS },
     headers: { accept: "application/json" },
   });
   if (!res.ok) {
     throw new Error(`API /api/v3/app/stats failed: ${res.status}`);
   }
   return res.json() as Promise<StatsResponse>;
+}
+
+const getStatsCached = unstable_cache(fetchStats, ["adham-stats"], {
+  revalidate: STATS_REVALIDATE_SECONDS,
+});
+
+export async function getStats(): Promise<StatsResponse> {
+  return getStatsCached();
 }
 
 export async function getStoreLinks(): Promise<StoreLinks> {
