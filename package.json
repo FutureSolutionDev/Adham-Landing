@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build:og": "node scripts/build-og-image.mjs",
+    "build:og": "node Scripts/build-og-image.mjs",
     "build": "next build",
     "start": "next start",
     "start:prod": "PORT=4601 bun Scripts/StartStandalone.ts",

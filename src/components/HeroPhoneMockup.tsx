@@ -34,7 +34,7 @@ export default function HeroPhoneMockup({ isArabic, alt }: HeroPhoneMockupProps)
       style={{ bottom: `-${bottomOffsetPx}px` }}
     >
       <Image
-        src="/images/iPhone Air.png"
+        src="/images/iphone-air.webp"
         alt={alt}
         width={imgWidth}
         height={Math.round(imgWidth * (873 / 528))}

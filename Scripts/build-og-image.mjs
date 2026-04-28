@@ -1,6 +1,6 @@
 /**
- * Composites public/images/logo.png into a 1200×630 PNG (recommended OG size).
- * Run: node scripts/build-og-image.mjs
+ * Composites public/images/logo.webp into a 1200×630 WebP (recommended OG size).
+ * Run: node Scripts/build-og-image.mjs
  */
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -11,23 +11,23 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const OUT_W = 1200;
 const OUT_H = 630;
-const LOGO = join(root, "public", "images", "logo.png");
-const OUT = join(root, "public", "images", "og.png");
+const LOGO = join(root, "public", "images", "logo.webp");
+const OUT = join(root, "public", "images", "og.webp");
 
 // Safe area: logo should not hit edges in Facebook/Twitter crop previews
 const PADDING = 72;
 const maxLogoW = OUT_W - PADDING * 2;
 const maxLogoH = OUT_H - PADDING * 2;
 
-const logoPng = await readFile(LOGO);
-const logoResized = await sharp(logoPng)
+const logoBuf = await readFile(LOGO);
+const logoResized = await sharp(logoBuf)
   .resize({
     width: maxLogoW,
     height: maxLogoH,
     fit: "inside",
     withoutEnlargement: true,
   })
-  .png()
+  .webp({ quality: 92 })
   .toBuffer();
 
 // Light neutral background (avoids hard crop of a small square on dark feeds)
@@ -47,7 +47,7 @@ const canvas = await sharp({
   },
 })
   .composite([{ input: logoResized, gravity: "center" }])
-  .png()
+  .webp({ quality: 90 })
   .toBuffer();
 
 await writeFile(OUT, canvas);

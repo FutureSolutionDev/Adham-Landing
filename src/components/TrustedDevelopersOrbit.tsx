@@ -166,7 +166,14 @@ export default function TrustedDevelopersOrbit({
                 style={{ width: centerSize, height: centerSize }}
               >
                 <div className="relative h-full w-full">
-                  <Image src="/logo.svg" alt="AF Property" fill style={{ padding: centerPad }} priority />
+                  <Image
+                    src="/images/logo.webp"
+                    alt="AF Property"
+                    fill
+                    className="object-contain"
+                    style={{ padding: centerPad }}
+                    priority
+                  />
                 </div>
               </div>
 

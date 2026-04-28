@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = seo.description || t("homeDescription");
   const urlPath = locale ? `/${locale}` : "/";
   const metadataBase = await getMetadataBaseFromRequest();
-  const ogImageUrl = new URL("/images/og.png", metadataBase).toString();
+  const ogImageUrl = new URL("/images/og.webp", metadataBase).toString();
 
   return {
     metadataBase,
@@ -94,7 +94,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          type: "image/png",
+          type: "image/webp",
           alt: t("siteName"),
         },
       ],

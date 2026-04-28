@@ -104,7 +104,7 @@ export default function Footer() {
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <Image
-              src="/logo.svg"
+              src="/images/logo.webp"
               alt="Adham Fathallah"
               width={56}
               height={56}

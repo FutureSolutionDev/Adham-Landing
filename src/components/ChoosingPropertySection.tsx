@@ -45,7 +45,7 @@ export default async function ChoosingPropertySection() {
     >
       {/* Full-width wave + circle (inline SVG from design) */}
       <div className="pointer-events-none absolute inset-x-0 top-[60%] -translate-y-1/2">
-        <Image src="/images/Union.png" alt="wave" width={100} height={100} className="w-full h-auto object-contain" />
+        <Image src="/images/union.webp" alt="wave" width={100} height={100} className="w-full h-auto object-contain" />
       </div>
 
       <div className="container relative">
@@ -67,7 +67,7 @@ export default async function ChoosingPropertySection() {
               <div className="relative h-[320px] w-[320px]">
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
                   <Image
-                    src="/images/Group 3.png"
+                    src="/images/group-3.webp"
                     alt={t("phoneAlt")}
                     width={420}
                     height={820}
@@ -100,7 +100,7 @@ export default async function ChoosingPropertySection() {
               className="macp-phone absolute left-[48%] top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
             >
               <Image
-                src="/images/Group 3.png"
+                src="/images/group-3.webp"
                 alt={t("phoneAlt")}
                 width={350}
                 height={980}
