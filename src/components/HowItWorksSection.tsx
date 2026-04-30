@@ -28,18 +28,24 @@ export default async function HowItWorksSection() {
       text: t("step1"),
       image: "/images/how-step1-appstore.webp",
       imageAlt: t("step1Alt"),
+      width: 295,
+      height: 588,
     },
     {
       number: 2,
       text: t("step2"),
       image: "/images/how-step2-browse.webp",
       imageAlt: t("step2Alt"),
+      width: 292,
+      height: 585,
     },
     {
       number: 3,
       text: t("step3"),
       image: "/images/how-step3-booking.webp",
       imageAlt: t("step3Alt"),
+      width: 290,
+      height: 586,
     },
   ] as const;
 
@@ -171,8 +177,8 @@ export default async function HowItWorksSection() {
               <Image
                 src={step.image}
                 alt={step.imageAlt}
-                width={290}
-                height={586}
+                width={step.width}
+                height={step.height}
                 sizes="260px"
                 className="relative z-10 h-auto w-[260px]"
               />
