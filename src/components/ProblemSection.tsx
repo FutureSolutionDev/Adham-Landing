@@ -104,9 +104,9 @@ export default async function ProblemSection() {
             </div>
 
             <div className="h-fit w-full rounded-3xl bg-surface px-8 py-10">
-              <h3 className="text-2xl font-medium leading-none tracking-normal text-primary">
+              <h2 className="text-2xl font-medium leading-none tracking-normal text-primary">
                 {t("checklistTitle")}
-              </h3>
+              </h2>
 
               <ul className="mt-6 space-y-3">
                 <CheckItem>{t("item1")}</CheckItem>

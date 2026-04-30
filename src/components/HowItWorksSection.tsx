@@ -73,8 +73,8 @@ export default async function HowItWorksSection() {
                 <Image
                   src={steps[0].image}
                   alt={steps[0].imageAlt}
-                  width={250}
-                  height={420}
+                  width={295}
+                  height={588}
                   sizes="280px"
                   className="relative z-10 h-auto w-[280px]"
                 />
@@ -90,8 +90,8 @@ export default async function HowItWorksSection() {
                 <Image
                   src={steps[1].image}
                   alt={steps[1].imageAlt}
-                  width={250}
-                  height={420}
+                  width={292}
+                  height={585}
                   sizes="280px"
                   className="relative z-10 h-auto ms-15 w-[280px] "
                 />
@@ -147,8 +147,8 @@ export default async function HowItWorksSection() {
                 <Image
                   src={steps[2].image}
                   alt={steps[2].imageAlt}
-                  width={250}
-                  height={420}
+                  width={290}
+                  height={586}
                   sizes="280px"
                   className="relative z-10 h-auto w-[280px]"
                 />
@@ -171,8 +171,8 @@ export default async function HowItWorksSection() {
               <Image
                 src={step.image}
                 alt={step.imageAlt}
-                width={250}
-                height={420}
+                width={290}
+                height={586}
                 sizes="260px"
                 className="relative z-10 h-auto w-[260px]"
               />

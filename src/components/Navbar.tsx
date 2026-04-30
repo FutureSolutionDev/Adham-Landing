@@ -103,9 +103,9 @@ export default function Navbar() {
           <Image
             src="/images/logo.webp"
             alt="Adham Fathallah"
-            width={50}
-            height={50}
-            className="h-18 w-18"
+            width={54}
+            height={58}
+            className="h-auto w-[50px]"
             priority
           />
         </Link>
@@ -128,7 +128,7 @@ export default function Navbar() {
                       href={link.href}
                       className={`text-xl md:text-base xl:text-xl font-medium leading-none tracking-[-0.01em] transition-colors ${
                         isActive
-                          ? "text-copper"
+                          ? "text-[#956233]"
                           : "text-primary hover:text-primary/80"
                       }`}
                       onClick={handleNavClick(link.href)}
@@ -190,7 +190,7 @@ export default function Navbar() {
                     href={link.href}
                     className={`text-xl md:text-base xl:text-xl font-medium leading-none tracking-[-0.01em] transition-colors ${
                       isActive
-                        ? "text-copper"
+                        ? "text-[#956233]"
                         : "text-navy/70 hover:text-navy"
                     }`}
                     onClick={handleNavClick(link.href)}

@@ -20,31 +20,31 @@ export default async function Hero() {
         <Image
           src="/images/bg-top.webp"
           alt=""
-          width={1200}
-          height={150}
+          width={664}
+          height={435}
           sizes="80vw"
           priority
-          className="h-full w-full"
+          className="h-full w-full object-cover"
         />
       </div>
       <div className="absolute bottom-0 left-0 h-[50%] w-[80%] overflow-hidden">
         <Image
           src="/images/bg-botton.webp"
           alt=""
-          width={900}
-          height={600}
+          width={1186}
+          height={638}
           sizes="80vw"
-          className="h-full w-full"
+          className="h-full w-full object-cover"
         />
       </div>
       <div className="absolute bottom-0 right-0 hidden h-[50%] w-[20%] overflow-hidden sm:block">
         <Image
           src="/images/Hand-Drawn Ink  Brush Strokes.webp"
           alt=""
-          width={900}
-          height={600}
+          width={278}
+          height={315}
           sizes="20vw"
-          className="h-full w-full"
+          className="h-full w-full object-contain"
         />
       </div>
 

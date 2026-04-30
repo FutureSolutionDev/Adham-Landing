@@ -106,9 +106,9 @@ export default function Footer() {
             <Image
               src="/images/logo.webp"
               alt="Adham Fathallah"
-              width={56}
-              height={56}
-              className="h-14 w-14"
+              width={54}
+              height={58}
+              className="h-auto w-[56px]"
             />
           </Link>
 
