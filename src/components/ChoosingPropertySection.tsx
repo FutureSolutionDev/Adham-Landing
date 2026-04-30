@@ -70,7 +70,7 @@ export default async function ChoosingPropertySection() {
                     src="/images/group-3.webp"
                     alt={t("phoneAlt")}
                     width={420}
-                    height={820}
+                    height={686}
                     sizes="230px"
                     className="h-auto w-[230px] -rotate-12 drop-shadow-[0_24px_50px_rgba(0,0,0,0.16)]"
                   />
@@ -103,7 +103,7 @@ export default async function ChoosingPropertySection() {
                 src="/images/group-3.webp"
                 alt={t("phoneAlt")}
                 width={350}
-                height={980}
+                height={572}
                 sizes="300px"
                 // className="h-auto w-[250px]"
               />
