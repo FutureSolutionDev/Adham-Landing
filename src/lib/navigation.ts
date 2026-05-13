@@ -17,6 +17,7 @@ export const navbarLinks = [
   { labelKey: "home" as const, href: "/#home" },
   { labelKey: "features" as const, href: "/#features" },
   { labelKey: "howItWork" as const, href: "/#how-it-works" },
+  { labelKey: "aboutUs" as const, href: "/#about-us" },
   { labelKey: "developers" as const, href: "/#developers" },
 ] as const;
 
@@ -33,6 +34,7 @@ export const scrollSpySectionIds = [
   "home",
   "features",
   "how-it-works",
+  "about-us",
   "developers",
 ] as const;
 

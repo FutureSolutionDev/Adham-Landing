@@ -238,7 +238,7 @@ export default function ProfessionalismSection() {
   }, [statsVisible]);
 
   return (
-    <section id="consultation" className="py-16 sm:py-20">
+    <section id="about-us" className="py-16 sm:py-20">
       <div className="container">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-2xl font-medium leading-none text-primary sm:text-[32px]">
