@@ -67,12 +67,12 @@ export default async function ChoosingPropertySection() {
               <div className="relative h-[320px] w-[320px]">
                 <div className="absolute inset-0 z-10 flex items-center justify-center">
                   <Image
-                    src="/images/group-3.webp"
+                    src="/images/4.webp"
                     alt={t("phoneAlt")}
                     width={420}
                     height={686}
                     sizes="230px"
-                    className="h-auto w-[230px] -rotate-12 drop-shadow-[0_24px_50px_rgba(0,0,0,0.16)]"
+                    className="h-auto w-[230px]  drop-shadow-[0_24px_50px_rgba(0,0,0,0.16)]"
                   />
                 </div>
               </div>
@@ -100,7 +100,7 @@ export default async function ChoosingPropertySection() {
               className="macp-phone absolute left-[48%] top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
             >
               <Image
-                src="/images/group-3.webp"
+                src="/images/4.webp"
                 alt={t("phoneAlt")}
                 width={350}
                 height={572}

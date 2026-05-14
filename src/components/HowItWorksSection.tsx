@@ -26,7 +26,7 @@ export default async function HowItWorksSection() {
     {
       number: 1,
       text: t("step1"),
-      image: "/images/how-step1-appstore.webp",
+      image: "/images/5.webp",
       imageAlt: t("step1Alt"),
       width: 295,
       height: 588,
@@ -34,7 +34,7 @@ export default async function HowItWorksSection() {
     {
       number: 2,
       text: t("step2"),
-      image: "/images/how-step2-browse.webp",
+      image: "/images/6.webp",
       imageAlt: t("step2Alt"),
       width: 292,
       height: 585,
@@ -42,7 +42,7 @@ export default async function HowItWorksSection() {
     {
       number: 3,
       text: t("step3"),
-      image: "/images/how-step3-booking.webp",
+      image: "/images/7.webp",
       imageAlt: t("step3Alt"),
       width: 290,
       height: 586,
