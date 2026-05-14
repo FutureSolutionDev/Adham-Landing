@@ -167,7 +167,7 @@ export default function TrustedDevelopersOrbit({
               >
                 <div className="relative h-full w-full">
                   <Image
-                    src="/images/logo.webp"
+                    src="/images/new_logo.webp"
                     alt="AF Property"
                     fill
                     className="object-contain"

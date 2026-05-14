@@ -101,7 +101,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <Image
-            src="/images/logo.webp"
+            src="/images/new_logo.webp"
             alt="Adham Fathallah"
             width={54}
             height={58}

@@ -1,5 +1,5 @@
 /**
- * Composites public/images/logo.webp into a 1200×630 WebP (recommended OG size).
+ * Composites public/images/new_logo.webp into a 1200×630 WebP (recommended OG size).
  * Run: node Scripts/build-og-image.mjs
  */
 import { readFile, writeFile } from "node:fs/promises";
@@ -11,7 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const OUT_W = 1200;
 const OUT_H = 630;
-const LOGO = join(root, "public", "images", "logo.webp");
+const LOGO = join(root, "public", "images", "new_logo.webp");
 const OUT = join(root, "public", "images", "og.webp");
 
 // Safe area: logo should not hit edges in Facebook/Twitter crop previews
