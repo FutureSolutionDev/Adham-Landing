@@ -83,7 +83,7 @@ export default async function ProblemSection() {
               <div className="relative aspect-[350/405.63] w-[min(100%,350px)] md:h-[405.63px] md:w-[350px]">
                 {/* Mobile/tablet (<1024px): normal centered image */}
                 <Image
-                  src="/images/2.1.webp"
+                  src="/images/3.png"
                   alt={t("bottomImageAlt")}
                   fill
                   sizes="min(100vw, 350px)"
@@ -92,7 +92,7 @@ export default async function ProblemSection() {
 
                 {/* Desktop (>=1024px): keep current style */}
                 <Image
-                  src="/images/2.1.webp"
+                  src="/images/3.png"
                   alt={t("bottomImageAlt")}
                   fill
                   sizes="350px"

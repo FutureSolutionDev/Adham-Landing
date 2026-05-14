@@ -194,7 +194,7 @@ export default function ProfessionalismSection() {
     sales: {
       title: t("salesTitle"),
       body: t("salesBody"),
-      imageSrc: "/images/prof-about-sales.webp",
+      imageSrc: "/images/prof-about-sales.png",
       imageAlt: t("salesImageAlt"),
     },
     financial: {
@@ -206,7 +206,7 @@ export default function ProfessionalismSection() {
     legal: {
       title: t("legalTitle"),
       body: t("legalBody"),
-      imageSrc: "/images/prof-about-legal.webp",
+      imageSrc: "/images/prof-about-legal.png",
       imageAlt: t("legalImageAlt"),
     },
   };
