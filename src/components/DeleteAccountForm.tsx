@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 
 type Outcome = "idle" | "submitting" | "deleted" | "invalid" | "locked" | "error";
@@ -16,14 +16,13 @@ export default function DeleteAccountForm({ locale }: { locale: string }) {
   const [password, setPassword] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [outcome, setOutcome] = useState<Outcome>("idle");
+  const successRef = useRef<HTMLParagraphElement>(null);
+  const deleted = outcome === "deleted";
 
-  if (outcome === "deleted") {
-    return (
-      <p role="status" className="mt-10 rounded-xl border border-primary/10 bg-surface p-6 leading-7 text-primary">
-        {t("success")}
-      </p>
-    );
-  }
+  // The submit button unmounts with the form, so focus moves to the success message instead of being lost.
+  useEffect(() => {
+    if (deleted) successRef.current?.focus();
+  }, [deleted]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -49,55 +48,71 @@ export default function DeleteAccountForm({ locale }: { locale: string }) {
   const submitting = outcome === "submitting";
 
   return (
-    <form onSubmit={submit} noValidate className="mt-10 grid gap-4 rounded-xl border border-primary/10 bg-surface p-6 text-primary">
-      <div className="grid gap-1">
-        <label htmlFor="delete-account-phone" className="font-medium">{t("phoneLabel")}</label>
-        <input
-          id="delete-account-phone"
-          type="tel"
-          inputMode="tel"
-          autoComplete="tel"
-          dir="ltr"
-          aria-describedby="delete-account-phone-hint"
-          className={INPUT_CLASS}
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        <p id="delete-account-phone-hint" className="text-sm opacity-70">{t("phoneHint")}</p>
+    <>
+      {/* Mounted from the first render so screen readers announce the success message when it appears. */}
+      <div role="status">
+        {deleted && (
+          <p
+            ref={successRef}
+            tabIndex={-1}
+            className="mt-10 rounded-xl border border-primary/10 bg-surface p-6 leading-7 text-primary focus:outline-none"
+          >
+            {t("success")}
+          </p>
+        )}
       </div>
-      <div className="grid gap-1">
-        <label htmlFor="delete-account-password" className="font-medium">{t("passwordLabel")}</label>
-        <input
-          id="delete-account-password"
-          type="password"
-          autoComplete="current-password"
-          className={INPUT_CLASS}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <label htmlFor="delete-account-confirm" className="flex items-start gap-2">
-        <input
-          id="delete-account-confirm"
-          type="checkbox"
-          className="mt-1"
-          checked={confirmed}
-          onChange={(e) => setConfirmed(e.target.checked)}
-        />
-        <span>{t("confirmLabel")}</span>
-      </label>
-      {message && (
-        <p role="alert" className="text-red-600">
-          {message}
-        </p>
+      {!deleted && (
+        <form onSubmit={submit} noValidate className="mt-10 grid gap-4 rounded-xl border border-primary/10 bg-surface p-6 text-primary">
+          <div className="grid gap-1">
+            <label htmlFor="delete-account-phone" className="font-medium">{t("phoneLabel")}</label>
+            <input
+              id="delete-account-phone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              dir="ltr"
+              aria-describedby="delete-account-phone-hint"
+              className={INPUT_CLASS}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <p id="delete-account-phone-hint" className="text-sm opacity-70">{t("phoneHint")}</p>
+          </div>
+          <div className="grid gap-1">
+            <label htmlFor="delete-account-password" className="font-medium">{t("passwordLabel")}</label>
+            <input
+              id="delete-account-password"
+              type="password"
+              autoComplete="current-password"
+              className={INPUT_CLASS}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <label htmlFor="delete-account-confirm" className="flex items-start gap-2">
+            <input
+              id="delete-account-confirm"
+              type="checkbox"
+              className="mt-1"
+              checked={confirmed}
+              onChange={(e) => setConfirmed(e.target.checked)}
+            />
+            <span>{t("confirmLabel")}</span>
+          </label>
+          {message && (
+            <p role="alert" className="text-red-700">
+              {message}
+            </p>
+          )}
+          <button
+            type="submit"
+            disabled={!confirmed || !phone || !password || submitting}
+            className="rounded-lg bg-red-600 px-4 py-2 font-semibold text-white disabled:opacity-50"
+          >
+            {submitting ? t("submitting") : t("submit")}
+          </button>
+        </form>
       )}
-      <button
-        type="submit"
-        disabled={!confirmed || !phone || !password || submitting}
-        className="rounded-lg bg-red-600 px-4 py-2 font-semibold text-white disabled:opacity-50"
-      >
-        {submitting ? t("submitting") : t("submit")}
-      </button>
-    </form>
+    </>
   );
 }

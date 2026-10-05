@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const DELETED_KEYS = ["deleted1", "deleted2", "deleted3", "deleted4"] as const;
-const KEPT_KEYS = ["kept1", "kept2", "kept3"] as const;
+const KEPT_KEYS = ["kept1", "kept2", "kept3", "kept4", "kept5"] as const;
 
 export default async function DeleteAccountPage({ params }: Props) {
   const { locale } = await params;
