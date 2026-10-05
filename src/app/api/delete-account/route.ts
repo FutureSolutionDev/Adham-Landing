@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { ADHAM_API_BASE } from "@/lib/api/adham";
-import { normalizePhone } from "@/lib/deleteAccount";
+import { normalizePhone, outcomeFor, type DeleteOutcome } from "@/lib/deleteAccount";
 
 export const runtime = "nodejs";
 
@@ -16,8 +16,6 @@ const MAX_BODY_BYTES = 4096;
 // Gives up on a hung Adham call instead of holding the visitor's request open.
 const ADHAM_TIMEOUT_MS = 15_000;
 const hits = new Map<string, { count: number; firstAt: number }>();
-
-type Outcome = "deleted" | "invalid" | "locked" | "error";
 
 function visitorIp(req: NextRequest): string {
   const forwarded = req.headers.get("x-forwarded-for") ?? "";
@@ -46,7 +44,7 @@ function overLimit(ip: string, now = Date.now()): boolean {
   return entry.count > MAX_PER_WINDOW;
 }
 
-function reply(outcome: Outcome, status: number) {
+function reply(outcome: DeleteOutcome, status: number) {
   return NextResponse.json({ outcome }, { status, headers: { "cache-control": "no-store" } });
 }
 
@@ -75,6 +73,8 @@ export async function POST(req: NextRequest) {
     const res = await fetch(`${ADHAM_API_BASE}/api/v3/account/delete`, {
       method: "POST",
       cache: "no-store",
+      // A redirect (host suspension page, WAF challenge) is an error, never a confirmed delete.
+      redirect: "manual",
       signal: AbortSignal.timeout(ADHAM_TIMEOUT_MS),
       headers: {
         "content-type": "application/json",
@@ -85,9 +85,11 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({ ClientPhoneNumber: phone, ClientPassword: password }),
     });
-    if (res.ok) return reply("deleted", 200);
-    if (res.status === 429) return reply("locked", 429);
-    if (res.status === 401 || res.status === 400 || res.status === 422) return reply("invalid", 401);
+    const json: unknown = await res.json().catch(() => null);
+    const outcome = outcomeFor(res.status, json);
+    if (outcome === "deleted") return reply("deleted", 200);
+    if (outcome === "locked") return reply("locked", 429);
+    if (outcome === "invalid") return reply("invalid", 401);
     // Status only: never log the phone, password, body or IP.
     console.warn("[delete-account] Adham answered", res.status);
     return reply("error", 502);

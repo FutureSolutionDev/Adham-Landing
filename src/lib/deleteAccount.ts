@@ -15,3 +15,18 @@ export function normalizePhone(input: string): string | null {
   else if (digits.startsWith("0")) digits = `20${digits.slice(1)}`;
   return digits.length >= 9 && digits.length <= 15 ? digits : null;
 }
+
+export type DeleteOutcome = "deleted" | "invalid" | "locked" | "error";
+
+/**
+ * Maps Adham's answer to the form's outcome. Only a 200 whose body confirms `data.Deleted === true`
+ * counts as deleted: a redirect or an interstitial page (host suspension, WAF) must never tell the
+ * visitor their account is gone. `json` is the parsed body, or null when it was not JSON.
+ */
+export function outcomeFor(status: number, json: unknown): DeleteOutcome {
+  if (status === 429) return "locked";
+  if (status === 401 || status === 400 || status === 422) return "invalid";
+  // Property access is safe on any parsed JSON value except null, which `?.` covers.
+  const body = json as { data?: { Deleted?: unknown } | null } | null;
+  return status === 200 && body?.data?.Deleted === true ? "deleted" : "error";
+}
