@@ -24,7 +24,8 @@
     "contact": "Contact",
     "rights": "All rights reserved",
     "terms": "Terms & conditions",
-    "privacy": "Privacy policy"
+    "privacy": "Privacy policy",
+    "deleteAccount": "Delete account"
   },
   "NotFound": {
     "title": "Page not found",
@@ -138,6 +139,30 @@
     "version": "Version",
     "loadError": "Unable to load terms. Please try again later.",
     "notFound": "Terms of use could not be found."
+  },
+  "DeleteAccount": {
+    "title": "Delete your account",
+    "description": "Permanently delete your Adham Fathallah app account.",
+    "intro": "You can delete your account from the app's settings, or here with your phone number and password. Deletion is permanent and cannot be undone.",
+    "deletedHeading": "What is deleted for good",
+    "deleted1": "Your name, phone numbers, email and profile photo",
+    "deleted2": "Your favorites, search history and browsing history",
+    "deleted3": "Your notifications and registered devices",
+    "deleted4": "Your sign-in on every device",
+    "keptHeading": "What we keep for legal and financial reasons",
+    "kept1": "Invoices and payments, with your name and number in a restricted record only finance can see",
+    "kept2": "Completed consultations; upcoming ones are cancelled",
+    "kept3": "Past discount requests; pending ones are rejected",
+    "phoneLabel": "Registered phone number",
+    "phoneHint": "For example: 01012345678 or +20 101 234 5678",
+    "passwordLabel": "Password",
+    "confirmLabel": "I understand that deleting my account is permanent and cannot be undone",
+    "submit": "Delete my account for good",
+    "submitting": "Deleting...",
+    "success": "Your account has been deleted. You are signed out on every device, and you can create a new account at any time.",
+    "errorInvalid": "The phone number or password is incorrect.",
+    "errorLocked": "Too many attempts. Please try again in 15 minutes.",
+    "errorNetwork": "We couldn't connect right now. Please try again."
   },
   "Aria": {
     "backToTop": "Back to top"

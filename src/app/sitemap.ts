@@ -4,7 +4,7 @@ import { getSiteUrl } from "@/lib/constants";
 
 const siteUrl = getSiteUrl();
 
-const PATHS = ["/", "/contact", "/faq", "/privacy", "/terms"] as const;
+const PATHS = ["/", "/contact", "/faq", "/privacy", "/terms", "/delete-account"] as const;
 
 function withLocalePrefix(locale: string, path: (typeof PATHS)[number]) {
   if (locale === routing.defaultLocale) return path;

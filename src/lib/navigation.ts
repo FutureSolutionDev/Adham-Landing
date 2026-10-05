@@ -11,6 +11,7 @@ export const legalRoutes = {
   contact: "/contact",
   terms: "/terms",
   privacy: "/privacy",
+  deleteAccount: "/delete-account",
 } as const;
 
 export const navbarLinks = [
@@ -55,4 +56,5 @@ export function isNavLinkActive(
 export const legalPageLinks = [
   { labelKey: "terms" as const, href: legalRoutes.terms },
   { labelKey: "privacy" as const, href: legalRoutes.privacy },
+  { labelKey: "deleteAccount" as const, href: legalRoutes.deleteAccount },
 ] as const;
