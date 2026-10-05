@@ -11,6 +11,10 @@ const WINDOW_MS = 15 * 60 * 1000;
 const MAX_PER_WINDOW = 10;
 // Caps the map so spoofed x-forwarded-for values cannot grow it without bound.
 const MAX_TRACKED_IPS = 5000;
+// Route handlers have no body limit; the form's JSON is far below this, so anything larger is refused unread.
+const MAX_BODY_BYTES = 4096;
+// Gives up on a hung Adham call instead of holding the visitor's request open.
+const ADHAM_TIMEOUT_MS = 15_000;
 const hits = new Map<string, { count: number; firstAt: number }>();
 
 type Outcome = "deleted" | "invalid" | "locked" | "error";
@@ -50,6 +54,10 @@ export async function POST(req: NextRequest) {
   const ip = visitorIp(req);
   if (overLimit(ip)) return reply("locked", 429);
 
+  const lengthHeader = req.headers.get("content-length");
+  const length = lengthHeader === null ? NaN : Number(lengthHeader);
+  if (!Number.isFinite(length) || length > MAX_BODY_BYTES) return reply("invalid", 400);
+
   let parsed: unknown;
   try {
     parsed = await req.json();
@@ -67,6 +75,7 @@ export async function POST(req: NextRequest) {
     const res = await fetch(`${ADHAM_API_BASE}/api/v3/account/delete`, {
       method: "POST",
       cache: "no-store",
+      signal: AbortSignal.timeout(ADHAM_TIMEOUT_MS),
       headers: {
         "content-type": "application/json",
         accept: "application/json",
@@ -79,8 +88,12 @@ export async function POST(req: NextRequest) {
     if (res.ok) return reply("deleted", 200);
     if (res.status === 429) return reply("locked", 429);
     if (res.status === 401 || res.status === 400 || res.status === 422) return reply("invalid", 401);
+    // Status only: never log the phone, password, body or IP.
+    console.warn("[delete-account] Adham answered", res.status);
     return reply("error", 502);
-  } catch {
+  } catch (err) {
+    // Error name only (e.g. TimeoutError, TypeError); the message or cause could carry request details.
+    console.warn("[delete-account] Adham call failed", err instanceof Error ? err.name : typeof err);
     return reply("error", 502);
   }
 }
